@@ -11,6 +11,7 @@ import dp from '../../../public/dp.jpeg';
 import { Position } from "monaco-editor";
 import { WatchFunction } from "../../hooks/watch";
 import { MediaQuery } from "../../hooks/mediaquery";
+import { FormBar } from "../../components/form";
 
 export const About = () => {
     const page = createNode('div') as HTMLElement;
@@ -366,10 +367,7 @@ export const About = () => {
     const div2 = createNode('div') as HTMLElement;
     Style(div2, 'w-100 shadow-dynamic flex justify-between items-center relative font-xs');
 
-    const button = Button({
-        variant: 'contained',
-        text: 'Buy him coffee'
-    });
+    const button = FormBar();
     vanilla(button as HTMLElement, {
         height: '45px'
     });
@@ -435,3 +433,4 @@ function headerAndText({ header, text, size = 15 }: any) {
     setChild(holder, textValue);
     return holder;
 }
+

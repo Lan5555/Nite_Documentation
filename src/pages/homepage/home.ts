@@ -26,6 +26,7 @@ import { setCurrentPageIndex, observe1, currentPageIndex} from "../../hooks/rout
 import { observerMovement } from "../../hooks/observer";
 import { PlayGround } from "../playground/playground";
 import { About } from "../about/about";
+import { FormBar } from "../../components/form";
 
 
 export const HomePage = (): HTMLElement => {
@@ -471,6 +472,8 @@ export const HomePage = (): HTMLElement => {
         fontSize: mobile.matches ? '10pt' :'15pt',
     });
     setChild(container, finalTextCentered);
+    const support = FormBar();
+    setChild(container,support);
 
     const benefits = createNode('ul');
     [`No More HTML Hassles: User Predefined functions to generate elements, sections, buttons, and more.`,'Built-in Styling: Say goodbye to writing raw CSS, Nite includes default styles and themes.',

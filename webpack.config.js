@@ -1,6 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const fs = require('fs');
+
+require('dotenv').config();
+
 
 module.exports = {
     entry: './layout/main.js',
@@ -8,12 +13,12 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    mode: 'production', // Change to 'development' for local dev
+    mode: 'production',
     module: {
         rules: [
             {
-                test:/\.(png|jpg|jpeg|gif|svg)$/i,
-                type:'asset/resource'
+                test: /\.(png|jpg|jpeg|gif|svg)$/i,
+                type: 'asset/resource'
             },
             {
                 test: /\.js$/,
@@ -34,19 +39,24 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
     },
-    
     plugins: [
         new HtmlWebpackPlugin({
             template: './layout/index.html',
         }),
-        new MonacoWebpackPlugin()
+        new MonacoWebpackPlugin(),
+        // Simple way:
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(process.env)
+        }),
+        // Or if using Option 2:
+        // new webpack.DefinePlugin(envKeys),
     ],
     devServer: {
-        static: path.resolve(__dirname, 'dist'), // Fixed here
+        static: path.resolve(__dirname, 'dist'),
         open: true,
         compress: true,
         port: 3000,
         hot: true,
-        historyApiFallback: true, // Helps with SPAs
+        historyApiFallback: true,
     },
 };
