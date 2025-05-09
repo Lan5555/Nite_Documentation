@@ -1,4 +1,4 @@
-import { createNode, route } from "../../lib/state";
+import { CreateNode, route } from "../../lib/state";
 import { About } from "../pages/about/about";
 import { Documentation } from "../pages/documentation/docs";
 import { GetStarted } from "../pages/get_started/start";

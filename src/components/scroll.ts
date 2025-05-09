@@ -1,4 +1,4 @@
-import { createNode, setChild, Style, vanilla } from "../../lib/state"
+import { CreateNode, SetChild, Style, Vanilla } from "../../lib/state"
 import { useFontAwesomeIcon } from "./icons";
 
 interface Props{
@@ -7,14 +7,14 @@ interface Props{
 }
 
 export const flyTo = ({page,where}:Props) => {
-    const div = createNode('div');
-    vanilla(div,{
+    const div = CreateNode('div');
+    Vanilla(div,{
         height:'30px',
         width:'30px',
     });
     Style(div,'flex-container bg-blue float fixed bottom-6 right-2 cursor-pointer');
     const icon = useFontAwesomeIcon({iconStyle:`${where == 'top' ? 'fa fa-arrow-up' :'fa fa-arrow-down'} text-white`});
-    setChild(div,icon);
+    SetChild(div,icon);
     div.addEventListener('click',()=>{
         if(where == 'top'){
             page.scrollIntoView({behavior:"smooth"});
@@ -25,5 +25,5 @@ export const flyTo = ({page,where}:Props) => {
             });
         }
     });
-    setChild(page,div);
+    SetChild(page,div);
 }

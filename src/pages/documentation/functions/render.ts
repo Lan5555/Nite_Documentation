@@ -1,30 +1,31 @@
-import { print,createNode, setChild, Text, render, AlertDialog, applyState, Column, FutureCreator, listenForEvent, removeClass, renderBody, renderInner, Row, Style, SwitchBar, Timer, useSpriteSheet, vanilla, Watch } from "../../../../lib/state";
+import { Print,CreateNode, SetChild, Text, render, AlertDialog, ApplyState, Column, FutureCreator, ListenForEvent, RemoveClass, renderBody, RenderInner, Row, Style, SwitchBar, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
+import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { createText2 } from "../../homepage/home";
 
 export const explainRender = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
-    Text(header, 'render()');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
+    Text(header, 'Render()');
+    SetChild(div, header);
 
     const explain = createText2('Initializes and manages the rendering of components to the DOM.');
-    setChild(div, explain);
+    SetChild(div, explain);
 
     const tryIt = Button({
         variant: 'contained',
         text: 'Try it yourself'
     });
-    const example = exambleBar({name:'render()',guideText:`No guide available;`,functions:{
-        createNode,
+    const example = exambleBar({name:'Render()',guideText:`No guide available;`,functions:{
+        CreateNode,
         Text,
-        setChild,
-        vanilla,
+        SetChild,
+        Vanilla,
         Style,
         print,
         Watch,
@@ -34,49 +35,50 @@ export const explainRender = () => {
         Column,
         SwitchBar,
         useFontAwesomeIcon,
-        useSpriteSheet,
+        UseSpriteSheet,
         render,
         FutureCreator,
-        renderInner,
-        removeClass,
+        RenderInner,
+        RemoveClass,
         Timer,
-        applyState,
-        listenForEvent,AlertDialog
+        ApplyState,
+        ListenForEvent,AlertDialog
     }});
     tryIt.onclick = () => {
         setIsOn(!isOn());
         document.body.appendChild(Overlay());
         document.body.appendChild(example);
     }
-    setChild(div, tryIt);
+    SetChild(div, tryIt);
 
     return div;
 }
 
 export const _renderExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     const text = createText2(`
 function App() {
-    const div = createNode('div');
+    const div = CreateNode('div');
     Text(div, 'Hello World');
     return div;
 }
 
-render(App, document.getElementById('root'));
+Render(App, document.getElementById('root'));
     `);
-    setChild(div, text);
+    SetChild(div, text);
 
     const example = createText2('Example');
-    setChild(div, example);
+    SetChild(div, example);
 
     const button = Button({
         variant:'contained',
         text:'Playground'
     });
     button.onclick = () => {
+        setCurrentPageIndex(3)
         
     }
-    setChild(div, button);
+    SetChild(div, button);
 
     return div;
 }

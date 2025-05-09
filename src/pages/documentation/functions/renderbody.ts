@@ -1,4 +1,4 @@
-import { Print,AlertDialog, ApplyState, Column, CreateNode, FutureCreator, ListenForEvent, RemoveClass, render, renderBody, RenderInner, Row, SetChild, Style, SwitchBar, Text, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../../lib/state";
+import { Print,CreateNode, SetChild, Text, render, AlertDialog, ApplyState, Column, FutureCreator, ListenForEvent, RemoveClass, renderBody, RenderInner, Row, Style, SwitchBar, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { useFontAwesomeIcon } from "../../../components/icons";
@@ -7,22 +7,21 @@ import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { createText2 } from "../../homepage/home";
 
-export const explainRow = () => {
+export const explainRenderBody = () => {
     const div = CreateNode('div');
     const header = CreateNode('h3');
     SetChild(div, header);
-    Text(header, 'Row()');
+    Text(header, 'renderBody()');
     SetChild(div, header);
 
-    const explain = createText2('Creates a flex container that arranges children horizontally.');
+    const explain = createText2('Appends elements to the body');
     SetChild(div, explain);
 
     const tryIt = Button({
         variant: 'contained',
         text: 'Try it yourself'
     });
-    SetChild(div, tryIt);
-    const example = exambleBar({name:'Row()',guideText:`const row = Row('space-between',{children:[]});`,functions:{
+    const example = exambleBar({name:'renderBody()',guideText:`No guide available;`,functions:{
         CreateNode,
         Text,
         SetChild,
@@ -50,26 +49,25 @@ export const explainRow = () => {
         document.body.appendChild(Overlay());
         document.body.appendChild(example);
     }
+    SetChild(div, tryIt);
 
     return div;
 }
 
-export const _RowExample2 = () => {
+export const _renderBodyExample = () => {
     const div = CreateNode('div');
     const text = createText2(`
-const buttons = [
-    Button({ variant: 'contained', text: 'Button 1' }),
-    Button({ variant: 'outlined', text: 'Button 2' })
-];
+function app() {
+    const div = CreateNode('div');
+    Text(div, 'Hello World');
+    return div;
+}
 
-const row = Row('space-between', { 
-    children: buttons,
-    callback: [() => alert(1), () => alert(2)]
-});
+renderBody(app());
     `);
     SetChild(div, text);
 
-    const example = createText2('Example: Horizontal layout');
+    const example = createText2('Example');
     SetChild(div, example);
 
     const button = Button({

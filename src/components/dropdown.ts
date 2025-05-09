@@ -1,4 +1,4 @@
-import { animate, createNode, setChild, Style, vanilla } from "../../lib/state"
+import { animate, CreateNode, SetChild, Style, Vanilla } from "../../lib/state"
 import { back, next, observer3, open, searchInput, setOpen } from "../hooks/dropdownstate";
 import { iden } from "../hooks/identification";
 import { setCurrentPageIndex } from "../hooks/routestate";
@@ -12,9 +12,9 @@ export const DropDown = ({items = {}}:props) => {
     const desktop = window.matchMedia('(min-width:1024px)');
     const tablet = window.matchMedia('(min-width:542px) and (max-width:1024px)');
     const mobile = window.matchMedia('(max-width:600px)');
-    const div = createNode('div');
+    const div = CreateNode('div');
     Style(div,`p-1 shadow transition ${desktop.matches ? 'w-30':'w-90'} tran absolute top-7 bg-white z-20`);
-    vanilla(div,{
+    Vanilla(div,{
         borderRadius:'5px',
         display: open() ? 'block' : 'none',
         zIndex:'200',
@@ -23,7 +23,7 @@ export const DropDown = ({items = {}}:props) => {
         overflowX:'hidden'
     });
     observer3(() => {
-        vanilla(div,{
+        Vanilla(div,{
             borderRadius:'5px',
             display: open() ? 'block' : 'none',
         })
@@ -32,10 +32,10 @@ export const DropDown = ({items = {}}:props) => {
     const id = Object.values(items);
     
     values.forEach((element,index) => {
-        const subdiv = createNode('div');
+        const subdiv = CreateNode('div');
         const text = createText2(element);
-        setChild(subdiv,text);
-        setChild(div,subdiv);
+        SetChild(subdiv,text);
+        SetChild(div,subdiv);
         Style(subdiv,'cursor-pointer btn-hover')
         subdiv.addEventListener('click',()=> handleClick(index));
     });

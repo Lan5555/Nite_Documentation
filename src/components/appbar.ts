@@ -1,4 +1,4 @@
-import { createNode, setChild, Style, Text, vanilla, Watch } from "../../lib/state";
+import { CreateNode, SetChild, Style, Text, Vanilla, Watch } from "../../lib/state";
 import { MediaQuery } from "../hooks/mediaquery";
 import { useFontAwesomeIcon } from "./icons";
 import bg from '../../public/nite.jpg';
@@ -16,7 +16,7 @@ interface Props{
     
 }
 export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}: Props):HTMLElement => {
-    const appBar:HTMLElement = createNode('div');
+    const appBar:HTMLElement = CreateNode('div');
     const desktop = window.matchMedia('(min-width:1024px)');
     const tablet = window.matchMedia('(min-width:542px) and (max-width:1024px)');
     const mobile = window.matchMedia('(max-width:600px)');
@@ -31,8 +31,8 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
         paddingRight:'20px',
         zIndex:50
     }
-    vanilla(appBar,{...styles});
-    const leadingTitleHolder = createNode('div');
+    Vanilla(appBar,{...styles});
+    const leadingTitleHolder = CreateNode('div');
     Style(leadingTitleHolder,'flex gap-3 justify-center items-center');
     let menuIcon = useFontAwesomeIcon({iconStyle:leading});
     const [visible2, setVisible, observer] = WatchFunction(false);
@@ -45,25 +45,25 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
         setMenuClicked(!isMenuClicked());
     });
     
-    let iconHolder = desktop.matches ? createNode('div') : menuIcon;
-    setChild(leadingTitleHolder,iconHolder);
+    let iconHolder = desktop.matches ? CreateNode('div') : menuIcon;
+    SetChild(leadingTitleHolder,iconHolder);
 
     const navigationClick = (index: number) => {
         navigationclick(index);
     }
     
 
-    const _text = createNode('img') as HTMLImageElement;
+    const _text = CreateNode('img') as HTMLImageElement;
     _text.src = bg;
-    vanilla(_text,{
+    Vanilla(_text,{
         width:'100px',
         height:'60px'
     })
     
-    setChild(leadingTitleHolder,_text);
-    setChild(appBar,leadingTitleHolder);
+    SetChild(leadingTitleHolder,_text);
+    SetChild(appBar,leadingTitleHolder);
 
-    const actionsHolder:HTMLElement = createNode('div');
+    const actionsHolder:HTMLElement = CreateNode('div');
     Style(actionsHolder,'flex justify-center gap-2 items-center mr-6');
 
     const runFunc = (index: number):void => {
@@ -75,15 +75,15 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
     }
     actions.forEach((element,index:number) => {
         const icon = useFontAwesomeIcon({iconStyle:element});
-        setChild(actionsHolder,icon);
+        SetChild(actionsHolder,icon);
         icon.addEventListener('click',() => {
             runFunc(index);
         });
     });
-    const centeredItems = createNode('div') as HTMLInputElement;
+    const centeredItems = CreateNode('div') as HTMLInputElement;
     Style(centeredItems,'flex justify-center gap-2');
     ['Home','Documentation','Installation','Playground','About'].forEach((element:string,index:number) => {
-        const anchor = createNode('a');
+        const anchor = CreateNode('a');
         Text(anchor,element);
         Style(anchor,'cursor-pointer btn-hover')
         anchor.addEventListener('click',() => {
@@ -93,37 +93,37 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
                 back.click();
             }
         });
-        setChild(centeredItems,anchor);
+        SetChild(centeredItems,anchor);
     });
     observe(() => {
-        vanilla(appBar,{
+        Vanilla(appBar,{
          justifyContent: mediaQuery() == 'desktop' ? 'space-around' : 'space-between'
         });
          if(mediaQuery() == 'desktop' || mediaQuery() == 'tablet') {
              menuIcon.remove();
              actionsHolder.remove();
-             setChild(appBar,centeredItems);
-             setChild(appBar,actionsHolder);
+             SetChild(appBar,centeredItems);
+             SetChild(appBar,actionsHolder);
          }else{
              _text.remove()
-             setChild(leadingTitleHolder,menuIcon)
-             setChild(leadingTitleHolder,_text);
+             SetChild(leadingTitleHolder,menuIcon)
+             SetChild(leadingTitleHolder,_text);
              centeredItems.remove()
          }
        });
        if(desktop.matches || tablet.matches) {
         menuIcon.remove();
         actionsHolder.remove();
-        setChild(appBar,centeredItems);
-        setChild(appBar,actionsHolder);
+        SetChild(appBar,centeredItems);
+        SetChild(appBar,actionsHolder);
         }else{
         _text.remove()
-        setChild(leadingTitleHolder,menuIcon)
-        setChild(leadingTitleHolder,_text);
+        SetChild(leadingTitleHolder,menuIcon)
+        SetChild(leadingTitleHolder,_text);
         centeredItems.remove()
         }
 
-    setChild(appBar,actionsHolder);
+    SetChild(appBar,actionsHolder);
 
     return appBar;
 }

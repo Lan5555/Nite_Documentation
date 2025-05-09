@@ -1,4 +1,4 @@
-import { animate, createNode, setChild, Style, Text, vanilla } from "../../lib/state";
+import { animate, CreateNode, SetChild, Style, Text, Vanilla } from "../../lib/state";
 import { setupAutoPairs } from "../hooks/code";
 import { isOn, setIsOn } from "../hooks/overlayState";
 import { WatchFunction } from "../hooks/watch";
@@ -16,55 +16,55 @@ interface Props {
 }
 
 export const exambleBar = ({ name, guideText, logic, functions = {} }: Props) => {
-    const barHolder = createNode('div');
+    const barHolder = CreateNode('div');
     Style(barHolder, 'flex-container');
 
     const desktop = window.matchMedia('(min-width:1024px)');
     const mobile = window.matchMedia('(max-width:600px)');
 
-    const bar = createNode('div');
+    const bar = CreateNode('div');
     Style(bar, `${desktop.matches ? 'w-60' : 'w-100'} p-1 rounded shadowXl flex justify-center flex-col ${mobile.matches ? 'h-80-screen' : 'h-70-screen'} fixed top-10 bg-white gap-2`);
-    vanilla(bar, {
+    Vanilla(bar, {
         borderLeft: '4px solid blue',
         borderRight: '4px solid blue',
         maxHeight: mobile.matches ? '90vh' : '70vh',
         overflowY: 'auto'
     });
 
-    setChild(barHolder, bar);
+    SetChild(barHolder, bar);
 
     const backbutton = useFontAwesomeIcon({ iconStyle: 'fa fa-close absolute top-3 right-2 cursor-pointer' });
-    setChild(bar, backbutton);
+    SetChild(bar, backbutton);
     backbutton.onclick = () => {
         setIsOn(!isOn());
         document.body.removeChild(barHolder);
     };
 
     const methodName = createText2( `${name}\nYour code must be relative\n to the function you are experimenting.`);
-    vanilla(methodName, {
+    Vanilla(methodName, {
         whiteSpace: 'pre-line',
         textAlign: 'center',
         fontSize: mobile.matches ? '10pt' : ''
     });
-    setChild(bar, wrap({ node: methodName }));
+    SetChild(bar, wrap({ node: methodName }));
 
-    const divHolder = createNode('div');
+    const divHolder = CreateNode('div');
     Style(divHolder, `flex justify-center items-center gap-4 w-90 ${mobile.matches ? 'flex-col' : ''}`);
 
-    const guide = createNode('div');
+    const guide = CreateNode('div');
     Style(guide, 'w-50 h-20-screen rounded shadow-dynamic p-1');
     const guideTextValue = createText2(guideText ?? 'Nothing to see here');
-    vanilla(guide, {
+    Vanilla(guide, {
         maxHeight: '30vh',
         overflow: 'auto',
         width: mobile.matches ? '90%' : '50%',
         height: mobile.matches ? '10vh' : '20vh'
     });
-    setChild(guide, guideTextValue);
+    SetChild(guide, guideTextValue);
 
-    const textarea = createNode('textarea') as HTMLTextAreaElement;
+    const textarea = CreateNode('textarea') as HTMLTextAreaElement;
     Style(textarea, 'w-70 outline-none border-none p-1 h-20-screen shadow-dynamic');
-    vanilla(textarea, {
+    Vanilla(textarea, {
         border: '3px solid white',
         backgroundColor: '#1e1e1e',
         color: 'white',
@@ -82,20 +82,20 @@ export const exambleBar = ({ name, guideText, logic, functions = {} }: Props) =>
     textarea.setAttribute('autocomplete', 'off');
     textarea.setAttribute('autocapitalize', 'off');
 
-    setChild(divHolder, guide);
+    SetChild(divHolder, guide);
     const trueText = setupAutoPairs(textarea);
 
-    const listIcons = createNode('div');
+    const listIcons = CreateNode('div');
     Style(listIcons, 'flex justify-center flex-col gap-2');
-    const outputContent = createNode('div');
+    const outputContent = CreateNode('div');
 
     const [clip,setCliboard] = WatchFunction<string>('');
     ['fa fa-paste', 'fa fa-copy', 'fa fa-redo'].forEach((element,index) => {
-        const div = createNode('div');
+        const div = CreateNode('div');
         Style(div, 'bg-white shadowXl cursor-pointer');
         const icons = useFontAwesomeIcon({ iconStyle: element });
-        setChild(div, icons);
-        setChild(listIcons, div);
+        SetChild(div, icons);
+        SetChild(listIcons, div);
     
         div.addEventListener('click',()=>{
             if(index == 0){
@@ -114,32 +114,32 @@ export const exambleBar = ({ name, guideText, logic, functions = {} }: Props) =>
         })
     });
 
-    const toolkit = createNode('div');
+    const toolkit = CreateNode('div');
     Style(toolkit, 'flex gap-1 w-100');
-    setChild(toolkit, trueText);
-    setChild(toolkit, listIcons);
-    setChild(divHolder, toolkit);
-    setChild(bar, divHolder);
+    SetChild(toolkit, trueText);
+    SetChild(toolkit, listIcons);
+    SetChild(divHolder, toolkit);
+    SetChild(bar, divHolder);
 
     const execute = Button({
         variant: 'contained',
         text: 'Execute'
     });
-    setChild(bar, execute);
+    SetChild(bar, execute);
 
     const [outputValue, setOutput, observe] = WatchFunction('');
 
-    const outputSection = createNode('div');
+    const outputSection = CreateNode('div');
     Style(outputSection, 'shadow w-100 h-20-screen overflow-y relative bottom-0 flex justify-center items-center flex-col');
-    setChild(bar, outputSection);
+    SetChild(bar, outputSection);
 
-    const outputHeader = createNode('h5');
+    const outputHeader = CreateNode('h5');
     Text(outputHeader, 'Output:');
     Style(outputHeader, 'absolute left-2 top-1');
-    setChild(outputSection, outputHeader);
+    SetChild(outputSection, outputHeader);
 
     Style(outputContent, '');
-    setChild(outputSection, outputContent);
+    SetChild(outputSection, outputContent);
 
     observe(() => {
         outputContent.innerHTML = ''; // Clear previous
@@ -147,7 +147,7 @@ export const exambleBar = ({ name, guideText, logic, functions = {} }: Props) =>
         if (val instanceof HTMLElement) {
             outputContent.appendChild(val);
         } else {
-            const p = createNode('p');
+            const p = CreateNode('p');
             Text(p, val);
             Style(p, 'text-gray');
             outputContent.appendChild(p);

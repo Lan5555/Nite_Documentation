@@ -1,4 +1,4 @@
-import { createNode, setChild, Style, vanilla } from "../../lib/state";
+import { CreateNode, SetChild, Style, Vanilla } from "../../lib/state";
 import { makePayment } from "../hooks/flutterwave";
 import { MediaQuery } from "../hooks/mediaquery";
 import { isOn, setIsOn } from "../hooks/overlayState";
@@ -23,9 +23,9 @@ export const FormBar = ():HTMLButtonElement => {
     const [amountText,setAmountText,observe1] = WatchFunction<string>('Buy coffee for');
     const [details,setDetails,observer] = WatchFunction<Record<any,any>>({});
 
-    const formHolder = createNode('div');
+    const formHolder = CreateNode('div');
     Style(formHolder,`h-50-screen flex justify-center`);
-    vanilla(formHolder,{
+    Vanilla(formHolder,{
         position:'fixed',
         top:'50%',
         left:'50%',
@@ -33,31 +33,31 @@ export const FormBar = ():HTMLButtonElement => {
         width: mobile.matches ? '90%' : tablet.matches ? '70%' : '30%'
     });
     observe(()=>{
-        vanilla(formHolder,{
+        Vanilla(formHolder,{
         width: mobile.matches ? '90%' : tablet.matches ? '70%' : '30%'
         });
     });
-    const form = createNode('form') as HTMLFormElement;
+    const form = CreateNode('form') as HTMLFormElement;
     const text = createText2('Kindly fill in the details');
-    setChild(form,text);
+    SetChild(form,text);
     Style(form,`w-100 h-60-screen rounded p-3 flex justify-center flex-col gap-2 relative shadowXl bg-white z-20 fade-in`);
     const icons = ['fa fa-user absolute top-2 left-1 text-red','fa fa-envelope absolute top-2 left-1 text-yellow','fa fa-phone absolute top-2 left-1 text-blue','fa fa-wallet absolute top-2 left-1 text-green'];
     ['Name','Email','Phone number','Amount'].forEach((element,index) => {
-        const input = createNode('input') as HTMLInputElement;
-        const inputHolder = createNode('div');
+        const input = CreateNode('input') as HTMLInputElement;
+        const inputHolder = CreateNode('div');
         Style(inputHolder,'shadow-dynamic p-1 w-100 rounded flex justify-start items-center relative');
-        vanilla(inputHolder,{
+        Vanilla(inputHolder,{
             height:'50px'
         });
         Style(input,'outline-none border-none w-90');
-        vanilla(input,{
+        Vanilla(input,{
             paddingLeft:'30px'
         });
         input.placeholder = element;
         input.required = true;
         const icons1 = useFontAwesomeIcon({iconStyle:icons[index]});
-        setChild(inputHolder,icons1);
-        setChild(inputHolder,input);
+        SetChild(inputHolder,icons1);
+        SetChild(inputHolder,input);
         
         input.addEventListener('input',(e:any)=>{
             if(index == 0){
@@ -75,7 +75,7 @@ export const FormBar = ():HTMLButtonElement => {
                 setAmountText(`Buy coffee for ₦${e.target.value}`);
             }
         });
-        setChild(form,inputHolder);
+        SetChild(form,inputHolder);
     })
     const button = Button({
         variant:'contained',
@@ -89,7 +89,7 @@ export const FormBar = ():HTMLButtonElement => {
         button.innerHTML = amountText();
     });
     
-    setChild(form,button);
+    SetChild(form,button);
     form.addEventListener('submit',(e) => {
         e.preventDefault();
         makePayment({
@@ -102,8 +102,8 @@ export const FormBar = ():HTMLButtonElement => {
         setIsOn(!isOn);
     });
     const cancel = useFontAwesomeIcon({iconStyle:'fa fa-close absolute top-2 right-2 cursor-pointer'});
-    setChild(form,cancel);
-    setChild(formHolder,form);
+    SetChild(form,cancel);
+    SetChild(formHolder,form);
     cancel.onclick = () =>{
         setIsOn(!isOn);
         document.body.removeChild(formHolder);

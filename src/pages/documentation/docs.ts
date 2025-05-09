@@ -1,4 +1,4 @@
-import { createNode, setChild, Style, Text, vanilla } from "../../../lib/state"
+import { CreateNode, SetChild, Style, Text, Vanilla } from "../../../lib/state"
 import { Button } from "../../components/button";
 import { useFontAwesomeIcon } from "../../components/icons";
 import { flyTo } from "../../components/scroll";
@@ -31,10 +31,11 @@ import bg2 from '../../../public/bg2.jpg'
 import { Toast } from "../../components/toast";
 import { setId } from "../../hooks/identification";
 import { back, index, next, setIndex } from "../../hooks/dropdownstate";
+import { _renderBodyExample, explainRenderBody } from "./functions/renderbody";
 
 export const Documentation = ():HTMLElement => {
-    const page = createNode('div');
-    vanilla(page, {
+    const page = CreateNode('div');
+    Vanilla(page, {
         flex: '1',
         marginTop: '60px',
         padding: '20px',
@@ -47,19 +48,19 @@ export const Documentation = ():HTMLElement => {
 
     const header = createText2(`NITE's official documentation\nTypescript | Javascript | Java`);
     //Text(header,'Documentation');
-    setChild(page,header);
+    SetChild(page,header);
 
-    const contentWrapper = createNode('div'); // container for dynamic content
+    const contentWrapper = CreateNode('div'); // container for dynamic content
     Style(contentWrapper, 'flex flex-col gap-5 w-100 justify-center items-center');
-    setChild(page, contentWrapper);
+    SetChild(page, contentWrapper);
 
-    const navigationButtons = createNode('div');
+    const navigationButtons = CreateNode('div');
     Style(navigationButtons,'w-90 p-1 flex justify-around');
     
 
-    setChild(navigationButtons, back);
+    SetChild(navigationButtons, back);
     
-    setChild(page, navigationButtons);
+    SetChild(page, navigationButtons);
 
     // Watch index
 
@@ -77,9 +78,9 @@ export const Documentation = ():HTMLElement => {
         
 
         const _createNode = explainer({node:_node1});
-        setChild(parent,_createNode);
+        SetChild(parent,_createNode);
         example({page:parent,large:true,textVal:`Typescript:\n
-        function createNode<K extends keyof HTMLElementTagNameMap>(
+        function CreateNode<K extends keyof HTMLElementTagNameMap>(
         tag: K
         ): HTMLElementTagNameMap[K] {
          return document.createElement(tag);
@@ -93,34 +94,34 @@ export const Documentation = ():HTMLElement => {
         `});
         const _createNodeText = _CreateNodeExample();
         const _createNodeExample = explainerExample({node:_createNodeText,text:_createNodeText.textContent});
-        setChild(parent,_createNodeExample);
+        SetChild(parent,_createNodeExample);
         example({page:_createNodeExample,textVal:'This creates an HTMLElement and assigns it to the variable at the left'});
 
         const _node2 = explianSetChild();
         _node2.id = 'set-child';
         const _setChild = explainer({node:_node2});
-        setChild(parent,_setChild);
+        SetChild(parent,_setChild);
         const _setChildText = _SetChildExample();
         const _setChildExample = explainerExample({node:_setChildText,text:_setChildText.textContent});
-        setChild(parent,_setChildExample);
+        SetChild(parent,_setChildExample);
         example({page:_setChildExample,textVal:`This creates a div and a paragraph element,\nSets the text 'Hello world' to the paragraph element\nthen finally,\nAppends it to the div.`});
 
         const _node3 = explainFuture();
         _node3.id = 'future-creator';
         const _future = explainer({node:_node3,color:'white'});
-        setChild(parent,_future);
+        SetChild(parent,_future);
         const _futureText = _futureExample();
         const _setFutureExample = explainerExample({node:_futureText,text:_futureText.textContent});
-        setChild(parent,_setFutureExample);
+        SetChild(parent,_setFutureExample);
         example({page:_setFutureExample,textVal:`This handles asynchronous operations\nIf there's a suspense,\nA loader would be displayed.`});
 
         const _node4 = explainAnimate();
         _node4.id = 'animate';
         const _animate = explainer({node:_node4});
-        setChild(parent,_animate);
+        SetChild(parent,_animate);
         const _animateText = _AnimateExample();
         const _setAnimateExample = explainerExample({node:_animateText,text:_animateText.textContent});
-        setChild(parent,_setAnimateExample);
+        SetChild(parent,_setAnimateExample);
         example({page:_setAnimateExample,textVal:`This adds a slideIn animation effect to the div`});
     }
 
@@ -128,41 +129,41 @@ export const Documentation = ():HTMLElement => {
         const _node1 = explainWatch();
         _node1.id = 'watch';
         const _createNode = explainer({node:_node1});
-        setChild(parent,_createNode);
+        SetChild(parent,_createNode);
         example({page:parent,large:true});
         const _watch = _WatchExample();
         const _watchExample = explainerExample({node:_watch,text:_watch.textContent});
-        setChild(parent,_watchExample);
+        SetChild(parent,_watchExample);
         example({page:_watchExample,textVal:'This watches for state changes'});
 
         const _node2 = explainRenderInner();
         _node2.id = 'render-inner';
         const _renderInner = explainer({node:_node2});
-        setChild(parent,_renderInner);
+        SetChild(parent,_renderInner);
         example({page:parent,large:true});
         const _renderInnerText = _renderInnerExample();
         const _renderInnerexample = explainerExample({node:_renderInnerText,text:_renderInnerText.textContent});
-        setChild(parent,_renderInnerexample);
+        SetChild(parent,_renderInnerexample);
         example({page:_renderInnerexample,textVal:'Usually used in game development or so.'});
 
         const _node3 = explainRoute();
         _node3.id = 'router';
         const _route = explainer({node:_node3});
-        setChild(parent,_route);
+        SetChild(parent,_route);
         example({page:parent,large:true});
         const _routeText = _routeExample();
         const _routeTextExample = explainerExample({node:_routeText,text:_routeText.textContent});
-        setChild(parent,_routeTextExample);
+        SetChild(parent,_routeTextExample);
         example({page:_routeTextExample,textVal:'This handles routing between pages'});
 
         const _node4 = explainTimer();
         _node4.id = 'timer';
         const _Timer = explainer({node:_node4});
-        setChild(parent,_Timer);
+        SetChild(parent,_Timer);
         example({page:parent,large:true});
         const _TimerText = _TimerExample();
         const _TimerTextExample = explainerExample({node:_TimerText,text:_TimerText.textContent});
-        setChild(parent,_TimerTextExample);
+        SetChild(parent,_TimerTextExample);
         example({page:_TimerTextExample,textVal:'This is handles time operations'});
     }
 
@@ -170,82 +171,82 @@ export const Documentation = ():HTMLElement => {
         const _node1 = explainUseSpriteSheet();
         _node1.id = 'use-sprite-sheet';
         const _useSprite = explainer({node:_node1});
-        setChild(parent,_useSprite);
+        SetChild(parent,_useSprite);
         example({page:parent,large:true});
         const _sprite = _useSpriteSheetExample();
         const _spriteExample = explainerExample({node:_sprite,text:_sprite.textContent});
-        setChild(parent,_spriteExample);
+        SetChild(parent,_spriteExample);
         example({page:_spriteExample,textVal:'This watches for state changes'});
 
         const _node2 = explainPrintErr();
         _node2.id = 'print';
         const _print = explainer({node:_node2});
-        setChild(parent,_print);
+        SetChild(parent,_print);
         example({page:parent,large:true});
         const _Print = _PrintErrExample();
         const _PrintExample = explainerExample({node:_Print,text:_Print.textContent});
-        setChild(parent,_PrintExample);
+        SetChild(parent,_PrintExample);
         example({page:_PrintExample,textVal:'Logs to console'});
 
         const _node3 = explianVanilla();
         _node3.id = 'vanilla';
         const _vanilla = explainer({node:_node3});
-        setChild(parent,_vanilla);
+        SetChild(parent,_vanilla);
         example({page:parent,large:true});
         const _vanillaText = _VanillaExample();
         const _vanillaTextExample = explainerExample({node:_vanillaText,text:_vanillaText.textContent});
-        setChild(parent,_vanillaTextExample);
+        SetChild(parent,_vanillaTextExample);
         example({page:_vanillaTextExample,textVal:'This is used to apply inline styling'});
 
         const _node4 = explianText();
         _node4.id = 'text';
         const _text = explainer({node:_node4});
-        setChild(parent,_text);
+        SetChild(parent,_text);
         example({page:parent,large:true});
         const _Text = _TextExample();
         const _TextE = explainerExample({node:_Text,text:_Text.textContent});
-        setChild(parent,_TextE);
+        SetChild(parent,_TextE);
         example({page:_TextE,textVal:'This is used to add text to text supported html elements.'});
     }
     const batch4 = (parent:any) => {
         const _node1 = explainSwitchBar();
         _node1.id = 'switch-bar';
         const _switch = explainer({node:_node1});
-        setChild(parent,_switch);
+        SetChild(parent,_switch);
         example({page:parent,large:true});
         const _switchBar = _SwitchBarExample();
         const _switchBarExample = explainerExample({node:_switchBar,text:_switchBar.textContent});
-        setChild(parent,_switchBarExample);
+        SetChild(parent,_switchBarExample);
         example({page:_switchBarExample,textVal:'A Switch bar'});
 
-        const _node2 = explainRenderInner();
-        _node2.id = 'render-inner';
-        const _renderInner = explainer({node:_node2});
-        setChild(parent,_renderInner);
+        const _node2 = explainRenderBody();
+        _node2.id = 'render-body';
+        const _renderBody = explainer({node:_node2});
+        SetChild(parent,_renderBody);
         example({page:parent,large:true});
-        const _renderInnerText = _renderInnerExample();
-        const _renderInnerexample = explainerExample({node:_renderInnerText,text:_renderInnerText.textContent});
-        setChild(parent,_renderInnerexample);
-        example({page:_renderInnerexample,textVal:'Usually used in game development or so.'});
+        const _renderBodyText = _renderBodyExample();
+        const _RenderBodyExample = explainerExample({node:_renderBodyText,text:_renderBodyText.textContent});
+        SetChild(parent,_RenderBodyExample);
+        example({page:_RenderBodyExample,textVal:'This is usually called just once at the layout of the app'});
 
         const _node3 = explianStyle();
         _node3.id = 'style';
         const _style = explainer({node:_node3});
-        setChild(parent,_style);
+        SetChild(parent,_style);
         example({page:parent,large:true});
         const _styleText = _StyleExample();
         const _styleTextExample = explainerExample({node:_styleText,text:_styleText.textContent});
-        setChild(parent,_styleTextExample);
+        SetChild(parent,_styleTextExample);
         example({page:_styleTextExample,textVal:'This applies custom NITE styles'});
 
         const _node4 = explainRemoveClass();
         _node4.id = 'remove-class'
         const _remove = explainer({node:_node4});
-        setChild(parent,_remove);
+        SetChild(parent,_remove);
         example({page:parent,large:true});
         const _RemoveClassExample = _removeClassExample();
         const _RemoveClassExampleExample = explainerExample({node:_RemoveClassExample,text:_RemoveClassExample.textContent});
-        setChild(parent,_RemoveClassExampleExample);
+        SetChild(parent,_RemoveClassExampleExample);
         example({page:_RemoveClassExampleExample,textVal:'This removes a class'});
     }
 
@@ -254,41 +255,41 @@ export const Documentation = ():HTMLElement => {
         const _node1 = explainRow();
         _node1.id = 'row';
         const _row = explainer({node:_node1});
-        setChild(parent,_row);
+        SetChild(parent,_row);
         example({page:parent,large:true});
         const _Row = _RowExample2();
         const _RowExample = explainerExample({node:_Row,text:_Row.textContent});
-        setChild(parent,_RowExample);
+        SetChild(parent,_RowExample);
         example({page:_RowExample,textVal:'Aligns elements in a row'});
 
         const _node2 = explainColumn();
         _node2.id = 'column';
         const _column = explainer({node:_node2});
-        setChild(parent,_column);
+        SetChild(parent,_column);
         example({page:parent,large:true});
         const _columnExample = _ColumnExample();
         const _columnTextExample = explainerExample({node:_columnExample,text:_columnExample.textContent});
-        setChild(parent,_columnTextExample);
+        SetChild(parent,_columnTextExample);
         example({page:_columnTextExample,textVal:'Aligns elements in a column'});
 
         const _node3 = explianUseFontAwesomeIcon();
         _node3.id = 'use-fontawesome-icon';
         const _icon = explainer({node:_node3});
-        setChild(parent,_icon);
+        SetChild(parent,_icon);
         example({page:parent,large:true});
         const _iconClass = _UseFontAwesomeIconExample();
         const _IconClassExample = explainerExample({node:_iconClass,text:_iconClass.textContent});
-        setChild(parent,_IconClassExample);
+        SetChild(parent,_IconClassExample);
         example({page:_IconClassExample,textVal:'This adds fontawesome icons if available.'});
 
         const _node4 = explianButton();
         _node4.id = 'button';
         const _button = explainer({node:_node4});
-        setChild(parent,_button);
+        SetChild(parent,_button);
         example({page:parent,large:true});
         const _buttonComponent = _ButtonExample();
         const _buttonComponentExample = explainerExample({node:_buttonComponent,text:_buttonComponent.textContent});
-        setChild(parent,_buttonComponentExample);
+        SetChild(parent,_buttonComponentExample);
         example({page:_buttonComponentExample,textVal:'This adds a custom NITE button to your app.'});
     }
 
@@ -296,41 +297,41 @@ export const Documentation = ():HTMLElement => {
         const _node1 = explainApplyState();
         _node1.id = 'apply-state';
         const _applyState = explainer({node:_node1});
-        setChild(parent,_applyState);
+        SetChild(parent,_applyState);
         example({page:parent,large:true});
         const _state = _applyStateExample();
         const _stateExample = explainerExample({node:_state,text:_state.textContent});
-        setChild(parent,_stateExample);
+        SetChild(parent,_stateExample);
         example({page:_stateExample,textVal:'Handles reactive states'});
 
         const _node2 = explainListenForEvent();
         _node2.id = 'listen-for-event';
         const _event = explainer({node:_node2});
-        setChild(parent,_event);
+        SetChild(parent,_event);
         example({page:parent,large:true});
         const _eventListener = _listenForEventExample();
         const _eventListenerExample = explainerExample({node:_eventListener,text:_eventListener.textContent});
-        setChild(parent,_eventListenerExample);
+        SetChild(parent,_eventListenerExample);
         example({page:_eventListenerExample,textVal:'This handles event listeners'});
 
         const _node3 = explainRender();
         _node3.id = 'render';
         const _render = explainer({node:_node3});
-        setChild(parent,_render);
+        SetChild(parent,_render);
         example({page:parent,large:true});
         const _renderComponent = _renderExample();
         const _RenderComponent = explainerExample({node:_renderComponent,text:_renderComponent.textContent});
-        setChild(parent,_RenderComponent);
+        SetChild(parent,_RenderComponent);
         example({page:_RenderComponent,textVal:''});
 
         const _node4 = explainSetInner();
         _node4.id = 'set-inner';
         const _inner = explainer({node:_node4});
-        setChild(parent,_inner);
+        SetChild(parent,_inner);
         example({page:parent,large:true});
         const _setInner = _setInnerExample();
         const _SetInnerExample = explainerExample({node:_setInner,text:_setInner.textContent});
-        setChild(parent,_SetInnerExample);
+        SetChild(parent,_SetInnerExample);
         example({page:_SetInnerExample,textVal:'Sets HTML content of an element (unlike Text() which escapes content).'});
 
     }
@@ -367,29 +368,29 @@ export const Documentation = ():HTMLElement => {
 
     // Render first batch
     renderBatch(0);
-    const pagesHolder = createNode('div');
+    const pagesHolder = CreateNode('div');
     Style(pagesHolder,'flex items-center justify-center gap-1');
 
     
 
     batchFunctions.forEach((element,index) => {
-        const div = createNode('div');
+        const div = CreateNode('div');
         Style(div,'shadow-dynamic flex-container rounded cursor-pointer');
-        vanilla(div,{
+        Vanilla(div,{
             height:'10px',
             width:'10px',
             backgroundColor: index == currentIndex() ? 'blue' : 'white'
         });
         observe(() => {
-            vanilla(div,{
+            Vanilla(div,{
                 backgroundColor: index == currentIndex() ? 'blue' : 'white'
             });
         });
-        const text = createNode('p');
+        const text = CreateNode('p');
         Text(text,``);
-        setChild(div,text);
-        setChild(pagesHolder,div);
-        setChild(navigationButtons,pagesHolder);
+        SetChild(div,text);
+        SetChild(pagesHolder,div);
+        SetChild(navigationButtons,pagesHolder);
         div.addEventListener('click',()=> handleDivClick(index))
     });
     function handleDivClick(index:number){
@@ -398,7 +399,7 @@ export const Documentation = ():HTMLElement => {
         renderBatch(index);
         page.scrollIntoView({behavior:"smooth"});
     }
-    setChild(navigationButtons, next);
+    SetChild(navigationButtons, next);
     flyTo({page:page,where:'bottom'});
 
     return page;
@@ -406,8 +407,8 @@ export const Documentation = ():HTMLElement => {
 
 
 function explainer({node,color}:any){
-    const div = createNode('div');
-    vanilla(div,{
+    const div = CreateNode('div');
+    Vanilla(div,{
         width:'90%',
         padding:'30px',
         backgroundColor:color ?? 'rgba(26, 157, 251, 0.23)',
@@ -415,26 +416,26 @@ function explainer({node,color}:any){
         backgroundPosition:'center',
         backgroundSize:'cover'
     });
-    setChild(div,node);
+    SetChild(div,node);
     Style(div,'flex flex-col rounded shadow-dynamic');
     return div;
 }
 export function example({page,textVal, large=false}:any){
-    const div = createNode('div');
-    vanilla(div,{
+    const div = CreateNode('div');
+    Vanilla(div,{
         width:'100%'
     })
     const text = createText2(textVal ?? `Example below`);
-    vanilla(text,{
+    Vanilla(text,{
     fontSize:large ? '15pt' : '12pt',
     });
-setChild(div,text);
-setChild(page,div)
+    SetChild(div,text);
+    SetChild(page,div)
 }
 
 function explainerExample({node,text}:any){
-    const div = createNode('div');
-    vanilla(div,{
+    const div = CreateNode('div');
+    Vanilla(div,{
         width:'100%',
         padding:'30px',
         backgroundImage:`url(${bg2})`,
@@ -442,17 +443,17 @@ function explainerExample({node,text}:any){
         backgroundSize:'cover'
 
     });
-    const div2 = createNode('div');
+    const div2 = CreateNode('div');
     Style(div2,'shadowXl p-1 relative');
-    vanilla(div2,{
+    Vanilla(div2,{
         borderLeft:'4px solid blue',
         backgroundColor:'white'
     });
 
-    setChild(div2,node);
-    setChild(div,div2);
+    SetChild(div2,node);
+    SetChild(div,div2);
     const copyIcon = useFontAwesomeIcon({iconStyle:'fa fa-copy absolute right-3 top-2 cursor-pointer'});
-    setChild(div2,copyIcon);
+    SetChild(div2,copyIcon);
     copyIcon.onclick = () => {
         navigator.clipboard.writeText(text).then(()=>{
             Toast({text:'Copied successfully',page:document.body,type:'success'});

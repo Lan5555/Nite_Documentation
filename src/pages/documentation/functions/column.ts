@@ -1,20 +1,21 @@
-import { print,AlertDialog, applyState, Column, createNode, FutureCreator, listenForEvent, removeClass, render, renderBody, renderInner, Row, setChild, Style, SwitchBar, Text, Timer, useSpriteSheet, vanilla, Watch } from "../../../../lib/state";
+import { Print,AlertDialog, ApplyState, Column, CreateNode, FutureCreator, ListenForEvent, RemoveClass, render, renderBody, RenderInner, Row, SetChild, Style, SwitchBar, Text, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
+import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { createText2 } from "../../homepage/home";
 
 export const explainColumn = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
     Text(header, 'Column()');
-    setChild(div, header);
+    SetChild(div, header);
 
     const explain = createText2('Creates a vertical flex container for stacking elements.');
-    setChild(div, explain);
+    SetChild(div, explain);
 
     const tryIt = Button({
         variant: 'contained',
@@ -22,10 +23,10 @@ export const explainColumn = () => {
     });
 
     const example = exambleBar({name:'Column()',guideText:`const column = Column('center',{children:[]});`,functions:{
-        createNode,
+        CreateNode,
         Text,
-        setChild,
-        vanilla,
+        SetChild,
+        Vanilla,
         Style,
         print,
         Watch,
@@ -35,27 +36,27 @@ export const explainColumn = () => {
         Column,
         SwitchBar,
         useFontAwesomeIcon,
-        useSpriteSheet,
+        UseSpriteSheet,
         render,
         FutureCreator,
-        renderInner,
-        removeClass,
+        RenderInner,
+        RemoveClass,
         Timer,
-        applyState,
-        listenForEvent,AlertDialog
+        ApplyState,
+        ListenForEvent,AlertDialog
     }});
     tryIt.onclick = () => {
         setIsOn(!isOn());
         document.body.appendChild(Overlay());
         document.body.appendChild(example);
     }
-    setChild(div, tryIt);
+    SetChild(div, tryIt);
 
     return div;
 }
 
 export const _ColumnExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     const text = createText2(`
 const buttons = [
     Button({ text: 'Top' }),
@@ -68,19 +69,20 @@ const col = Column('center', {
     callback: [() => alert(1), () => alert(2), () => alert(3)]
 });
     `);
-    setChild(div, text);
+    SetChild(div, text);
 
     const example = createText2('Example: Vertical layout');
-    setChild(div, example);
+    SetChild(div, example);
 
     const button = Button({
         variant:'contained',
         text:'Playground'
     });
     button.onclick = () => {
+        setCurrentPageIndex(3)
         
     }
-    setChild(div, button);
+    SetChild(div, button);
 
     return div;
 }

@@ -1,4 +1,4 @@
-import { createNode, setChild, Style, vanilla, Watch } from "../../lib/state"
+import { CreateNode, SetChild, Style, Vanilla, Watch } from "../../lib/state"
 import pic from '../../public/bg2.jpg';
 import { MediaQuery } from "../hooks/mediaquery";
 interface Props{
@@ -10,17 +10,17 @@ export const Avatar = ({image}:Props):HTMLImageElement => {
             setMedia(media);
           
         }});
-    const imgHolder = createNode('div') as HTMLImageElement;
+    const imgHolder = CreateNode('div') as HTMLImageElement;
     Style(imgHolder,'avatar');
-    const img = createNode('img') as HTMLImageElement;
+    const img = CreateNode('img') as HTMLImageElement;
     img.src = image ?? pic;
-    vanilla(img,{
+    Vanilla(img,{
         width:'100%',
         height:'100%',
         ObjectFit:'cover',
         borderRadius:'50%'
     })
-    setChild(imgHolder,img);
+    SetChild(imgHolder,img);
 
     Style(imgHolder,'circle flex-container shadow-dynamic');
     return imgHolder;

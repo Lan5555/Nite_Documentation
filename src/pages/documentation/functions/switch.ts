@@ -1,39 +1,39 @@
-import { print,createNode, setChild, Style, Text, vanilla } from "../../../../lib/state";
+import { Print,CreateNode, SetChild, Style, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { createText2 } from "../../homepage/home";
 import { SwitchBar } from "../../../components/switch";
 import { Toast } from "../../../components/toast";
 
 export const explainSwitchBar = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
     Text(header, 'SwitchBar()');
-    setChild(div, header);
+    SetChild(div, header);
 
     const explain = createText2('Creates customizable toggle switch component.');
-    setChild(div, explain);
+    SetChild(div, explain);
 
-    const propsTable = createNode('table');
-    const headerRow = createNode('tr');
-    const th1 = createNode('th');
+    const propsTable = CreateNode('table');
+    const headerRow = CreateNode('tr');
+    const th1 = CreateNode('th');
     Text(th1, 'Prop');
-    const th2 = createNode('th');
+    const th2 = CreateNode('th');
     Text(th2, 'Description');
-    setChild(headerRow, th1);
-    setChild(headerRow, th2);
-    setChild(propsTable, headerRow);
+    SetChild(headerRow, th1);
+    SetChild(headerRow, th2);
+    SetChild(propsTable, headerRow);
 
     // Add prop rows
     const addPropRow = (name: string, desc: string) => {
-        const row = createNode('tr');
-        const td1 = createNode('td');
+        const row = CreateNode('tr');
+        const td1 = CreateNode('td');
         Text(td1, name);
-        const td2 = createNode('td');
+        const td2 = CreateNode('td');
         Text(td2, desc);
-        setChild(row, td1);
-        setChild(row, td2);
-        setChild(propsTable, row);
+        SetChild(row, td1);
+        SetChild(row, td2);
+        SetChild(propsTable, row);
     };
 
     addPropRow('activeColor', 'Color when switch is ON');
@@ -42,13 +42,13 @@ export const explainSwitchBar = () => {
     addPropRow('inActiveTrackColor', 'Color when track is OFF');
     addPropRow('activeTrackColor', 'Color when track is ON');
     
-    setChild(div, propsTable);
+    SetChild(div, propsTable);
 
     return div;
 }
 
 export const _SwitchBarExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     const code = createText2(`
 const switch = SwitchBar({
     activeColor: 'green',
@@ -59,14 +59,14 @@ const switch = SwitchBar({
         Toast(\`Switch is now \${state ? 'ON' : 'OFF'}\`);
     }
 });
-setChild(page,switch);
+SetChild(page,switch);
     `);
     Style(div,'relative text-brown');
-    setChild(div, code);
+    SetChild(div, code);
 
-    const liveDemo = createNode('div');
+    const liveDemo = CreateNode('div');
     Text(liveDemo, 'Live Demo:');
-    setChild(div, liveDemo);
+    SetChild(div, liveDemo);
 
     // Actual switch demo
     const demoSwitch = SwitchBar({
@@ -76,11 +76,11 @@ setChild(page,switch);
         inActiveTrackColor:'brown',
         isClicked: (val: any) => Toast({text:`Switch is now ${val ? 'ON' : 'OFF'}`,page:document.body,type:'success'})
     });
-    vanilla(demoSwitch,{
+    Vanilla(demoSwitch,{
         position:'absolute',
         bottom:'-2px'
     })
-    setChild(div, demoSwitch);
+    SetChild(div, demoSwitch);
 
     return div;
 }

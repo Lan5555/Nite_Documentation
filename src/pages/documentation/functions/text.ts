@@ -1,31 +1,32 @@
-import {print, AlertDialog, applyState, Column, createNode, FutureCreator, listenForEvent, removeClass, render, renderBody, renderInner, Row, setChild, Style, SwitchBar, Text, Timer, useSpriteSheet, vanilla, Watch } from "../../../../lib/state";
+import {Print, AlertDialog, ApplyState, Column, CreateNode, FutureCreator, ListenForEvent, RemoveClass, render, renderBody, RenderInner, Row, SetChild, Style, SwitchBar, Text, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
+import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { createText2 } from "../../homepage/home";
 
 export const explianText = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
     Text(header, 'Text()');
-    setChild(div, header);
+    SetChild(div, header);
 
     const explain = createText2('Sets the inner text of an element.');
-    setChild(div, explain);
+    SetChild(div, explain);
 
     const tryIt = Button({
         variant: 'contained',
         text: 'Try it yourself'
     });
-    setChild(div, tryIt);
-    const example = exambleBar({name:'Text()',guideText:`const p = createNode('p');\nText(p,'Hello world');`,functions:{
-        createNode,
+    SetChild(div, tryIt);
+    const example = exambleBar({name:'Text()',guideText:`const p = CreateNode('p');\nText(p,'Hello world');`,functions:{
+        CreateNode,
         Text,
-        setChild,
-        vanilla,
+        SetChild,
+        Vanilla,
         Style,
         print,
         Watch,
@@ -35,14 +36,14 @@ export const explianText = () => {
         Column,
         SwitchBar,
         useFontAwesomeIcon,
-        useSpriteSheet,
+        UseSpriteSheet,
         render,
         FutureCreator,
-        renderInner,
-        removeClass,
+        RenderInner,
+        RemoveClass,
         Timer,
-        applyState,
-        listenForEvent,AlertDialog
+        ApplyState,
+        ListenForEvent,AlertDialog
     }});
     tryIt.onclick = () => {
         setIsOn(!isOn());
@@ -54,24 +55,25 @@ export const explianText = () => {
 }
 
 export const _TextExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     const text = createText2(`
-const element = createNode('div');
+const element = CreateNode('div');
 Text(element, 'Hello world');
     `);
-    setChild(div, text);
+    SetChild(div, text);
 
     const example = createText2('Example');
-    setChild(div, example);
+    SetChild(div, example);
 
     const button = Button({
         variant:'contained',
         text:'Playground'
     });
     button.onclick = () => {
+        setCurrentPageIndex(3)
         
     }
-    setChild(div, button);
+    SetChild(div, button);
 
     return div;
 }

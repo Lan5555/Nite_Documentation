@@ -1,42 +1,43 @@
-import { createNode, print, renderBody, setChild, Style, Text, vanilla, Watch } from "../../../../lib/state"
+import { CreateNode, Print, renderBody, SetChild, Style, Text, Vanilla, Watch } from "../../../../lib/state"
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { Overlay } from "../../../components/overlay";
 import { isOn, setIsOn } from "../../../hooks/overlayState";
+import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { createText2 } from "../../homepage/home";
 import { example } from "../docs";
 
 export const explianCreateNode = () => {
     
-    const div = createNode('div');
-    const header = createNode('h3');
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
     Style(div,'ml-3');
-    const head = createNode('h4');
+    const head = CreateNode('h4');
     Text(head,'Function:');
-    vanilla(head,{
+    Vanilla(head,{
         fontSize:'12pt'
     })
-    setChild(div,head);
-    Text(header,'createNode()');
+    SetChild(div,head);
+    Text(header,'CreateNode()');
     Style(header,'text-green font-bold');
-    setChild(div,header);
+    SetChild(div,header);
 
     const explain = createText2('Creates a new HTML element and returns type => HTMLElement');
-    setChild(div,explain);
+    SetChild(div,explain);
 
     const tryIt = Button({
         variant:'contained',
         text:'Try it yourself'
     });
-    setChild(div,tryIt);
+    SetChild(div,tryIt);
     // const helpers = {
     //     createNode : (name:string) => HTMLElement
     // }
-    const example = exambleBar({name:'createNode()',guideText:`const node = createNode('div');`,functions:{
-        createNode,
+    const example = exambleBar({name:'CreateNode()',guideText:`const node = CreateNode('div');`,functions:{
+        CreateNode,
         Text,
-        setChild,
-        vanilla,
+        SetChild,
+        Vanilla,
         Style,
         print,
         Watch,
@@ -52,27 +53,28 @@ export const explianCreateNode = () => {
     return div
 }
 export const _CreateNodeExample = () => {
-    const div = createNode('div');
-    const text = createText2(`\nconst node = createNode('div');\n
+    const div = CreateNode('div');
+    const text = createText2(`\nconst node = CreateNode('div');\n
         //If you're using typescript\n
-        const node = createNode('div') as HTMLElement;\n
+        const node = CreateNode('div') as HTMLElement;\n
     `);
-    vanilla(text,{
+    Vanilla(text,{
         color:'darkred'
     });
     const example = createText2('Example');
-    vanilla(example,{
+    Vanilla(example,{
         fontSize:'14pt'
     });
-    setChild(div,example);
-    setChild(div,text);
+    SetChild(div,example);
+    SetChild(div,text);
     const button = Button({
         variant:'contained',
         text:'Playground'
     });
     button.onclick = () => {
+        setCurrentPageIndex(3)
         
     }
-    setChild(div,button);
+    SetChild(div,button);
     return div;
 }

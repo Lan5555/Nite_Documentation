@@ -1,37 +1,37 @@
-import { print,createNode, setChild, Text, vanilla } from "../../../../lib/state";
+import { Print,CreateNode, SetChild, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { createText2 } from "../../homepage/home";
 
 export const explainUseSpriteSheet = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
-    Text(header, 'useSpriteSheet()');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
+    Text(header, 'UseSpriteSheet()');
+    SetChild(div, header);
 
     const explain = createText2('Creates animated sprite sheets for game development.');
-    setChild(div, explain);
+    SetChild(div, explain);
 
-    const params = createNode('div');
-    const paramHeader = createNode('h4');
+    const params = CreateNode('div');
+    const paramHeader = CreateNode('h4');
     Text(paramHeader, 'Parameters:');
-    setChild(params, paramHeader);
+    SetChild(params, paramHeader);
     
-    const paramList = createNode('ul');
-    const param1 = createNode('li');
+    const paramList = CreateNode('ul');
+    const param1 = CreateNode('li');
     Text(param1, 'spriteSrc: Image source URL');
-    const param2 = createNode('li');
+    const param2 = CreateNode('li');
     Text(param2, 'placement: {width, height, columns, rows}');
-    setChild(paramList, param1);
-    setChild(paramList, param2);
-    setChild(params, paramList);
-    setChild(div, params);
+    SetChild(paramList, param1);
+    SetChild(paramList, param2);
+    SetChild(params, paramList);
+    SetChild(div, params);
 
     const tryIt = Button({
         variant: 'contained',
         text: 'Try it yourself'
     });
-    setChild(div, tryIt);
+    SetChild(div, tryIt);
     tryIt.onclick = () => {
         alert('Cant be rendered without actual sprite');
     }
@@ -40,9 +40,9 @@ export const explainUseSpriteSheet = () => {
 }
 
 export const _useSpriteSheetExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     const code = createText2(`
-const { canvas, createSprite } = useSpriteSheet();
+const { canvas, createSprite } = UseSpriteSheet();
 
 createSprite({
     spriteSrc: '/sprites/character.png',
@@ -57,17 +57,17 @@ createSprite({
 
 document.body.appendChild(canvas);
     `);
-    setChild(div, code);
+    SetChild(div, code);
 
-    const demoLink = createNode('a');
+    const demoLink = CreateNode('a');
     Text(demoLink, 'View Sprite Demo');
-    vanilla(demoLink, {
+    Vanilla(demoLink, {
         display: 'block',
         marginTop: '10px',
         color: 'blue',
         textDecoration: 'underline'
     });
-    setChild(div, demoLink);
+    SetChild(div, demoLink);
 
     return div;
 }

@@ -1,31 +1,32 @@
-import { print,createNode, setChild, Text, listenForEvent, AlertDialog, applyState, Column, FutureCreator, removeClass, render, renderBody, renderInner, Row, Style, SwitchBar, Timer, useSpriteSheet, vanilla, Watch } from "../../../../lib/state";
+import { Print,CreateNode, SetChild, Text, ListenForEvent, AlertDialog, ApplyState, Column, FutureCreator, RemoveClass, render, renderBody, RenderInner, Row, Style, SwitchBar, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
+import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { createText2 } from "../../homepage/home";
 
 export const explainListenForEvent = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
-    Text(header, 'listenForEvent()');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
+    Text(header, 'ListenForEvent()');
+    SetChild(div, header);
 
     const explain = createText2('Attaches event listeners to DOM elements.');
-    setChild(div, explain);
+    SetChild(div, explain);
 
     const tryIt = Button({
         variant: 'contained',
         text: 'Try it yourself'
     });
-    setChild(div, tryIt);
-    const example = exambleBar({name:'listenForEvent()',guideText:`const node = createNode('div');\nlistenForEvent(node,'click',()=>alert('working'))`,functions:{
-        createNode,
+    SetChild(div, tryIt);
+    const example = exambleBar({name:'ListenForEvent()',guideText:`const node = CreateNode('div');\nListenForEvent(node,'click',()=>alert('working'))`,functions:{
+        CreateNode,
         Text,
-        setChild,
-        vanilla,
+        SetChild,
+        Vanilla,
         Style,
         print,
         Watch,
@@ -35,14 +36,14 @@ export const explainListenForEvent = () => {
         Column,
         SwitchBar,
         useFontAwesomeIcon,
-        useSpriteSheet,
+        UseSpriteSheet,
         render,
         FutureCreator,
-        renderInner,
-        removeClass,
+        RenderInner,
+        RemoveClass,
         Timer,
-        applyState,
-        listenForEvent,AlertDialog
+        ApplyState,
+        ListenForEvent,AlertDialog
     }});
     tryIt.onclick = () => {
         setIsOn(!isOn());
@@ -54,28 +55,29 @@ export const explainListenForEvent = () => {
 }
 
 export const _listenForEventExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     const text = createText2(`
-const button = createNode('button');
+const button = CreateNode('button');
 Text(button, 'Click Me');
 
-listenForEvent(button, 'click', () => {
+ListenForEvent(button, 'click', () => {
     alert('Button clicked!');
 });
     `);
-    setChild(div, text);
+    SetChild(div, text);
 
     const example = createText2('Example: Click handler');
-    setChild(div, example);
+    SetChild(div, example);
 
     const button = Button({
         variant:'contained',
         text:'Playground'
     });
     button.onclick = () => {
+        setCurrentPageIndex(3)
         
     }
-    setChild(div, button);
+    SetChild(div, button);
 
     return div;
 }

@@ -1,4 +1,4 @@
-import { animate, createNode, route, setChild, setInner, Style, Text, vanilla, Watch } from "../../../lib/state"
+import { animate, CreateNode, route, SetChild, SetInner, Style, Text, Vanilla, Watch } from "../../../lib/state"
 import { useFontAwesomeIcon } from "../../components/icons";
 import { createText, createText2, HomePage } from "../homepage/home";
 import bg from '../../../public/nite.jpg';
@@ -8,12 +8,12 @@ import { MediaQuery } from "../../hooks/mediaquery";
 import { Button } from '../../components/button'
 
 export const GetStarted = (): HTMLElement => {
-    const page = createNode('div') as HTMLElement;
+    const page = CreateNode('div') as HTMLElement;
     const desktop = window.matchMedia('(min-width:1024px)');
     const tablet = window.matchMedia('(min-width:542px) and (max-width:1024px)');
     const mobile = window.matchMedia('(max-width:600px)');
 
-    vanilla(page, {
+    Vanilla(page, {
         flex: '1',
         marginTop: '60px',
         padding: '10px',
@@ -24,53 +24,53 @@ export const GetStarted = (): HTMLElement => {
         //overflowY: 'auto'
     });
 
-    const image = createNode('img') as HTMLImageElement;
+    const image = CreateNode('img') as HTMLImageElement;
     image.src = bg;
     Style(image, 'absolute top-5');
-    vanilla(image, {
+    Vanilla(image, {
         width: '10%',
         left:'21rem'
     });
-    setChild(page, image);
+    SetChild(page, image);
 
-    const info = createNode('h1');
+    const info = CreateNode('h1');
     Text(info, 'Get Started by Installing NITE');
-    vanilla(info,{
+    Vanilla(info,{
         fontSize: mobile.matches ? '13pt':'15pt'
     })
-    setChild(page, info);
+    SetChild(page, info);
 
     const subSidebar = (): HTMLElement => {
-        const bar = createNode('div');
+        const bar = CreateNode('div');
         Style(bar, 'shadow-dynamic w-20 p-1 rounded h-60-screen flex flex-col gap-3');
-        vanilla(bar, {
+        Vanilla(bar, {
             background: 'linear-gradient(to right,lightblue,lightblue,white)'
         });
 
-        const header = createNode('h3');
+        const header = CreateNode('h3');
         Text(header, 'Contents');
-        setChild(bar, header);
+        SetChild(bar, header);
 
         const items = ['Installing', 'Setting Up', 'Configuration', 'Finishing'];
         const icons = ['fa fa-computer', 'fa fa-gear', 'fa fa-dashboard', 'fa fa-check'];
 
         items.forEach((element: string, index: number) => {
-            const holder = createNode('div');
+            const holder = CreateNode('div');
             Style(holder, 'rounded shadow-dynamic bg-white flex justify-start items-center cursor-pointer');
 
-            const text = createNode('p');
+            const text = CreateNode('p');
             Text(text, element);
 
             const sideIcons = useFontAwesomeIcon({ iconStyle: icons[index] });
             Style(sideIcons, 'ml-3');
 
-            const sideIconsAndText = createNode('div');
+            const sideIconsAndText = CreateNode('div');
             Style(sideIconsAndText, 'flex justify-center items-center gap-2');
 
-            setChild(sideIconsAndText, sideIcons);
-            setChild(sideIconsAndText, text);
-            setChild(holder, sideIconsAndText);
-            setChild(bar, holder);
+            SetChild(sideIconsAndText, sideIcons);
+            SetChild(sideIconsAndText, text);
+            SetChild(holder, sideIconsAndText);
+            SetChild(bar, holder);
             holder.addEventListener('click',() => handleClick(index));
         });
         function handleClick(index:number){
@@ -99,7 +99,7 @@ export const GetStarted = (): HTMLElement => {
         return bar;
     }
 
-    const installProcessHolder = createNode('div');
+    const installProcessHolder = CreateNode('div');
     Style(installProcessHolder, 'w-100 flex');
     const subBar = subSidebar();
    
@@ -113,35 +113,35 @@ export const GetStarted = (): HTMLElement => {
     observe(() => {
         if(desktop.matches){
             container.remove();
-            setChild(installProcessHolder, subBar);
-            setChild(installProcessHolder,container);
+            SetChild(installProcessHolder, subBar);
+            SetChild(installProcessHolder,container);
         }else{
             subBar.remove();
-            vanilla(container,{
+            Vanilla(container,{
                 width:'100%'
             });
         }
     })
     //
-    const container = createNode('div');
+    const container = CreateNode('div');
     Style(container, 'flex justify-start w-70 p-2 flex-col hide-scroll-bar');
-    vanilla(container, {
+    Vanilla(container, {
         overflowY: 'auto',
         maxHeight: mobile.matches ? '100vh':'70vh',
         overflowX: mobile.matches ? 'hidden' : '' // ✅ Enable vertical scrolling
     });
-    setChild(installProcessHolder, container);
+    SetChild(installProcessHolder, container);
 
 
     if(desktop.matches){
         container.remove();
-        setChild(installProcessHolder, subBar);
-        setChild(installProcessHolder,container);
-        vanilla(container,{
+        SetChild(installProcessHolder, subBar);
+        SetChild(installProcessHolder,container);
+        Vanilla(container,{
             width:'70%'
         });
         }else{
-            vanilla(container,{
+            Vanilla(container,{
                 width:'100%'
            });
     }
@@ -151,7 +151,7 @@ export const GetStarted = (): HTMLElement => {
     const installBar2 = installBar({ text: 'npm install',page:page });
     
 
-    setChild(container, installBar1);
+    SetChild(container, installBar1);
 
     const details = createText2(
         `📦 Prerequisites:
@@ -170,25 +170,25 @@ export const GetStarted = (): HTMLElement => {
     );
     installBar1.id = 'config1';
 
-    vanilla(details, {
+    Vanilla(details, {
         whiteSpace: 'pre-wrap',
         marginLeft: mobile.matches ? '':'4rem',
         fontSize:mobile.matches ? '10pt':''
     });
     const finalDetails1 = WrapWithStyle(details);
 
-    setChild(container, finalDetails1);
-    setChild(container, installBar2);
+    SetChild(container, finalDetails1);
+    SetChild(container, installBar2);
     const secondText = `Run npm install to install the required dependences.`;
     const details2 = createText2(secondText);
-    vanilla(details2,{
+    Vanilla(details2,{
         whiteSpace: 'pre-wrap',
         marginLeft: mobile.matches ? '':'4rem',
         fontSize:mobile.matches ? '10pt':''
     });
     installBar2.id = 'config2';
     const finalDetails2 = WrapWithStyle(details2);
-    setChild(container,finalDetails2);
+    SetChild(container,finalDetails2);
 
     const details3 = createText2(
         `🛠 TypeScript Configuration:
@@ -221,22 +221,22 @@ export const GetStarted = (): HTMLElement => {
       at main.js file located at layout.
       `
       );
-      vanilla(details3, {
+      Vanilla(details3, {
         whiteSpace: 'pre-wrap',
         marginLeft: mobile.matches ? '':'4rem',
         fontSize:mobile.matches ? '10pt':''
       });
       details3.id = 'config3';
       const finalDetails3 = WrapWithStyle(details3)
-      setChild(container, finalDetails3);
+      SetChild(container, finalDetails3);
 
       const details4 = createText2(`
             Finally copy the nj-library folder out of node_modules in case it does not install\n in the root of your project.\nENJOY!.
         `);
         const finalDetails4 = WrapWithStyle(details4);
-        setChild(container,finalDetails4);
+        SetChild(container,finalDetails4);
      details4.id = 'config4';
-     vanilla(details4,{
+     Vanilla(details4,{
         fontSize:mobile.matches ? '10pt':''
      });
 
@@ -248,10 +248,10 @@ export const GetStarted = (): HTMLElement => {
         For it to function globally.
         `);
     const finalDetails5 = WrapWithStyle(details5);
-     setChild(container,finalDetails5);
+     SetChild(container,finalDetails5);
       
 
-    setChild(page, installProcessHolder);
+    SetChild(page, installProcessHolder);
 
     return page;
 }
@@ -264,11 +264,11 @@ interface Props {
 
 function installBar({ text,page }: Props): HTMLElement {
     const textValue = text ?? 'some text';
-    const installBar = createNode('div');
+    const installBar = CreateNode('div');
     const desktop = window.matchMedia('(min-width:1024px)');
     const tablet = window.matchMedia('(min-width:542px) and (max-width:1024px)');
     const mobile = window.matchMedia('(max-width:600px)');
-    vanilla(installBar, {
+    Vanilla(installBar, {
         width: mobile.matches ? '100%' :'50%',
         padding: '10px',
         minHeight: '50px',
@@ -281,18 +281,18 @@ function installBar({ text,page }: Props): HTMLElement {
     
     Style(installBar, `rounded shadow-dynamic color${mobile.matches ? '':'ml-6'}`);
 
-    const install = createNode('p');
+    const install = CreateNode('p');
     Text(install, text);
-    setChild(installBar, install);
+    SetChild(installBar, install);
     Style(install, 'absolute left-7');
-    vanilla(install,{
+    Vanilla(install,{
         fontSize:mobile.matches ? '10pt':''
     })
 
     const copyIcon = useFontAwesomeIcon({ iconStyle: 'fa fa-copy absolute top-1 right-2 cursor-pointer' });
-    setChild(installBar, copyIcon);
+    SetChild(installBar, copyIcon);
     const bash = useFontAwesomeIcon({ iconStyle: 'fa fa-terminal absolute left-2 top-3 text-blue' });
-    setChild(installBar, bash);
+    SetChild(installBar, bash);
     copyIcon.addEventListener('click',()=>{
         navigator.clipboard.writeText(textValue).then(() => {
             Toast({text:'Copied Successfully',type:'success',page:page});
@@ -306,11 +306,11 @@ function getDocument({id}:any){
 }
 
 function WrapWithStyle(node:HTMLElement,height?:number):HTMLElement{
-    const div = createNode('div');
+    const div = CreateNode('div');
     Style(div,'p-1 color rounded mt-2 mb-2');
     animate.fadeIn(div,0.5,false);
-    setChild(div,node);
-    vanilla(div,{
+    SetChild(div,node);
+    Vanilla(div,{
         height:`${height}px`
     });
     return div;

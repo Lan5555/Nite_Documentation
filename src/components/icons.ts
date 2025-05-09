@@ -1,9 +1,9 @@
-import { createNode, Style } from "../../lib/state"
+import { CreateNode, Style } from "../../lib/state"
 interface Props{
     iconStyle?:string
 }
 export const useFontAwesomeIcon = ({iconStyle}:Props):HTMLElement => {
-    const icon = createNode('i');
+    const icon = CreateNode('i');
     Style(icon,iconStyle ?? 'fa fa-user');
     return icon;
 }

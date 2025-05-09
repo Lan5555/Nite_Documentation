@@ -76,7 +76,7 @@ declare global {
           },
           callback: (response) => {
             Toast({text:'Thank you very much😊',type:'success',page:document.body,duration:10000});
-            setIsOn(!isOn());
+            //setIsOn(!isOn());
           },
           onclose: () => {
             console.log("Payment modal closed");

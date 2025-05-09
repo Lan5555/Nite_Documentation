@@ -1,51 +1,51 @@
-import { print,createNode, listenForEvent, removeClass, setChild, Style, Text, vanilla } from "../../../../lib/state";
+import { Print,CreateNode, ListenForEvent, RemoveClass, SetChild, Style, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { createClass } from "../../../components/class";
 import { createText2 } from "../../homepage/home";
 
 export const explainRemoveClass = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
     Text(header, 'removeClass()');
-    setChild(div, header);
+    SetChild(div, header);
 
     const explain = createText2('Removes CSS class(es) from a DOM element. Opposite of Style().');
-    setChild(div, explain);
+    SetChild(div, explain);
 
-    const comparison = createNode('div');
-    const compareHeader = createNode('h4');
+    const comparison = CreateNode('div');
+    const compareHeader = CreateNode('h4');
     Text(compareHeader, 'Related Methods:');
-    setChild(comparison, compareHeader);
+    SetChild(comparison, compareHeader);
     
-    const methodList = createNode('ul');
-    const method1 = createNode('li');
+    const methodList = CreateNode('ul');
+    const method1 = CreateNode('li');
     Text(method1, 'Style() - Adds classes');
-    const method2 = createNode('li');
+    const method2 = CreateNode('li');
     Text(method2, 'vanilla() - Inline styles');
-    setChild(methodList, method1);
-    setChild(methodList, method2);
-    setChild(comparison, methodList);
-    setChild(div, comparison);
+    SetChild(methodList, method1);
+    SetChild(methodList, method2);
+    SetChild(comparison, methodList);
+    SetChild(div, comparison);
 
     return div;
 }
 
 export const _removeClassExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     createClass('bordered',['border:3px solid black']);
     const code = createText2(`
-const box = createNode('div');
+const box = CreateNode('div');
 Style(box, 'active highlighted');
 
 // Later remove a class
-removeClass(box, 'active');
+RemoveClass(box, 'active');
     `);
-    setChild(div, code);
+    SetChild(div, code);
 
-    const interactiveDemo = createNode('div');
-    const demoBox = createNode('div');
-    vanilla(demoBox, {
+    const interactiveDemo = CreateNode('div');
+    const demoBox = CreateNode('div');
+    Vanilla(demoBox, {
         width: '100px',
         height: '50px',
         marginBottom:'10px',
@@ -58,17 +58,17 @@ removeClass(box, 'active');
         text: 'Toggle Border Class'
     });
     
-    listenForEvent(toggleBtn, 'click', () => {
+    ListenForEvent(toggleBtn, 'click', () => {
         if (demoBox.classList.contains('bordered')) {
-            removeClass(demoBox, 'bordered');
+            RemoveClass(demoBox, 'bordered');
         } else {
             Style(demoBox, 'bordered');
         }
     });
     
-    setChild(interactiveDemo, demoBox);
-    setChild(interactiveDemo, toggleBtn);
-    setChild(div, interactiveDemo);
+    SetChild(interactiveDemo, demoBox);
+    SetChild(interactiveDemo, toggleBtn);
+    SetChild(div, interactiveDemo);
 
     return div;
 }

@@ -1,18 +1,18 @@
-import { AlertDialog,Text, applyState, Column, createNode, FutureCreator, listenForEvent, removeClass, render, renderBody, renderInner, Row, setChild, Style, SwitchBar, Timer, useSpriteSheet, vanilla, Watch } from "../../../lib/state";
+import { AlertDialog,Text, ApplyState, Column, CreateNode, FutureCreator, ListenForEvent, RemoveClass, render, renderBody, RenderInner, Row, SetChild, Style, SwitchBar, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../lib/state";
 import * as monaco from 'monaco-editor';
 import { useFontAwesomeIcon } from "../../components/icons";
 import { Button } from "../../components/button";
 import { Toast } from "../../components/toast";
 
 export const PlayGround = (): HTMLElement => {
-  const container = createNode('div') as HTMLDivElement;
-  vanilla(container,{
+  const container = CreateNode('div') as HTMLDivElement;
+  Vanilla(container,{
     overflowX:'hidden'
   })
   
   // Create editor container
-  const editorContainer = createNode('div') as HTMLDivElement;
-  vanilla(editorContainer,{
+  const editorContainer = CreateNode('div') as HTMLDivElement;
+  Vanilla(editorContainer,{
     height:'80vh',
     width:'100%',
     border:'1px solid #333',
@@ -21,8 +21,8 @@ export const PlayGround = (): HTMLElement => {
   });
   
   // Create output container
-  const outputContainer = createNode('div') as HTMLDivElement;
-  vanilla(outputContainer,{
+  const outputContainer = CreateNode('div') as HTMLDivElement;
+  Vanilla(outputContainer,{
     height:'20vh',
     overflow:'auto',
     border:'1px solid #333',
@@ -36,14 +36,14 @@ export const PlayGround = (): HTMLElement => {
     text:'Execute'
   });
   executeButton.style.margin = '10px 0';
-  vanilla(executeButton,{
+  Vanilla(executeButton,{
     marginLeft:'30px'
   })
   
   // Add elements to container
-  setChild(container,editorContainer);
-  setChild(container,executeButton);
-  setChild(container,outputContainer);
+  SetChild(container,editorContainer);
+  SetChild(container,executeButton);
+  SetChild(container,outputContainer);
   
   // Initialize Monaco Editor
   const editor = monaco.editor.create(editorContainer, {
@@ -60,10 +60,10 @@ export const PlayGround = (): HTMLElement => {
 
   // Custom functions you want to expose to the user code
   const functions = {
-    createNode,
+    CreateNode,
         Text,
-        setChild,
-        vanilla,
+        SetChild,
+        Vanilla,
         Style,
         print,
         Watch,
@@ -73,14 +73,14 @@ export const PlayGround = (): HTMLElement => {
         Column,
         SwitchBar,
         useFontAwesomeIcon,
-        useSpriteSheet,
+        UseSpriteSheet,
         render,
         FutureCreator,
-        renderInner,
-        removeClass,
+        RenderInner,
+        RemoveClass,
         Timer,
-        applyState,
-        listenForEvent,AlertDialog,Toast
+        ApplyState,
+        ListenForEvent,AlertDialog,Toast
   };
 
   // Execute button click handler

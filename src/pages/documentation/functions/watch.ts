@@ -1,35 +1,36 @@
-import {print, AlertDialog, applyState, Column, createNode, FutureCreator, listenForEvent, removeClass, render, renderBody, renderInner, Row, setChild, Style, SwitchBar, Text, Timer, useSpriteSheet, vanilla, Watch } from "../../../../lib/state";
+import {Print, AlertDialog, ApplyState, Column, CreateNode, FutureCreator, ListenForEvent, RemoveClass, render, renderBody, RenderInner, Row, SetChild, Style, SwitchBar, Text, Timer, UseSpriteSheet, Vanilla, Watch } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
+import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { createText2 } from "../../homepage/home";
 
 export const explainWatch = () => {
-    const div = createNode('div');
-    const header = createNode('h3');
-    setChild(div, header);
+    const div = CreateNode('div');
+    const header = CreateNode('h3');
+    SetChild(div, header);
     Text(header, 'Watch()');
-    setChild(div, header);
+    SetChild(div, header);
 
     const explain = createText2('Creates reactive state with observer pattern. Returns [getter, setter, observe] tuple.');
-    setChild(div, explain);
+    SetChild(div, explain);
 
-    const benefits = createNode('ul');
-    const li1 = createNode('li');
+    const benefits = CreateNode('ul');
+    const li1 = CreateNode('li');
     Text(li1, 'Reactive state management');
-    const li2 = createNode('li');
+    const li2 = CreateNode('li');
     Text(li2, 'Automatic dependency tracking');
-    setChild(benefits, li1);
-    setChild(benefits, li2);
-    setChild(div, benefits);
+    SetChild(benefits, li1);
+    SetChild(benefits, li2);
+    SetChild(div, benefits);
 
     const tryIt = Button({
         variant: 'contained',
         text: 'Try it yourself'
     });
-    setChild(div, tryIt);
+    SetChild(div, tryIt);
     const example = exambleBar({name:'Watch()',guideText:`const [count, setCount, observe] = Watch(0);
 
 // Observer will run when count changes
@@ -39,10 +40,10 @@ observe(() => {
 
 // Update the value
 setCount(5);  // Logs: "Count changed to: 5"`,functions:{
-            createNode,
+            CreateNode,
             Text,
-            setChild,
-            vanilla,
+            SetChild,
+            Vanilla,
             Style,
             print,
             Watch,
@@ -52,14 +53,14 @@ setCount(5);  // Logs: "Count changed to: 5"`,functions:{
             Column,
             SwitchBar,
             useFontAwesomeIcon,
-            useSpriteSheet,
+            UseSpriteSheet,
             render,
             FutureCreator,
-            renderInner,
-            removeClass,
+            RenderInner,
+            RemoveClass,
             Timer,
-            applyState,
-            listenForEvent,AlertDialog
+            ApplyState,
+            ListenForEvent,AlertDialog
         }});
         tryIt.onclick = () => {
             setIsOn(!isOn());
@@ -71,7 +72,7 @@ setCount(5);  // Logs: "Count changed to: 5"`,functions:{
 }
 
 export const _WatchExample = () => {
-    const div = createNode('div');
+    const div = CreateNode('div');
     const code = createText2(`
 const [count, setCount, observe] = Watch(0);
 
@@ -83,19 +84,20 @@ observe(() => {
 // Update the value
 setCount(5);  // Logs: "Count changed to: 5"
     `);
-    setChild(div, code);
+    SetChild(div, code);
 
     const notes = createText2('Note: Works well with DOM updates in render cycles');
-    setChild(div, notes);
+    SetChild(div, notes);
 
     const button = Button({
         variant:'contained',
         text:'Playground'
     });
     button.onclick = () => {
+        setCurrentPageIndex(3)
         
     }
-    setChild(div, button);
+    SetChild(div, button);
 
     return div;
 }

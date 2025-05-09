@@ -1,4 +1,4 @@
-import { createNode } from "../../lib/state";
+import { CreateNode } from "../../lib/state";
 import { Button } from "../components/button";
 import { WatchFunction } from "./watch";
 
@@ -7,7 +7,7 @@ export {open,setOpen,observer3};
 
 const [index, setIndex] = WatchFunction(0);
 export {index,setIndex};
-export const searchInput = createNode('input') as HTMLInputElement;
+export const searchInput = CreateNode('input') as HTMLInputElement;
 
 
 export const back = Button({

@@ -1,8 +1,8 @@
 import { isOn, observeIsOn } from "../hooks/overlayState";
-import { animate, createNode, Style, vanilla } from "../../lib/state";
+import { animate, CreateNode, Style, Vanilla } from "../../lib/state";
 
 export const Overlay = (): HTMLElement => {
-    const bar = createNode('page');
+    const bar = CreateNode('page');
 
     // React to isOn state
     observeIsOn(() => {
@@ -29,7 +29,7 @@ export const Overlay = (): HTMLElement => {
     });
 
     // Apply styles
-    vanilla(bar, {
+    Vanilla(bar, {
         width: '100%',
         height: '100vh',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
