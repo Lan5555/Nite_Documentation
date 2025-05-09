@@ -1,0 +1,229 @@
+:root{
+    --custom-text: 60pt;
+    --custom-animation: all 0.4s ease-in-out;
+    --custom-white: #e9e6d6;
+    --custom-family: 'playfair Display',serif;
+    --custom-position:absolute;
+    --custom-top:top:50%;
+    --custom-left:left:50%;
+    --custom-translate:translate(var(--custom-top),var(--custom-left));
+}
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.enlarge{
+    font-size: var(--custom-text);
+    color: var(--custom-white);
+    font-family: var(--custom-family);
+}
+
+.centered{
+    position: var(--custom-position);
+    top: var(--custom-top);
+    left: var(--custom-left);
+    transform: var(--custom-translate);
+}
+
+.bg-image{
+    background-image: url('public/bg2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.bg-image2{
+    background-image: url('public/dark.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+   
+}
+
+.btn-hover:hover{
+    transform: scale(1.05);
+}
+.btn:active{
+    transform: scale(0.95);
+}
+
+@media only screen and (max-width:600px){
+    .font{
+        font-size: 13px;
+    }
+    .avatar{
+        width: 20%;
+        height: 80px;
+    }
+    .div{
+        width:50%;
+        height: 120px;
+    }
+    .grid-col-2{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+        gap: 10px;
+        column-gap: 0;
+        justify-content: space-between;
+    }
+    .hide-scroll-bar::-webkit-scrollbar{
+        display: none;
+    }
+    pre,code{
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 10pt !important;
+        border-radius: 10px !important;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+    }
+    .hide-bar{
+        display: flex;
+        transition: all 0.5s ease-in-out;
+    }
+    .font-sm{
+        font-size: 13pt;
+        top:'10px'
+    }
+}
+@media only screen and (min-width:1024px){
+    .font{
+        font-size: 25px;
+    }
+    .avatar{
+        width: 10%;
+        height: 125px;
+    }
+    .im{
+        width:30%
+    }
+    .div{
+        width:10%;
+        height: 100px;
+    }
+    .grid-col-2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+    }
+    .hide-bar{
+        display: none;
+    }
+    .font-sm{
+        top:'90px'
+    }
+}
+@media only screen and (min-width:542px) and (max-width:1024px){
+    .font{
+        font-size: 18px;
+    }
+    .avatar{
+        width: 17%;
+        height: 105px;
+    }
+    .div{
+        width:15%;
+        height: 100px;
+    }
+    .grid-col-2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+    .hide-bar{
+        display: none;
+    }
+    .font-sm{
+        top:'90px'
+    }
+    .font-xs{
+        font-size: 10pt !important;
+    }
+}
+.input::placeholder{
+    color: black;
+}
+.color{
+    background-color: rgb(234, 238, 243);
+}
+
+
+::-webkit-scrollbar{
+    background-color: rgb(181, 243, 255);
+    border-radius: 10px;
+    width: 4px;
+}
+::-webkit-scrollbar-track{
+    background-color: rgb(8, 11, 11);
+}
+::-webkit-scrollbar-thumb{
+    background-color: lightblue;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-corner{
+    width: 4px;
+}
+*{
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+.visible{
+    left: 0;
+    transition: left 0.5s ease-in-out;
+}
+.not-visible{
+    left: -400px;
+    transition: left 0.5s ease-in-out;
+}
+.overlay{
+   pointer-events: none;
+}
+
+pre,code{
+    white-space: pre-wrap;
+    word-break: break-word;
+    border-radius: 10px !important;
+    background-color: rgb(234, 238, 243) !important;
+}
+pre::-webkit-scrollbar{
+    height: 3px !important;
+}
+.fade{
+    animation: fadeX 0.5s ease-in-out;
+}
+
+@keyframes fadeX{
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+}
+@keyframes slide{
+    from{
+        transform: translateY(-2%);
+    }to{
+        transform: translateY(0px);
+    }
+}
+.tran{
+    animation: slide 0.4s ease-in-out;
+}
+
+/* Start hidden and shifted to the left */
+.slide-in-a{
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 0.6s ease-out;
+  }
+  
+  /* Add this class when in view */
+  .visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .grid-bar{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
