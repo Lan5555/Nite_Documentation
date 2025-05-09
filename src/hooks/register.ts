@@ -12,11 +12,12 @@ const playground = PlayGround();
 const about = About();
 
 export const observeLinks = () => {
-history.pushState({},'','Homepage');
+//history.pushState({},'','Homepage');
 route.register('Homepage',homePage);
 route.register('Documentation',docs);
 route.register('Get-Started',getStarted);
 route.register('Playground',playground);
 route.register('About',about);
 route.start();
+
 }
