@@ -42,6 +42,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './layout/index.html',
+            favicon:'./public/nite.ico'
         }),
         new MonacoWebpackPlugin(),
         // Simple way:

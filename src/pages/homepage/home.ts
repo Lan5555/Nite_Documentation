@@ -275,8 +275,11 @@ export const HomePage = (): HTMLElement => {
         setCurrentPageIndex(2);
     })
     
-    const button2 = Button({variant:'outlined',text:'Learn More'});
+    const button2 = Button({variant:'outlined',text:'Playground'});
     setChild(actionRow,button2);
+    button2.addEventListener('click',()=>{
+        setCurrentPageIndex(3);
+    })
 
     const owner = createNode('h3');
     Text(owner, 'NICHOLAS JOHNSON');
@@ -529,6 +532,7 @@ export const HomePage = (): HTMLElement => {
         text:'Try it your self',
         
     });
+    tryIt.addEventListener('click',()=> setCurrentPageIndex(3))
 
     const watchText = createNode('div');
     const _text3 = createText(
