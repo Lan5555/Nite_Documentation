@@ -22,7 +22,7 @@ export const explianSetChild = () => {
         text: 'Try it yourself'
     });
     SetChild(div, tryIt);
-    const example = exambleBar({name:'SetChild()',guideText:`const container = CreateNode('div);\const p = CreateNode('p');\nText(p,'Sample Text');\nCetChild(container,p);`,functions:{
+    const example = exambleBar({name:'SetChild()',guideText:`const container = CreateNode('div);\nconst p = CreateNode('p');\nText(p,'Sample Text');\nSetChild(container,p);`,functions:{
         CreateNode,
         Text,
         SetChild,
