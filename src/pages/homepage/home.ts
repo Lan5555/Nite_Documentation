@@ -27,6 +27,7 @@ import { observerMovement } from "../../hooks/observer";
 import { PlayGround } from "../playground/playground";
 import { About } from "../about/about";
 import { FormBar } from "../../components/form";
+import { Ai } from "../../components/Ai";
 
 
 export const HomePage = (): HTMLElement => {
@@ -636,7 +637,8 @@ export const HomePage = (): HTMLElement => {
     fontSize: mobile.matches ? '10pt' :'',
     });
     SetChild(container,footer);
-
+    const askAI = Ai();
+    SetChild(container,askAI);
     
     return page;
 };
