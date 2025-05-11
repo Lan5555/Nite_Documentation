@@ -234,8 +234,8 @@ pre::-webkit-scrollbar{
 
 /* HTML: <div class="loader"></div> */
 .loader-dots {
-  width: 60px;
-  aspect-ratio: 2;
+  width: 30px;
+  aspect-ratio: 1;
   --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
   background: 
     var(--_g) 0%   50%,

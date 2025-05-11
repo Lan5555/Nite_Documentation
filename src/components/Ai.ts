@@ -4,8 +4,10 @@ import { _Text } from "../hooks/animated_text";
 import { MediaQuery } from "../hooks/mediaquery";
 import { isOn, setIsOn } from "../hooks/overlayState";
 import { WatchFunction } from "../hooks/watch";
+import { createText } from "../pages/homepage/home";
 import { iconButton } from "./iconbuttn";
 import { useFontAwesomeIcon } from "./icons";
+import { Toast } from "./toast";
 
 export const Ai = () => {
     const [mediaquery, setMedia, observe] = WatchFunction<string>('desktop');
@@ -24,7 +26,7 @@ export const Ai = () => {
     });
 
     const askAiBar = CreateNode('div');
-    Style(askAiBar, 'bg-black shadow rounded fixed bottom-4 right-3 z-20 flex flex-col items-center justify-center p-1 float');
+    Style(askAiBar, 'bg-black shadow rounded fixed bottom-4 right-3 z-20 flex flex-col items-center justify-center p-1 float cursor-pointer');
     const askAiText = CreateNode('h1');
     Style(askAiText, 'text-white');
     Text(askAiText, 'Ask AI');
@@ -274,9 +276,51 @@ export const Ai = () => {
             alignSelf: 'flex-start',
             display: 'block',
             textAlign: 'left',
-            
-
+            position: 'relative',
         });
+        const [currentState,setState,observeState] = WatchFunction<boolean>(false);
+        const copyIcon = useFontAwesomeIcon({ iconStyle: 'fa-solid fa-copy text-black cursor-pointer' });
+        const iconANdText = CreateNode('div');
+        Style(iconANdText, 'flex items-center justify-center gap-1 p-1 shadow-dynamic cursor-pointer');
+        SetChild(iconANdText, copyIcon);
+        const textValue = createText('Copy');
+        SetChild(iconANdText, textValue);
+
+        Vanilla(iconANdText, {
+            borderRadius:'10px',
+            backgroundColor: '#f0f0f0',
+            position: 'absolute',
+            top:'50%',
+            left:'50%',
+            transform: 'translate(-50%,-50%)',
+            width:mobile.matches ?'24%':'20%',
+            height:'10px'
+        });
+
+        iconANdText.addEventListener('click', () => {
+            navigator.clipboard.writeText(text);
+            Toast({text:'Copied to clipboard', type:'success',page:document.body});
+        });
+
+         if(!currentState()){
+            iconANdText.style.display = 'none';
+        }else{
+            iconANdText.style.display = 'flex';
+        }
+
+        observeState(()=>{
+            if(!currentState()){
+            iconANdText.style.display = 'none';
+            aiMessageBar.style.backgroundColor = '#f0f0f0';
+            aiMessageBar.style.color = '';
+        }else{
+            iconANdText.style.display = 'flex';
+            aiMessageBar.style.backgroundColor = 'grey';
+            aiMessageBar.style.color = 'black';
+            aiMessageBar.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+        }
+        })
+        
         _Text.setText('span', text,aiMessageBar);
             _Text.animate();
             _Text.Style({
@@ -287,6 +331,14 @@ export const Ai = () => {
                 fontSize: mobile.matches ? '0.8rem':'1rem',
                 letterSpacing: '1.5px',
             });
+        SetChild(aiMessageBar, iconANdText);
+        aiMessageBar.addEventListener('mouseover', () => {
+            setState(true);
+        });
+
+        aiMessageBar.addEventListener('mouseout', () => {
+            setState(false);
+        });
         
         return aiMessageBar;
     }

@@ -17,7 +17,7 @@ export const Toast = ({text,color,duration, type,page}:Props) => {
     Style(div,`rounded flex-container flex-col p-1 ${color != 'white' ? 'shadow':'shadowXl'} fixed top-5 right-5`);
     Vanilla(div,{
         backgroundColor: color ?? 'white',
-        zIndex:100
+        zIndex:1000
     });
     
     if(type == 'warning'){

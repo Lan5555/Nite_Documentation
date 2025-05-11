@@ -1,11 +1,13 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 const genAI = new GoogleGenerativeAI(`${process.env.GOOGLE_GEMINAI_API_KEY}`);
+import '../../lib/style.css'
 //import { Print,CreateNode, Style, Vanilla, SetChild,Text, renderBody, Watch, Row, Column, UseSpriteSheet, render, FutureCreator, RenderInner, RemoveClass, route, Timer, ApplyState, ListenForEvent, AlertDialog } from "../../../../lib/state";
 
 interface FunctionContent {
     function: string;
     explaination: string;   
     example: string;
+   
 }
 
 
@@ -282,6 +284,129 @@ const content:FunctionContent[] = [
         call the animate class
         e.g animate.fadeIn(node,duration,infinite)
         `
+    },
+    {
+        function: `// This is just to tell you how to structure every page`,
+        explaination: `Every page starts this way.
+        e.g
+        const HomePage = () => {
+            const page = CreateNode('div');
+            Style(page,'w-100 h-screen-full');
+            return page;
+
+            //Note Im not using tailwind css. 
+            //Custom styling are available
+        }
+        then you can use the page in your app
+        e.g
+        Typically every page is executed over here. and App is being rendered in another file so no need to call it here.
+        Also emphersize that the register their pages in another file or this file and import it here. if another file
+        const App = () => {
+            const page = HomePage();
+            renderBody(page);
+        }
+            dont call App() in this file. it is done automatically by the framework
+       `,
+        example: `This section provides some necessary information on how to structure your code.
+        e.g
+         In typescript rembember to use interfaces if the component they are creating is taking parameters
+        examples of NITES custom css classes
+        .w-100 { width: 100%; }
+        .h-screen-full { height: 100vh; }
+        .bg-white { background-color: white; }
+        .rounded { border-radius: 5px; }
+        .h-30-screen { height: 30vh; }
+        .w-20 { width: 20%; }
+        .bg-gray { background-color: gray; }
+        .bg-green { background-color: green; }
+        .bg-red { background-color: red; }
+        .bg-blue { background-color: blue; }
+        .bg-yellow { background-color: yellow; }
+        .bg-black { background-color: black; }
+        .bg-orange { background-color: orange; }
+        .bg-purple { background-color: purple; }
+        .bg-pink { background-color: pink; }
+        .bg-brown { background-color: brown; }
+        .p-1 {padding:10px}
+        .p-2 {padding:20px}
+        .p-3 {padding:30px}
+        .p-4 {padding:40px}
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-around { justify-content: space-around; }
+        .justify-start { justify-content: flex-start; }
+        .justify-end { justify-content: flex-end; }
+        .items-center { align-items: center; }
+        .float  a float animation
+        .fade-in { animation: fadeIn 1s; }
+        .fade-out { animation: fadeOut 1s; }
+        .slide-in { animation: slideIn 1s; }
+        .slide-out { animation: slideOut 1s; }
+        .bounce { animation: bounce 1s; }
+        .shake { animation: shake 1s; }
+        .rotate { animation: rotate 1s; }
+        .scale { animation: scale 1s; }
+        .flip { animation: flip 1s; }
+        .pulse { animation: pulse 1s; }
+        .absolute { position: absolute; }
+        .relative { position: relative; }
+        .fixed { position: fixed; }
+        .sticky { position: sticky; }
+        .overflow-hidden { overflow: hidden; }
+        .top-0 { top: 0; } this stops at 10
+        .bottom-0 { bottom: 0; } this stops at 10
+        .left-0 { left: 0; } this stops at 10
+        .right-0 { right: 0; } this stops at 10
+        .hover
+        .shadow { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        .shdowXl { box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.15); }
+        .shadow-dynamic { box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.2); }
+        .m-1 { margin: 10px; } -- stops at 10
+        .h-10-screen { height: 10vh; }
+        .h-20-screen { height: 20vh; }
+        .h-30-screen { height: 30vh; }
+        .h-40-screen { height: 40vh; }
+        .h-50-screen { height: 50vh; }
+        .h-60-screen { height: 60vh; }
+        .h-70-screen { height: 70vh; }
+        .h-80-screen { height: 80vh; }
+        .h-90-screen { height: 90vh; }
+        .w-10 { width: 10%; } -- stops at 100 meaning 10 - 100
+        .text-center { text-align: center; }
+        .text-white { color: white; }
+        .text-black { color: black; }
+        .text-red { color: red; }
+        .text-green { color: green; }
+        .text-blue { color: blue; }
+        .text-yellow { color: yellow; }
+        .text-gray { color: gray; }
+        .text-purple { color: purple; }
+        .text-pink { color: pink; }
+        .text-orange { color: orange; }
+        .text-brown { color: brown; }
+        .ml-1 { margin-left: 10px; } -- stops at 10 meaning 1 - 10 and also {10px - 100px}
+        .mr-1 { margin-right: 10px; } --stops at 10 meaning 1 - 10 and also {10px - 100px}
+        .mt-1 { margin-top: 10px; } -- stops at 10 meaning 1 - 10 and also {10px - 100px}
+        .mb-1 { margin-bottom: 10px; } -- stops at 10 meaning 1 - 10 and also {10px - 100px}
+        .circle { border-radius: 50%; }
+        .centered {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .show-none { display: none; }
+        .outline-none { outline: none; }
+        .cursor-pointer { cursor: pointer; }
+        .border-none { border: none; }
+        .text-gold { color: grey; }
+        .grid { display: grid; }
+        .grid-col-2 {grid-columns: 2; }
+        .grid-col-4 {grid-columns: 3; }
+        .translate-up { transform: translateY(-40px); }
+        .rotate { transform: rotate(360deg); }
+        .float-right { float: right; }
+        .float-left { float: left; }
+        .fit { width: 100%; height: 100%; object-fit: cover; }
+        .user-select-none { user-select: none; }
+        `
     }
     
     
@@ -296,7 +421,7 @@ export async function analyzeContent(prompt: any) {
 const chat = model.startChat({
     history: [{
         role: "user",
-        parts: [{ text: `WEBSITE CONTENT:\n${JSON.stringify(content.filter(item => !item.function.includes('{}') && !item.function.includes('[]')))}\n\nUSER QUESTION: ${prompt}` }]
+        parts: [{ text: `WEBSITE CONTENT:\n${JSON.stringify(content.filter(item => !item.function?.includes('{}') && !item.function?.includes('[]')))}\n\nUSER QUESTION: ${prompt}` }]
     }]
 });
 
