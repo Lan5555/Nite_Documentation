@@ -294,6 +294,9 @@ function installBar({ text,page }: Props): HTMLElement {
     const bash = useFontAwesomeIcon({ iconStyle: 'fa fa-terminal absolute left-2 top-3 text-blue' });
     SetChild(installBar, bash);
     copyIcon.addEventListener('click',()=>{
+        if(navigator.vibrate){
+            navigator.vibrate(50);
+        }
         navigator.clipboard.writeText(textValue).then(() => {
             Toast({text:'Copied Successfully',type:'success',page:page});
         });
