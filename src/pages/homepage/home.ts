@@ -81,7 +81,7 @@ export const HomePage = (): HTMLElement => {
        const _title = wrap({node:title});
         Style(title,'opacity-half');
         SetChild(sidebar,_title);
-        const sideIcons = ['fa fa-home opacity-half', 'fa fa-book opacity-half', 'fa fa-wallet opacity-half', 'fa fa-user opacity-half'];
+        const sideIcons = ['fa fa-home opacity-half', 'fa fa-book opacity-half', 'fa fa-wallet opacity-half', 'fa fa-robot opacity-half','fa fa-person opacity-half'];
         ['Home','Documentation','Installation','Playground','About'].forEach((element:string,index:number) => {
             const div = CreateNode('div');
             Style(div,'flex justify-between w-100 btn-hover cursor-pointer');
