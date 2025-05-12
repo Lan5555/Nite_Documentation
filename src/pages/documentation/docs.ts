@@ -471,7 +471,7 @@ function explainerExample({node,text}:any){
 }
 
 
-function Wrap({node}:any){
+export function Wrap({node}:any){
     const div = CreateNode('div');
     Style(div,'flex justify-center items-center');
     Vanilla(div,{

@@ -289,7 +289,7 @@ function installBar({ text,page }: Props): HTMLElement {
         fontSize:mobile.matches ? '10pt':''
     })
 
-    const copyIcon = useFontAwesomeIcon({ iconStyle: 'fa fa-copy absolute top-1 right-2 cursor-pointer' });
+    const copyIcon = useFontAwesomeIcon({ iconStyle: 'fa fa-copy absolute top-2 right-2 cursor-pointer text-grey' });
     SetChild(installBar, copyIcon);
     const bash = useFontAwesomeIcon({ iconStyle: 'fa fa-terminal absolute left-2 top-3 text-blue' });
     SetChild(installBar, bash);
