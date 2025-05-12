@@ -452,12 +452,17 @@ function explainerExample({node,text}:any){
 
     SetChild(div2,node);
     SetChild(div,div2);
-    const copyIcon = useFontAwesomeIcon({iconStyle:'fa fa-copy absolute right-3 top-2 cursor-pointer'});
-    SetChild(div2,copyIcon);
-    copyIcon.onclick = () => {
+    const copyIcon = useFontAwesomeIcon({iconStyle:'fa fa-copy text-grey'});
+    const iconContainer = Wrap({node:copyIcon});
+    SetChild(div2,iconContainer);
+   // SetChild(div2,copyIcon);
+    iconContainer.onclick = () => {
+        if(navigator.vibrate){
+            navigator.vibrate(50);
+        }
         navigator.clipboard.writeText(text).then(()=>{
             Toast({text:'Copied successfully',page:document.body,type:'success'});
-        })
+        });
     }
     
     Style(div,'flex flex-col color');
@@ -466,3 +471,15 @@ function explainerExample({node,text}:any){
 }
 
 
+function Wrap({node}:any){
+    const div = CreateNode('div');
+    Style(div,'flex justify-center items-center');
+    Vanilla(div,{
+        border:'1px solid black',
+        boxSizing:'border-box',
+        padding:'4px'
+    });
+    Style(div,'absolute right-2 top-3 cursor-pointer');
+    SetChild(div,node);
+    return div;
+}

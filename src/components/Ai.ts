@@ -8,6 +8,7 @@ import { createText } from "../pages/homepage/home";
 import { iconButton } from "./iconbuttn";
 import { useFontAwesomeIcon } from "./icons";
 import { Toast } from "./toast";
+import { marked } from "marked";
 
 export const Ai = () => {
     const [mediaquery, setMedia, observe] = WatchFunction<string>('desktop');
@@ -268,7 +269,7 @@ export const Ai = () => {
            borderTopLeftRadius: '10px',
             borderTopRightRadius: '10px',
             borderBottomRightRadius: '20px',
-            backgroundColor: '#f0f0f0',
+            backgroundColor: '#e6f4ea',
             color: 'black',
             padding: '10px',
             marginBottom: '10px',
@@ -311,7 +312,7 @@ export const Ai = () => {
         observeState(()=>{
             if(!currentState()){
             iconANdText.style.display = 'none';
-            aiMessageBar.style.backgroundColor = '#f0f0f0';
+            aiMessageBar.style.backgroundColor = '#e6f4ea';
             aiMessageBar.style.color = '';
         }else{
             iconANdText.style.display = 'flex';
@@ -321,15 +322,17 @@ export const Ai = () => {
         }
         })
         
+        
         _Text.setText('span', text,aiMessageBar);
             _Text.animate();
             _Text.Style({
                 color: 'black',
                 textShadow: '',
                 fontWeight: '',
-                fontFamily: 'orbitron, serif',
+                fontFamily: 'sans-serif',
                 fontSize: mobile.matches ? '0.8rem':'1rem',
                 letterSpacing: '1.5px',
+               
             });
         SetChild(aiMessageBar, iconANdText);
         aiMessageBar.addEventListener('mouseover', () => {

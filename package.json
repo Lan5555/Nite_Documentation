@@ -30,6 +30,8 @@
   "devDependencies": {
     "@babel/core": "^7.26.7",
     "@babel/preset-env": "^7.26.7",
+    "@google/genai": "^0.13.0",
+    "@google/generative-ai": "^0.24.1",
     "@types/prismjs": "^1.26.5",
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
@@ -40,13 +42,12 @@
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.0",
-    "webpack-node-externals": "^3.0.0",
-    "@google/genai": "^0.13.0",
-    "@google/generative-ai": "^0.24.1"
+    "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "dotenv": "^10.0.0",
+    "marked": "^15.0.11",
     "monaco-editor": "^0.52.2",
     "monaco-editor-webpack-plugin": "^7.1.0",
     "prismjs": "^1.30.0"

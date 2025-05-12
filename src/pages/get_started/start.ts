@@ -269,7 +269,7 @@ function installBar({ text,page }: Props): HTMLElement {
     const tablet = window.matchMedia('(min-width:542px) and (max-width:1024px)');
     const mobile = window.matchMedia('(max-width:600px)');
     Vanilla(installBar, {
-        width: mobile.matches ? '100%' :'50%',
+        width: mobile.matches ? '95%' :'50%',
         padding: '10px',
         minHeight: '50px',
         height: 'auto',

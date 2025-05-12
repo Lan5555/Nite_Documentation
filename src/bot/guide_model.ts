@@ -200,7 +200,7 @@ const content:FunctionContent[] = [
         `
     },
     {
-        function:'ListenForEvent()',
+        function:'ListenForEvent() depreciated use HandleEvent() instead',
         explaination:'Listens for an event on a node',
         example:`
         const button = CreateNode('button');
@@ -406,6 +406,8 @@ const content:FunctionContent[] = [
         .float-left { float: left; }
         .fit { width: 100%; height: 100%; object-fit: cover; }
         .user-select-none { user-select: none; }
+
+        And yeah it NITE was developed by Nicholas Johnson a full stack developer who specializes in a lot of areas(list areas you know)
         `
     }
     
