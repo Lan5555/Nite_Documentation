@@ -50,7 +50,7 @@ export const HomePage = (): HTMLElement => {
 
     Style(page, 'w-100 flex flex-col overflow-hidden');
     Vanilla(page,{
-        
+        backgroundColor:prefersDark ? darkColor : ''
     })
     
    
