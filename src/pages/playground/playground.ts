@@ -4,13 +4,21 @@ import { useFontAwesomeIcon } from "../../components/icons";
 import { Button } from "../../components/button";
 import { Toast } from "../../components/toast";
 import { darkColor, prefersDark } from "../../hooks/theme";
+import { darkMode, observeMode } from "../../hooks/mode";
 
 export const PlayGround = (): HTMLElement => {
   const container = CreateNode('div') as HTMLDivElement;
   Vanilla(container,{
     overflowX:'hidden',
     backgroundColor:prefersDark ? darkColor : ''
-  })
+  });
+
+  observeMode(() => {
+    Vanilla(container,{
+    overflowX:'hidden',
+    backgroundColor:darkMode() == 'dark' ? darkColor : ''
+  });
+  });
   
   // Create editor container
   const editorContainer = CreateNode('div') as HTMLDivElement;
@@ -32,7 +40,16 @@ export const PlayGround = (): HTMLElement => {
     overflowX:'hidden',
     color:prefersDark ? 'white':''
   });
-  
+  observeMode(() => {
+    Vanilla(outputContainer,{
+    height:'20vh',
+    overflow:'auto',
+    border:'1px solid #333',
+    padding:'10px',
+    overflowX:'hidden',
+    color:darkMode() == 'dark' ? 'white':''
+  });
+  })
   // Create run button
   const executeButton =  Button({
     variant:'contained',

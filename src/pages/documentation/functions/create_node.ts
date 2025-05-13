@@ -2,6 +2,7 @@ import { CreateNode, Print, renderBody, SetChild, Style, Text, Vanilla, Watch } 
 import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { Overlay } from "../../../components/overlay";
+import { darkMode, observeMode } from "../../../hooks/mode";
 import { isOn, setIsOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { prefersDark } from "../../../hooks/theme";
@@ -34,11 +35,20 @@ export const explianCreateNode = () => {
         icon:'code'
     });
      Vanilla(header,{
-            color:prefersDark ? 'white' : 'dark'
+            color:prefersDark ? 'white' : 'black'
         })
          Vanilla(explain,{
                  color:prefersDark ? 'white':''
         });
+
+        observeMode(() => {
+        Vanilla(header,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(explain,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+    })
     SetChild(div,tryIt);
     // const helpers = {
     //     createNode : (name:string) => HTMLElement

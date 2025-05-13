@@ -30,6 +30,7 @@ import { FormBar } from "../../components/form";
 import { Ai } from "../../components/Ai";
 import hero from '../../../public/nitebg.png';
 import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
+import { darkMode, observeMode } from "../../hooks/mode";
 
 
 export const HomePage = (): HTMLElement => {
@@ -51,7 +52,10 @@ export const HomePage = (): HTMLElement => {
     Style(page, 'w-100 flex flex-col overflow-hidden');
     Vanilla(page,{
         backgroundColor:prefersDark ? darkColor : ''
-    })
+    });
+
+
+    
     
    
     const appBar = AppBar({
@@ -61,6 +65,10 @@ export const HomePage = (): HTMLElement => {
         navigationclick:(index) => storeIndex(index),
         
     });
+
+    observeMode(() => {
+        
+    })
     
     SetChild(page, appBar);
 
@@ -86,6 +94,8 @@ export const HomePage = (): HTMLElement => {
         Vanilla(title,{
                 color:prefersDark ? 'white':''
             });
+
+       
        const _title = wrap({node:title});
         Style(title,'opacity-half');
         SetChild(sidebar,_title);
@@ -104,6 +114,14 @@ export const HomePage = (): HTMLElement => {
                 color:prefersDark ? 'white':'',
                  marginLeft:'10px'
             });
+
+            observeMode(() => {
+                Vanilla(anchor,{
+                color:darkMode() == 'dark' ? 'white':'',
+                 marginLeft:'10px'
+                 });
+            })
+
 
             const icon = useFontAwesomeIcon({iconStyle:sideIcons[index]});
             
@@ -131,6 +149,8 @@ export const HomePage = (): HTMLElement => {
         Vanilla(title2,{
                 color:prefersDark ? 'white':''
             });
+
+            
         const _title2 = wrap({node:title2});
         SetChild(sidebar,_title2);
 
@@ -157,13 +177,37 @@ export const HomePage = (): HTMLElement => {
             SetChild(div,anchor);
             SetChild(div,icon);
             SetChild(sidebar,div);
+
+             observeMode(() => {
+                Vanilla(page,{
+                    backgroundColor:darkMode() == 'dark' ? darkColor : ''
+                 });
+
+                 Vanilla(title,{
+                color:darkMode() == 'dark' ? 'white':''
+                });
+
+                Vanilla(title2,{
+                color:darkMode() == 'dark' ? 'white':''
+                 });
+
+                 Vanilla(icon,{
+                color:darkMode() == 'dark' ? 'white':'',
+                });
+
+                 Vanilla(anchor,{
+                color:darkMode() == 'dark' ? 'white':'',
+                marginLeft:'10px',
+                
+                });
+            })
             
            //remember
             div.addEventListener('click',()=>{
                 setCurrentPageIndex(2);
                 setMenuClicked(!isMenuClicked());
             })
-        });
+         });
        
 
             const overlay = CreateNode('div');
@@ -190,9 +234,21 @@ export const HomePage = (): HTMLElement => {
                 width:'60%',
                 height:'100vh',
                  zIndex:'200',
-                 backgroundColor: prefersDark ? darkColor :'white',
-                 boxShadow: prefersDark ? darkShadow : ''
+                 backgroundColor: darkMode() == 'dark' ? darkColor :'white',
+                 boxShadow: darkMode() == 'dark' ? darkShadow : ''
             });
+            observeMode(() => {
+                Vanilla(sidebar,{
+                position:'fixed',
+                top:'0',
+                right: isMenuClicked()  ? '0' : !isMenuClicked() && mediaQuery() != 'mobile' ? '-400%' :'-400px',
+                width:'60%',
+                height:'100vh',
+                 zIndex:'200',
+                 backgroundColor: darkMode() == 'dark' ? darkColor :'white',
+                 boxShadow: darkMode() == 'dark' ? darkShadow : ''
+            });
+            })
             if(isMenuClicked()){
                 if(overlay.classList.contains('hide')){
                     overlay.classList.remove('hide');
@@ -241,6 +297,22 @@ export const HomePage = (): HTMLElement => {
         position:'relative',
         backgroundColor:prefersDark ? darkColor : ''
     });
+
+    observeMode(() => {
+         Vanilla(container, {
+        flex: '1',
+        marginTop: '60px',
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '20px',
+        overflowY: 'auto',
+        overflowX:'hidden',
+        position:'relative',
+        backgroundColor:darkMode() == 'dark' ? darkColor : ''
+    });
+    })
 
     SetChild(page,container);
     
@@ -370,6 +442,19 @@ export const HomePage = (): HTMLElement => {
      });
     SetChild(section2, sub);
 
+    observeMode(() => {
+        Vanilla(subSecondText, {
+        fontSize: mobile.matches ? '11pt' :'14pt',
+        color:darkMode() == 'dark' ? 'white' : ''
+        });
+
+        Vanilla(secondText, {
+        fontSize: mobile.matches ? '12pt' :'18pt',
+        lineHeight: '1.4',
+        color: darkMode() == 'dark' ? 'white' : ''
+        });
+    })
+
     observe(() => {
        Vanilla(secondText, {
         fontSize: mediaQuery() == 'mobile' ? '12pt' :'18pt',
@@ -403,6 +488,17 @@ export const HomePage = (): HTMLElement => {
     });
     Style(searchBar, 'flex items-center gap-2 relative');
     SetChild(centeredSearchBar,searchBar);
+
+    observeMode(() => {
+        Vanilla(searchBar, {
+        width: '90%',
+        maxWidth: '500px',
+        padding: '10px 20px',
+        borderRadius: '8px',
+        backgroundColor: darkMode() == 'dark' ? darkColor :'#fff',
+        boxShadow: darkMode() == 'dark' ? darkShadow :'0 2px 8px rgba(0,0,0,0.1)'
+     });
+    });
     
     //Dropdown
     const functions: Record<string, string> = {
@@ -452,6 +548,25 @@ export const HomePage = (): HTMLElement => {
         paddingRight:'40px',
         color: prefersDark ? 'white':''
     });
+
+    observeMode(() => {
+        Vanilla(searchInput, {
+        padding: '10px',
+        border: 'none',
+        outline: 'none',
+        flex: '1',
+        backgroundColor: 'transparent',
+        paddingLeft:'20px',
+        paddingRight:'40px',
+        color: darkMode() == 'dark' ? 'white':''
+        });
+
+        if(darkMode() == 'dark'){
+        searchInput.classList.add('white-place-holder');
+        }else{
+        searchInput.classList.remove('white-place-holder');
+        }
+    });
     searchInput.placeholder = 'Search...';
     Style(searchInput, `input ${prefersDark ? 'white-place-holder':''}`);
     SetChild(searchBar, searchInput);
@@ -499,6 +614,11 @@ export const HomePage = (): HTMLElement => {
         color:prefersDark ? 'white':''
     })
     SetChild(container, worksWith);
+    observeMode(() => {
+        Vanilla(worksWith,{
+        color:darkMode() == 'dark' ? 'white':''
+    })
+    })
 
     const gridHolder = CreateNode('div');
     Style(gridHolder, 'w-100 max-w-5xl grid gap-4');
@@ -521,6 +641,7 @@ export const HomePage = (): HTMLElement => {
             boxShadow: prefersDark ? darkShadow : ''
         });
 
+
         const icon = CreateNode('img') as HTMLImageElement;
         icon.src = src;
         Vanilla(icon, {
@@ -537,6 +658,15 @@ export const HomePage = (): HTMLElement => {
         SetChild(div, label);
     
         SetChild(gridHolder, div);
+
+        observeMode(() => {
+            Vanilla(div,{
+            borderLeft: index == 0? '5px solid green' : index == 1 ? '5px solid black' : index == 2 ? '5px solid blue' : index == 3 ? '5px solid red':'',
+            backgroundColor: darkMode()=='dark' ? darkColor : '',
+            boxShadow: darkMode() == 'dark' ? darkShadow : ''
+        });
+        Vanilla(label, { fontSize: '12pt', textAlign: 'center', color: darkMode() == 'dark' ? 'white':''});
+        });
     });
 
     // document.querySelectorAll('.slide-in-a').forEach(el => {
@@ -571,6 +701,13 @@ export const HomePage = (): HTMLElement => {
         fontSize: mobile.matches ? '10pt' :'15pt',
         color:prefersDark ? 'white':''
         });
+
+        observeMode(() => {
+            Vanilla(li,{
+            fontSize: mobile.matches ? '10pt' :'15pt',
+            color:darkMode() == 'dark' ? 'white':''
+            });
+        })
     });
     Vanilla(benefits,{
         fontSize: desktop.matches ? '20pt' : ''
@@ -606,7 +743,14 @@ export const HomePage = (): HTMLElement => {
         width:mobile.matches ? '90%' : '30%'
     });
 
-    
+    observeMode(() => {
+        Vanilla(codespace,{
+        boxShadow: darkMode() == 'dark' ? darkShadow : '7px 4px 8px black',
+        //backgroundColor:'rgb(32, 29, 29)',
+        fontSize:mobile.matches ? '9pt':'',
+        width:mobile.matches ? '90%' : '30%'
+    });
+    })
     SetChild(codespace,p);
     
 
@@ -634,6 +778,15 @@ export const HomePage = (): HTMLElement => {
         fontSize:mobile.matches ? '11pt':'',
         color:prefersDark ? 'white':''
     });
+
+    observeMode(() => {
+        Vanilla(_text3,{
+        whiteSpace:'pre-line',
+        textAlign:'center',
+        fontSize:mobile.matches ? '11pt':'',
+        color:darkMode() == 'dark' ? 'white':''
+    });
+    })
     
     SetChild(watchText,_text3);
     SetChild(watchText,tryIt);
@@ -642,6 +795,11 @@ export const HomePage = (): HTMLElement => {
         boxShadow:prefersDark ? darkShadow : ''
     });
 
+    observeMode(() => {
+       Vanilla(watchText,{
+        boxShadow:darkMode() == 'dark' ? darkShadow : ''
+    }); 
+    })
     const section4 = CreateNode('div');
     Vanilla(section4,{
         display:'flex',
@@ -658,6 +816,12 @@ export const HomePage = (): HTMLElement => {
         marginBottom: desktop.matches ? '25%': tablet.matches ? '30%':'82%',
         boxShadow: prefersDark ? darkShadow : ''
     });
+    observeMode(() => {
+        Vanilla(videoHolder,{
+        marginBottom: desktop.matches ? '25%': tablet.matches ? '30%':'82%',
+        boxShadow: darkMode() == 'dark' ? darkShadow : ''
+        });
+    })
     observe(()=>{
         Vanilla(videoHolder,{
         marginBottom: mediaQuery() == 'desktop' ? '25%': mediaQuery() == 'tablet' ? '30%':'65%',
@@ -816,6 +980,16 @@ export function createText2(text?: string) {
         pre.classList.add('pre-dark');
         code.classList.add('code-dark');
     }
+
+   observeMode(() => {
+    if (darkMode() === 'dark') {
+        pre.classList.add('pre-dark');
+        code.classList.add('code-dark');
+    } else {
+        pre.classList.remove('pre-dark');
+        code.classList.remove('code-dark');
+    }
+});
     return pre;
 }
 export function createText(text?:string){
@@ -824,6 +998,13 @@ export function createText(text?:string){
         whiteSpace:'pre-line',
         color:prefersDark ? 'white':''
     });
+
+    observeMode(()=>{
+        Vanilla(p,{
+        whiteSpace:'pre-line',
+        color:darkMode() == 'dark' ? 'white':''
+        });
+    })
     Text(p,text);
     return p
 }
@@ -837,6 +1018,15 @@ function Center(item?: HTMLElement, full = true) {
             borderRight: '5px solid blue',
             backgroundColor:prefersDark ? darkColor : '',
             boxShadow:prefersDark ? darkShadow : ''
+        });
+
+        observeMode(() => {
+            Vanilla(node,{
+            borderLeft: '3px solid blue',
+            borderRight: '5px solid blue',
+            backgroundColor:darkMode() == 'dark' ? darkColor : '',
+            boxShadow:darkMode() == 'dark' ? darkShadow : ''
+        });
         })
     } else {
         Style(node, 'flex justify-center p-1 rounded');
@@ -846,7 +1036,17 @@ function Center(item?: HTMLElement, full = true) {
             boxShadow: prefersDark ? darkShadow : '',
             
         });
+
+        observeMode(() => {
+            Vanilla(node,{
+            backgroundColor: darkMode() == 'dark' ? 'rgba(0,0,0,0.1)' : 'rgb(234, 238, 243)',
+            //width:'95%',
+            boxShadow: darkMode() == 'dark' ? darkShadow : '',
+            
+        });
+        })
     }
+
     SetChild(node, item ?? CreateNode('div'));
 
     

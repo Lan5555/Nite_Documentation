@@ -7,6 +7,7 @@ import { Toast } from "../../components/toast";
 import { MediaQuery } from "../../hooks/mediaquery";
 import { Button } from '../../components/button'
 import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
+import { darkMode, observeMode } from "../../hooks/mode";
 
 export const GetStarted = (): HTMLElement => {
     const page = CreateNode('div') as HTMLElement;
@@ -27,6 +28,21 @@ export const GetStarted = (): HTMLElement => {
         //overflowY: 'auto'
     });
 
+    observeMode(() => {
+        Vanilla(page, {
+        flex: '1',
+        marginTop: '60px',
+        padding: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '10px',
+        backgroundColor: darkMode() == 'dark' ? darkColor : '',
+        height:'90vh'
+        //overflowY: 'auto'
+    });
+    });
+
     const image = CreateNode('img') as HTMLImageElement;
     image.src = bg;
     Style(image, 'absolute top-5');
@@ -41,6 +57,12 @@ export const GetStarted = (): HTMLElement => {
     Vanilla(info,{
         fontSize: mobile.matches ? '13pt':'15pt',
         color:prefersDark ? 'white':''
+    });
+    observeMode(() => {
+        Vanilla(info,{
+        fontSize: mobile.matches ? '13pt':'15pt',
+        color:darkMode() == 'dark' ? 'white':''
+    });
     })
     SetChild(page, info);
 
@@ -52,10 +74,23 @@ export const GetStarted = (): HTMLElement => {
             boxShadow:prefersDark ? darkShadow : ''
         });
 
+        observeMode(() => {
+            Vanilla(bar, {
+            background: darkMode() == 'dark' ? darkColor :'linear-gradient(to right,lightblue,lightblue,white)',
+            boxShadow:darkMode() == 'dark' ? darkShadow : ''
+        });
+        })
+
         const header = CreateNode('h3');
         Text(header, 'Contents');
         Vanilla(header,{
             color:prefersDark ? 'white':''
+        });
+
+        observeMode(() => {
+           Vanilla(header,{
+            color:darkMode() == 'dark' ? 'white':''
+        }); 
         })
         SetChild(bar, header);
 
@@ -74,6 +109,8 @@ export const GetStarted = (): HTMLElement => {
                // boxShadow: prefersDark ? darkShadow : ''
             });
 
+            
+
             const sideIcons = useFontAwesomeIcon({ iconStyle: icons[index] });
             Style(sideIcons, 'ml-3');
 
@@ -88,6 +125,23 @@ export const GetStarted = (): HTMLElement => {
             Vanilla(holder,{
                 backgroundColor:prefersDark ? darkColor : '',
                 boxShadow: prefersDark ? darkShadow : ''
+            });
+
+            observeMode(() => {
+                Vanilla(text,{
+                color:darkMode() == 'dark' ? 'white' : '',
+               // boxShadow: prefersDark ? darkShadow : ''
+             });
+
+             Vanilla(sideIcons,{
+                color:darkMode() == 'dark' ? 'white' : '',
+                //boxShadow: prefersDark ? darkShadow : ''
+            });
+
+            Vanilla(holder,{
+                backgroundColor:darkMode() == 'dark' ? darkColor : '',
+                boxShadow: darkMode() == 'dark' ? darkShadow : ''
+            });
             });
             
             SetChild(sideIconsAndText, sideIcons);
@@ -157,6 +211,15 @@ export const GetStarted = (): HTMLElement => {
     });
     SetChild(installProcessHolder, container);
 
+    observeMode(() => {
+         Vanilla(container, {
+        overflowY: 'auto',
+        maxHeight: mobile.matches ? '100vh':'70vh',
+        overflowX: mobile.matches ? 'hidden' : '',// ✅ Enable vertical scrolling
+        backgroundColor:darkMode() == 'dark' ? darkColor : '',
+        boxShadow:darkMode() == 'dark' ? darkShadow : ''
+    });
+    });
 
     if(desktop.matches){
         container.remove();
@@ -304,6 +367,20 @@ function installBar({ text,page }: Props): HTMLElement {
         backgroundColor:prefersDark ? darkColor : '',
         boxShadow:prefersDark ? darkShadow : ''
     });
+
+    observeMode(() => {
+         Vanilla(installBar, {
+        width: mobile.matches ? '95%' :'50%',
+        padding: '10px',
+        minHeight: '50px',
+        height: 'auto',
+        position: 'relative', // ensures absolute children are positioned correctly
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor:darkMode() == 'dark' ? darkColor : '',
+        boxShadow:darkMode() == 'dark' ? darkShadow : ''
+     });
+    })
     
     Style(installBar, `rounded shadow-dynamic color${mobile.matches ? '':'ml-6'}`);
 
@@ -314,6 +391,13 @@ function installBar({ text,page }: Props): HTMLElement {
     Vanilla(install,{
         fontSize:mobile.matches ? '10pt':'',
         color:prefersDark ? 'white':''
+    });
+
+    observeMode(() => {
+        Vanilla(install,{
+        fontSize:mobile.matches ? '10pt':'',
+        color:darkMode() == 'dark' ? 'white':''
+    });
     })
 
     const copyIcon = useFontAwesomeIcon({ iconStyle: 'fa fa-copy absolute top-2 right-2 cursor-pointer text-grey' });

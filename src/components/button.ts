@@ -1,4 +1,5 @@
 import { CreateNode, Style } from "../../lib/state";
+import { darkMode, observeMode } from "../hooks/mode";
 import { darkShadow, darkShadow1, prefersDark } from "../hooks/theme";
 import { useFontAwesomeIcon } from "./icons";
 
@@ -51,6 +52,23 @@ export const Button = ({ variant = 'default', text = 'Click Me', icon }: Props):
       boxShadow:prefersDark ? darkShadow1 : ''
     });
 
+    observeMode(() =>{
+      Object.assign(button.style, {
+      backgroundColor: darkMode()=='dark' ? 'black':'#1976d2',
+      color: 'white',
+      boxShadow:darkMode()=='dark' ? darkShadow1 : ''
+    });
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = darkMode()=='dark' ? 'white':'#1565c0';
+      button.style.color = darkMode()=='dark' ? 'black':'white'
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = darkMode()=='dark' ? 'black':'#1976d2';
+      button.style.color = darkMode()=='dark' ? 'white':'white'
+    });
+    })
+
     button.addEventListener('mouseover', () => {
       button.style.backgroundColor = prefersDark ? 'white':'#1565c0';
       button.style.color = prefersDark ? 'black':'white'
@@ -80,6 +98,12 @@ export const Button = ({ variant = 'default', text = 'Click Me', icon }: Props):
       backgroundColor: prefersDark ? 'black':'#f5f5f5',
       color: '#333',
     });
+    observeMode(() =>{
+      Object.assign(button.style, {
+        backgroundColor: darkMode()=='dark' ? 'black':'#f5f5f5',
+        color: '#333',
+      });
+    })
   }
 
   return button;

@@ -1,5 +1,6 @@
 import { Print,CreateNode, ListenForEvent, RenderInner, SetChild, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
+import { darkMode, observeMode } from "../../../hooks/mode";
 import { prefersDark } from "../../../hooks/theme";
 import { createText2} from "../../homepage/home";
 
@@ -15,11 +16,20 @@ export const explainRenderInner = () => {
 
     
          Vanilla(header,{
-            color:prefersDark ? 'white' : 'dark'
+            color:prefersDark ? 'white' : 'black'
         })
          Vanilla(explain,{
                  color:prefersDark ? 'white':''
         });
+
+        observeMode(() => {
+        Vanilla(header,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(explain,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+    })
 
     const useCases = CreateNode('div');
     const useCaseHeader = CreateNode('h4');
@@ -35,6 +45,28 @@ export const explainRenderInner = () => {
     SetChild(caseList, case2);
     SetChild(useCases, caseList);
     SetChild(div, useCases);
+
+    Vanilla(useCaseHeader,{
+        color:prefersDark ? 'white' : 'black'
+    });
+    Vanilla(case1,{
+        color:prefersDark ? 'white' : 'black'
+    });
+    Vanilla(case2,{
+        color:prefersDark ? 'white' : 'black'
+    });
+
+    observeMode(() => {
+        Vanilla(useCaseHeader,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    });
+    Vanilla(case1,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    });
+    Vanilla(case2,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    });
+    });
 
     return div;
 }

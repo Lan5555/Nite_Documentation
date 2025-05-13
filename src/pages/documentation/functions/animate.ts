@@ -8,6 +8,7 @@ import { SwitchBar } from "../../../components/switch";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { darkColor, prefersDark } from "../../../hooks/theme";
+import { darkMode, observeMode } from "../../../hooks/mode";
 
 export const explainAnimate = () => {
     const div = CreateNode('div');
@@ -28,12 +29,20 @@ export const explainAnimate = () => {
     SetChild(div,explain);
 
      Vanilla(header,{
-        color:prefersDark ? 'white' : 'dark'
+        color:prefersDark ? 'white' : 'black'
     })
      Vanilla(explain,{
              color:prefersDark ? 'white':''
     });
 
+    observeMode(() => {
+        Vanilla(header,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(explain,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+    })
     const tryIt = Button({
         variant:'contained',
         text:'Try it yourself',

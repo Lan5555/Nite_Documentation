@@ -8,6 +8,7 @@ import { back, setIndex } from "../hooks/dropdownstate";
 import { Toast } from "./toast";
 import { darkShadow, prefersDark } from "../hooks/theme";
 import { isOn, setIsOn } from "../hooks/overlayState";
+import { darkMode, observeMode, setDarkMode } from "../hooks/mode";
 
 interface Props{
     title:string,
@@ -35,10 +36,20 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
         backgroundColor: prefersDark ? '#121212':'',
         boxShadow:prefersDark ? darkShadow : ''
     }
+    observeMode(() => {
+        Vanilla(appBar,{
+            backgroundColor: darkMode() == 'dark' ? '#121212':'',   
+            boxShadow: darkMode() == 'dark' ? darkShadow : ''
+        });
+    })
     Vanilla(appBar,{...styles});
     const leadingTitleHolder = CreateNode('div');
     Style(leadingTitleHolder,'flex gap-3 justify-center items-center');
     let menuIcon = useFontAwesomeIcon({iconStyle:leading});
+
+    observeMode(() => {
+        menuIcon.style.color = darkMode() == 'dark' ? 'white':'black';
+    })
     const [visible2, setVisible, observer] = WatchFunction(false);
     
     menuIcon.addEventListener('click',() => {
@@ -71,24 +82,54 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
     const actionsHolder:HTMLElement = CreateNode('div');
     Style(actionsHolder,'flex justify-center gap-2 items-center mr-6');
 
+    
+
     const runFunc = (index: number):void => {
-        if(index == 0){
-            const theme = localStorage.getItem('theme');
-           localStorage.setItem('theme', theme == 'dark' ? 'light' : 'dark');
-           window.location.reload();
+         if (index === 0) {
+        const currentTheme = darkMode();
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setDarkMode(newTheme);
+       
         }else if(index == 1){
              Toast({text:'No notifications',type:'success',page:document.body})
         }else if(index == 2){
             Toast({text:'Current user',type:'success',page:document.body})
         }
     }
-    actions.forEach((element,index:number) => {
-        const icon = useFontAwesomeIcon({iconStyle:element});
-        SetChild(actionsHolder,icon);
-        icon.addEventListener('click',() => {
-            runFunc(index);
-        });
+    const secondIconBar = [
+  'fa fa-sun cursor-pointer btn-hover',
+  'fa fa-bell cursor-pointer btn-hover',
+  'fa fa-user cursor-pointer btn-hover'
+];
+
+actions.forEach((element, index: number) => {
+  const icon = useFontAwesomeIcon({ iconStyle: element });
+  const icon2 = useFontAwesomeIcon({ iconStyle: secondIconBar[index] });
+
+  // Attach event listeners to both icons
+  icon.addEventListener('click', () => runFunc(index));
+  icon2.addEventListener('click', () => runFunc(index));
+
+  // Add both icons to DOM but only one will be visible
+  SetChild(actionsHolder, icon);
+  SetChild(actionsHolder, icon2);
+
+  // Initial visibility
+  const updateIcons = () => {
+    const isDark = darkMode() === 'dark';
+    icon2.style.display = isDark ? 'none' : 'inline-block';
+    icon.style.display = isDark ? 'inline-block' : 'none';
+    
+    // Optional: set color based on mode
+    const color = isDark ? 'white' : 'black';
+    icon.style.color = color;
+    icon2.style.color = color;
+    };
+
+    observeMode(updateIcons); // Run on theme change
+    updateIcons(); // Run once at start
     });
+
     const centeredItems = CreateNode('div') as HTMLInputElement;
     Style(centeredItems,'flex justify-center gap-2');
     const icons =['fa fa-home','fa fa-book','fa fa-download','fa fa-code','fa fa-info-circle'];
@@ -97,12 +138,17 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
         Vanilla(anchor,{
             color: prefersDark ? 'white' : ''
         });
+        
         const anchorHolder = CreateNode('div');
         Style(anchorHolder,'flex justify-center items-center gap-1');
         Text(anchor,element);
         Style(anchorHolder,'cursor-pointer btn-hover');
         const icon = useFontAwesomeIcon({iconStyle:icons[index]});
         icon.style.color = prefersDark ? 'white' : ''
+        observeMode(() => {
+            anchor.style.color = darkMode() == 'dark' ? 'white':'black';
+            icon.style.color = darkMode() == 'dark' ? 'white':'black';
+        })
         SetChild(anchorHolder,icon);
         SetChild(anchorHolder,anchor);
         anchorHolder.addEventListener('click',() => {

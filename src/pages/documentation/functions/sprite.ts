@@ -1,5 +1,6 @@
 import { Print,CreateNode, SetChild, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
+import { darkMode, observeMode } from "../../../hooks/mode";
 import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
@@ -24,6 +25,9 @@ export const explainUseSpriteSheet = () => {
     const params = CreateNode('div');
     const paramHeader = CreateNode('h4');
     Text(paramHeader, 'Parameters:');
+    Vanilla(paramHeader,{
+        color:prefersDark ? 'white':'dark'
+    })
     SetChild(params, paramHeader);
     
     const paramList = CreateNode('ul');
@@ -42,7 +46,29 @@ export const explainUseSpriteSheet = () => {
         color:prefersDark ? 'white':''
     })
      Vanilla(param2,{
-        color:prefersDark ? 'white' : 'dark'
+        color:prefersDark ? 'white' : 'black'
+    })
+
+    observeMode(() => {
+        Vanilla(header,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(explain,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+
+     Vanilla(paramHeader,{
+        color:darkMode() == 'dark' ? 'white':'dark'
+    })
+    });
+
+    observeMode(() => {
+        Vanilla(param1,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(param2,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
     })
      
 

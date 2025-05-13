@@ -4,6 +4,7 @@ import { createText2 } from "../../homepage/home";
 import { SwitchBar } from "../../../components/switch";
 import { Toast } from "../../../components/toast";
 import { prefersDark } from "../../../hooks/theme";
+import { darkMode, observeMode } from "../../../hooks/mode";
 
 export const explainSwitchBar = () => {
     const div = CreateNode('div');
@@ -40,11 +41,29 @@ export const explainSwitchBar = () => {
         color:prefersDark ? 'white':''
     })
      Vanilla(th1,{
-        color:prefersDark ? 'white' : 'dark'
+        color:prefersDark ? 'white' : 'black'
     })
      Vanilla(th2,{
              color:prefersDark ? 'white':''
     });
+
+    observeMode(() => {
+        Vanilla(th1,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(th2,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+    })
+
+    observeMode(() => {
+        Vanilla(header,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(explain,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+    })
 
     // Add prop rows
     const addPropRow = (name: string, desc: string) => {
@@ -56,6 +75,27 @@ export const explainSwitchBar = () => {
         SetChild(row, td1);
         SetChild(row, td2);
         SetChild(propsTable, row);
+        Vanilla(row,{
+            color:prefersDark ? 'white':'black'
+        });
+        Vanilla(td1,{
+            color:prefersDark ? 'white':'black'
+        });
+        Vanilla(td2,{
+            color:prefersDark ? 'white':'black'
+        });
+
+        observeMode(()=>{
+            Vanilla(row,{
+            color:darkMode() == 'dark' ? 'white':'black'
+        });
+        Vanilla(td1,{
+            color:darkMode() == 'dark' ? 'white':'black'
+        });
+        Vanilla(td2,{
+            color:darkMode() == 'dark' ? 'white':'black'
+        });
+        })
     };
 
     addPropRow('activeColor', 'Color when switch is ON');

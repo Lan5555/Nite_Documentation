@@ -3,6 +3,7 @@ import { Button } from "../../../components/button";
 import { exambleBar } from "../../../components/example";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
+import { darkMode, observeMode } from "../../../hooks/mode";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
 import { prefersDark } from "../../../hooks/theme";
@@ -22,11 +23,20 @@ export const explianStyle = () => {
     
         
          Vanilla(header,{
-            color:prefersDark ? 'white' : 'dark'
+            color:prefersDark ? 'white' : 'black'
         })
          Vanilla(explain,{
                  color:prefersDark ? 'white':''
         });
+
+        observeMode(() => {
+        Vanilla(header,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(explain,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+    })
 
     const tryIt = Button({
         variant: 'contained',

@@ -33,6 +33,7 @@ import { setId } from "../../hooks/identification";
 import { back, index, next, setIndex } from "../../hooks/dropdownstate";
 import { _renderBodyExample, explainRenderBody } from "./functions/renderbody";
 import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
+import { darkMode, observeMode } from "../../hooks/mode";
 
 export const Documentation = ():HTMLElement => {
     const page = CreateNode('div');
@@ -47,6 +48,11 @@ export const Documentation = ():HTMLElement => {
         backgroundColor: prefersDark ? darkColor : '',
         overflowX:'hidden'
     });
+    observeMode(() => {
+        Vanilla(page, {
+            backgroundColor: darkMode() == 'dark' ? darkColor : ''
+        });
+    })
     Style(page,'relative');
 
     const header = createText2(`NITE's official documentation\nTypescript | Javascript | Java`);
@@ -389,12 +395,14 @@ export const Documentation = ():HTMLElement => {
                 backgroundColor: index == currentIndex() ? 'blue' : 'white'
             });
         });
+
+        
         const text = CreateNode('p');
         Text(text,``);
         SetChild(div,text);
         SetChild(pagesHolder,div);
         SetChild(navigationButtons,pagesHolder);
-        div.addEventListener('click',()=> handleDivClick(index))
+        div.addEventListener('click',()=> handleDivClick(index));
     });
     function handleDivClick(index:number){
         setCurrentIndex(index);
@@ -421,6 +429,17 @@ function explainer({node,color}:any){
         boxShadow: prefersDark ? darkShadow : ''
     });
     SetChild(div,node);
+    observeMode(() => {
+         Vanilla(div,{
+        width:'90%',
+        padding:'30px',
+        backgroundColor:darkMode() == 'dark' ? darkColor : 'rgba(26, 157, 251, 0.23)',
+        backgroundImage: darkMode() == 'dark' ? '':`url(${bg2})`,
+        backgroundPosition:'center',
+        backgroundSize:'cover',
+        boxShadow: darkMode() == 'dark' ? darkShadow : ''
+    });
+    })
     Style(div,'flex flex-col rounded shadow-dynamic');
     return div;
 }
@@ -429,14 +448,28 @@ export function example({page,textVal, large=false}:any){
     Vanilla(div,{
         width:'100%',
         boxShadow: prefersDark ? darkShadow : ''
-    })
+    });
+
+    
     const text = createText2(textVal ?? `Example below`);
     Vanilla(text,{
     fontSize:large ? '15pt' : '12pt',
     color:prefersDark ? 'white':''
     });
     SetChild(div,text);
-    SetChild(page,div)
+    SetChild(page,div);
+
+    observeMode(() => {
+        Vanilla(div,{
+        width:'100%',
+        boxShadow: darkMode() == 'dark' ? darkShadow : ''
+    });
+
+    Vanilla(text,{
+    fontSize:large ? '15pt' : '12pt',
+    color:darkMode() =='dark' ? 'white':''
+    });
+    })
 }
 
 function explainerExample({node,text}:any){
@@ -457,6 +490,23 @@ function explainerExample({node,text}:any){
         boxShadow: prefersDark ? darkShadow : '',
         backgroundColor: prefersDark ? darkColor : 'white'
     });
+
+    observeMode(() => {
+         Vanilla(div2,{
+        borderLeft:'4px solid blue',
+        boxShadow: darkMode() == 'dark' ? darkShadow : '',
+        backgroundColor: darkMode() == 'dark' ? darkColor : 'white'
+    });
+    Vanilla(div,{
+        width:'100%',
+        padding:'30px',
+        backgroundImage: darkMode() == 'dark' ? '':`url(${bg2})`,
+        backgroundPosition:'center',
+        backgroundSize:'cover',
+        boxShadow: darkMode() == 'dark' ? darkShadow : '',
+        backgroundColor: darkMode() == 'dark' ? darkColor : ''
+    });
+    })
 
     SetChild(div2,node);
     SetChild(div,div2);

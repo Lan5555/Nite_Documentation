@@ -14,6 +14,7 @@ import { MediaQuery } from "../../hooks/mediaquery";
 import { FormBar } from "../../components/form";
 import hero from '../../../public/nitebg.png';
 import { darkColor, darkShadow, darkShadow1, prefersDark } from "../../hooks/theme";
+import { darkMode, observeMode } from "../../hooks/mode";
 
 export const About = () => {
     const page = CreateNode('div') as HTMLElement;
@@ -44,6 +45,19 @@ export const About = () => {
         padding: '10px',
         backgroundColor:prefersDark ? darkColor : ''
     });
+    observeMode(() => {
+        Vanilla(page, {
+        flex: '1',
+        marginTop: '60px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        padding: '10px',
+        backgroundColor:darkMode() == 'dark' ? darkColor : ''
+    });
+    })
     Style(page, 'relative');
 
     // About Me Section
@@ -124,7 +138,14 @@ export const About = () => {
     Vanilla(subdiv,{
         backgroundColor:prefersDark ? darkColor : '',
         boxShadow: prefersDark ? darkShadow : ''
-    })
+    });
+
+    observeMode(() => {
+        Vanilla(subdiv,{
+        backgroundColor:darkMode() == 'dark' ? darkColor : '',
+        boxShadow: darkMode() == 'dark' ? darkShadow : ''
+    });
+    });
 
     const leftText = headerAndText({
         header: `I'm a passionate full-stack developer and the creator of NITE`,
@@ -278,6 +299,20 @@ export const About = () => {
         marginBottom: prefersDark ? '30px':''
     });
 
+    observeMode(() => {
+        Vanilla(thirdDiv, {
+        backgroundImage: darkMode() == 'dark' ? '':`url(${bg2})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '300px',
+        backgroundColor:darkMode() == 'dark' ? darkColor : '',
+        bocShadow: darkMode() == 'dark' ? darkShadow1 : '',
+        marginTop:darkMode() == 'dark' ? '10px':'',
+        marginBottom: darkMode() == 'dark' ? '30px':''
+    }); 
+    })
+
     const text2 = headerAndText({
         header: `My core stack includes React, Next.js, Flutter, Nite, and languages like TypeScript, Dart, C/C++, kotlin, javascript and Python.`,
         text: `I build performant, user-centric apps that are not only functional\n but also elegant and efficient. With a strong eye for design,\n structure, and user experience,\n I aim to create solutions that leave a lasting impact.`
@@ -297,6 +332,15 @@ export const About = () => {
 
     Vanilla(_colum2,{
         boxShadow:prefersDark ? darkShadow : ''
+    });
+
+    observeMode(() => {
+         Vanilla(_colum,{
+        boxShadow:darkMode() == 'dark' ? darkShadow : ''
+    });
+    Vanilla(_colum2,{
+        boxShadow:darkMode() == 'dark' ? darkShadow : ''
+    });
     })
 
     Array.from({ length: 2 }).forEach((_, index) => {

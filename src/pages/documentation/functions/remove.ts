@@ -1,6 +1,7 @@
 import { Print,CreateNode, ListenForEvent, RemoveClass, SetChild, Style, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { createClass } from "../../../components/class";
+import { darkMode, observeMode } from "../../../hooks/mode";
 import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
@@ -17,11 +18,20 @@ export const explainRemoveClass = () => {
     
          
          Vanilla(header,{
-            color:prefersDark ? 'white' : 'dark'
+            color:prefersDark ? 'white' : 'black'
         })
          Vanilla(explain,{
                  color:prefersDark ? 'white':''
         });
+
+        observeMode(() => {
+        Vanilla(header,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+     Vanilla(explain,{
+             color:darkMode() == 'dark' ? 'white':''
+    });
+    })
 
     const comparison = CreateNode('div');
     const compareHeader = CreateNode('h4');
@@ -37,6 +47,32 @@ export const explainRemoveClass = () => {
     SetChild(methodList, method2);
     SetChild(comparison, methodList);
     SetChild(div, comparison);
+
+    Vanilla(compareHeader,{
+        color:prefersDark ? 'white' : 'black'
+    });
+
+    Vanilla(method1,{
+         color:prefersDark ? 'white' : 'black'
+    })
+
+    Vanilla(method2,{
+         color:prefersDark ? 'white' : 'black'
+    });
+
+    observeMode(() => {
+        Vanilla(compareHeader,{
+        color:darkMode() == 'dark' ? 'white' : 'black'
+    });
+
+    Vanilla(method1,{
+         color:darkMode() == 'dark' ? 'white' : 'black'
+    })
+
+    Vanilla(method2,{
+         color:darkMode() == 'dark' ? 'white' : 'black'
+    });
+    })
 
     return div;
 }
