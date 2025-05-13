@@ -50,7 +50,7 @@ export const Documentation = ():HTMLElement => {
     });
     observeMode(() => {
         Vanilla(page, {
-            backgroundColor: darkMode() == 'dark' ? darkColor : ''
+            backgroundColor: darkMode() == 'dark' ? darkColor : 'white'
         });
     })
     Style(page,'relative');

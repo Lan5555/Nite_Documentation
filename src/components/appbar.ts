@@ -58,7 +58,7 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
     //     sidebarPass(visible2());
     //    }
     setIsOn(!isOn());
-        setMenuClicked(!isMenuClicked());
+    setMenuClicked(!isMenuClicked());
     });
     
     let iconHolder = desktop.matches ? CreateNode('div') : menuIcon;
@@ -102,33 +102,49 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
   'fa fa-user cursor-pointer btn-hover'
 ];
 
-actions.forEach((element, index: number) => {
-  const icon = useFontAwesomeIcon({ iconStyle: element });
-  const icon2 = useFontAwesomeIcon({ iconStyle: secondIconBar[index] });
+actions.forEach((element, index) => {
+  if (!secondIconBar[index]) return;
 
-  // Attach event listeners to both icons
-  icon.addEventListener('click', () => runFunc(index));
-  icon2.addEventListener('click', () => runFunc(index));
+  const icon = useFontAwesomeIcon({ iconStyle: element }); // for light mode
+  const icon2 = useFontAwesomeIcon({ iconStyle: secondIconBar[index] }); // for dark mode
 
-  // Add both icons to DOM but only one will be visible
+  const isDark = darkMode() === 'dark';
+  const initialColor = isDark ? 'white' : 'black';
+
+  // Set initial color
+  icon2.style.color = initialColor;
+  icon.style.color = initialColor;
+
+  // Show icon for light mode, icon2 for dark
+  icon2.style.display = isDark ? 'none' : 'inline-block';
+  icon.style.display = isDark ? 'inline-block' : 'none';
+
+  // Event listeners
+  const handler = () => runFunc(index);
+  icon.addEventListener('click', handler);
+  icon2.addEventListener('click', handler);
+
+  // Add both to DOM
   SetChild(actionsHolder, icon);
   SetChild(actionsHolder, icon2);
 
-  // Initial visibility
+  // React to theme change
   const updateIcons = () => {
     const isDark = darkMode() === 'dark';
+    const color = isDark ? 'white' : 'black';
+
     icon2.style.display = isDark ? 'none' : 'inline-block';
     icon.style.display = isDark ? 'inline-block' : 'none';
-    
-    // Optional: set color based on mode
-    const color = isDark ? 'white' : 'black';
+
     icon.style.color = color;
     icon2.style.color = color;
-    };
+  };
 
-    observeMode(updateIcons); // Run on theme change
-    updateIcons(); // Run once at start
-    });
+  observeMode(updateIcons);
+  updateIcons();
+});
+
+
 
     const centeredItems = CreateNode('div') as HTMLInputElement;
     Style(centeredItems,'flex justify-center gap-2');

@@ -31,6 +31,7 @@ import { Ai } from "../../components/Ai";
 import hero from '../../../public/nitebg.png';
 import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
 import { darkMode, observeMode } from "../../hooks/mode";
+import { isOn, setIsOn } from "../../hooks/overlayState";
 
 
 export const HomePage = (): HTMLElement => {
@@ -95,6 +96,12 @@ export const HomePage = (): HTMLElement => {
                 color:prefersDark ? 'white':''
             });
 
+        observeMode(() => {
+            Vanilla(title,{
+                color:darkMode() == 'dark' ? 'white':''
+            });
+        })
+
        
        const _title = wrap({node:title});
         Style(title,'opacity-half');
@@ -128,6 +135,12 @@ export const HomePage = (): HTMLElement => {
             Vanilla(icon,{
                 color:prefersDark ? 'white':'',
             });
+
+            observeMode(() => {
+                Vanilla(icon,{
+                color:darkMode() == 'dark' ? 'white':'',
+            });
+            })
             SetChild(div,anchor);
             SetChild(div,icon);
             SetChild(sidebar,div);
@@ -139,6 +152,7 @@ export const HomePage = (): HTMLElement => {
                     back.click();
                 }
                 setMenuClicked(!isMenuClicked());
+                setIsOn(!isOn())
             });
             
         });
