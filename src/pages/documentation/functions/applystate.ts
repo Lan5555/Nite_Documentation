@@ -5,21 +5,29 @@ import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { darkColor, darkShadow, prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explainApplyState = () => {
     const div = CreateNode('div');
     const header = CreateNode('h3');
+    Vanilla(header,{
+         color:prefersDark ? 'white':''
+    });
     SetChild(div, header);
     Text(header, 'ApplyState()');
     SetChild(div, header);
 
     const explain = createText2('Manages component state similar to React\'s useState hook.');
     SetChild(div, explain);
+    Vanilla(explain,{
+         color:prefersDark ? 'white':''
+    });
 
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
     SetChild(div, tryIt);
     const example = exambleBar({name:'ApplyState()',guideText:`const [count, setCount] = ApplyState(0);
@@ -71,10 +79,12 @@ button.addEventListener('click', () => setCount(count + 1));
 
     const example = createText2('Example');
     SetChild(div, example);
+   
 
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
     button.onclick = () => {
         setCurrentPageIndex(3)

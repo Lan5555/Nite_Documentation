@@ -4,8 +4,8 @@ import {observeLinks} from './src/hooks/register.ts';
 
 
 export const App = () => {
-  renderBody(HomePage());
   observeLinks();
+  renderBody(HomePage());
 }
 
 

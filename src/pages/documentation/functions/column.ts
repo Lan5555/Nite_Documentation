@@ -5,6 +5,7 @@ import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explainColumn = () => {
@@ -19,9 +20,16 @@ export const explainColumn = () => {
 
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
 
+     Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
     const example = exambleBar({name:'Column()',guideText:`const column = Column('center',{children:[]});`,functions:{
         CreateNode,
         Text,
@@ -76,7 +84,8 @@ const col = Column('center', {
 
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
     button.onclick = () => {
         setCurrentPageIndex(3)

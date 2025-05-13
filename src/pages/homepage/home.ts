@@ -10,7 +10,7 @@ import java from '../../../public/icons/java.png';
 import js from '../../../public/icons/js.png';
 import speed from '../../../public/icons/rocket.png';
 import code from '../../../public/icons/code.png';
-import bg from '../../../public/nite.jpg';
+import bg from '../../../public/nite.png';
 import logoVideo from '../../../public/logo.gif';
 import { GetStarted } from "../get_started/start";
 import { Toast } from "../../components/toast";
@@ -28,6 +28,8 @@ import { PlayGround } from "../playground/playground";
 import { About } from "../about/about";
 import { FormBar } from "../../components/form";
 import { Ai } from "../../components/Ai";
+import hero from '../../../public/nitebg.png';
+import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
 
 
 export const HomePage = (): HTMLElement => {
@@ -47,12 +49,15 @@ export const HomePage = (): HTMLElement => {
     });
 
     Style(page, 'w-100 flex flex-col overflow-hidden');
+    Vanilla(page,{
+        
+    })
     
    
     const appBar = AppBar({
         title: 'NITE',
-        leading: isMenuClicked() ? 'fa fa-close':'fa fa-bars cursor-pointer btn-hover',
-        actions: ['fa fa-bell cursor-pointer btn-hover', 'fa fa-user cursor-pointer btn-hover'],
+        leading: isMenuClicked() ? 'fa fa-close':`fa fa-bars cursor-pointer btn-hover ${prefersDark ? 'text-white' : ''}`,
+        actions: [`fa ${prefersDark ? 'fa-moon':'fa-sun'} cursor-pointer btn-hover ${prefersDark ? 'text-white' : ''}`,`fa fa-bell cursor-pointer btn-hover ${prefersDark ? 'text-white' : ''}`, `fa fa-user cursor-pointer btn-hover ${prefersDark ? 'text-white' : ''}`],
         navigationclick:(index) => storeIndex(index),
         
     });
@@ -78,6 +83,9 @@ export const HomePage = (): HTMLElement => {
         Style(sidebar,'shadow-dynamic transition relative flex justify-start gap-2 p-1 flex-col hide-bar');
         const title = CreateNode('h4');
         Text(title,'Navigation');
+        Vanilla(title,{
+                color:prefersDark ? 'white':''
+            });
        const _title = wrap({node:title});
         Style(title,'opacity-half');
         SetChild(sidebar,_title);
@@ -86,12 +94,22 @@ export const HomePage = (): HTMLElement => {
             const div = CreateNode('div');
             Style(div,'flex justify-between w-100 btn-hover cursor-pointer');
             Vanilla(div,{
-                alignItems:'center'
+                alignItems:'center',
+               
             })
             const anchor = CreateNode('a');
             Text(anchor,element);
+
+            Vanilla(anchor,{
+                color:prefersDark ? 'white':'',
+                 marginLeft:'10px'
+            });
+
             const icon = useFontAwesomeIcon({iconStyle:sideIcons[index]});
             
+            Vanilla(icon,{
+                color:prefersDark ? 'white':'',
+            });
             SetChild(div,anchor);
             SetChild(div,icon);
             SetChild(sidebar,div);
@@ -110,6 +128,9 @@ export const HomePage = (): HTMLElement => {
         const title2 = CreateNode('h4');
         Style(title2,'opacity-half');
         Text(title2,'Installation');
+        Vanilla(title2,{
+                color:prefersDark ? 'white':''
+            });
         const _title2 = wrap({node:title2});
         SetChild(sidebar,_title2);
 
@@ -123,8 +144,16 @@ export const HomePage = (): HTMLElement => {
             })
             const anchor = CreateNode('a');
             Text(anchor,element);
-            const icon = useFontAwesomeIcon({iconStyle:icons2[index]});
+            Vanilla(anchor,{
+                color:prefersDark ? 'white':'',
+                marginLeft:'10px',
+                
+            });
             
+            const icon = useFontAwesomeIcon({iconStyle:icons2[index]});
+            Vanilla(icon,{
+                color:prefersDark ? 'white':'',
+            });
             SetChild(div,anchor);
             SetChild(div,icon);
             SetChild(sidebar,div);
@@ -161,7 +190,8 @@ export const HomePage = (): HTMLElement => {
                 width:'60%',
                 height:'100vh',
                  zIndex:'200',
-                 backgroundColor:'white'
+                 backgroundColor: prefersDark ? darkColor :'white',
+                 boxShadow: prefersDark ? darkShadow : ''
             });
             if(isMenuClicked()){
                 if(overlay.classList.contains('hide')){
@@ -207,7 +237,9 @@ export const HomePage = (): HTMLElement => {
         alignItems: 'center',
         gap: '20px',
         overflowY: 'auto',
-        overflowX:'hidden'
+        overflowX:'hidden',
+        position:'relative',
+        backgroundColor:prefersDark ? darkColor : ''
     });
 
     SetChild(page,container);
@@ -224,6 +256,15 @@ export const HomePage = (): HTMLElement => {
 
     // Hero Section
     const section1 = CreateNode('div');
+    Vanilla(section1,{
+        backgroundImage:`url(${hero})`,
+        backgroundPosition:'center',
+        backgroundSize:'cover',
+        backgroundRepeat:'no-repeat',
+        position:'absolute',
+        top:'0',
+        
+    });
     Style(section1,'flex-container flex-col w-100');
     const logo = CreateNode('img') as HTMLImageElement;
     logo.src = bg;
@@ -237,11 +278,19 @@ export const HomePage = (): HTMLElement => {
 
     const introJet = CreateNode('img') as HTMLImageElement;
     introJet.src = jetImage;
-    Vanilla(introJet, { width: '30px', height: '30px' });
+    Vanilla(introJet, {
+         width: '30px',
+        height: '30px',
+        
+        });
 
     const Intro = CreateNode('h1');
     Text(Intro, `Reimagine Development.\nUnlock Limitless Functionality with Minimal Code.`);
     Style(Intro, 'font');
+    Vanilla(Intro,{
+        textAlign:'center',
+        whiteSpace: 'pre-line',
+    })
     observe(() => {
         Vanilla(Intro, {
             fontSize:
@@ -269,14 +318,14 @@ export const HomePage = (): HTMLElement => {
     SetChild(section1, actionRow);
 
     //Get started button
-    const button = Button({ variant: 'contained', text: 'Get Started' });
+    const button = Button({ variant: 'contained', text: 'Get Started', icon:'rocket' });
     SetChild(actionRow, button);
 
     button.addEventListener('click',()=>{
         setCurrentPageIndex(2);
     })
     
-    const button2 = Button({variant:'outlined',text:'Playground'});
+    const button2 = Button({variant:'outlined',text:'Playground', icon:'code'});
     SetChild(actionRow,button2);
     button2.addEventListener('click',()=>{
         setCurrentPageIndex(3);
@@ -290,6 +339,7 @@ export const HomePage = (): HTMLElement => {
         textAlign: 'center',
         textShadow: '1px 1px 1px #ccc',
         fontSize: mobile.matches ? '10pt' :'',
+        backdropFilter:'blur(5px)',
     });
     SetChild(section1, owner);
     SetChild(container,section1);
@@ -297,6 +347,9 @@ export const HomePage = (): HTMLElement => {
     // Section 2 - Description
     const section2 = CreateNode('div');
     Style(section2, 'w-100 max-w-5xl flex flex-col gap-4 items-center text-center px-2');
+    Vanilla(section2,{
+       marginTop: desktop.matches ? '50%':'85%'
+    })
     SetChild(container, section2);
 
     const secondText = CreateNode('h2');
@@ -304,6 +357,7 @@ export const HomePage = (): HTMLElement => {
     Vanilla(secondText, {
         fontSize: mobile.matches ? '12pt' :'18pt',
         lineHeight: '1.4',
+        color: prefersDark ? 'white' : ''
     });
     SetChild(section2, secondText);
 
@@ -312,8 +366,28 @@ export const HomePage = (): HTMLElement => {
     Text(subSecondText, 'It eliminates the need to write traditional HTML and CSS. It provides a powerful set of built-in CSS styles and predefined functions that let developers structure and style web interfaces using simplified, expressive commands.');
     Vanilla(subSecondText, {
         fontSize: mobile.matches ? '11pt' :'14pt',
+        color:prefersDark ? 'white' : ''
      });
     SetChild(section2, sub);
+
+    observe(() => {
+       Vanilla(secondText, {
+        fontSize: mediaQuery() == 'mobile' ? '12pt' :'18pt',
+        lineHeight: '1.4',
+        }); 
+
+         Vanilla(section2,{
+        marginTop: mediaQuery() == 'desktop' ? '50%':'75%'
+        });
+
+        Vanilla(owner, {
+        marginTop: '20px',
+        textAlign: 'center',
+        textShadow: '1px 1px 1px #ccc',
+        fontSize: mediaQuery() == 'mobile' ? '10pt' :'',
+        backdropFilter:'blur(5px)',
+     });
+    })
 
     // Search Bar
     const centeredSearchBar = CreateNode('div');
@@ -324,8 +398,8 @@ export const HomePage = (): HTMLElement => {
         maxWidth: '500px',
         padding: '10px 20px',
         borderRadius: '8px',
-        backgroundColor: '#fff',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        backgroundColor: prefersDark ? darkColor :'#fff',
+        boxShadow: prefersDark ? darkShadow :'0 2px 8px rgba(0,0,0,0.1)'
     });
     Style(searchBar, 'flex items-center gap-2 relative');
     SetChild(centeredSearchBar,searchBar);
@@ -375,10 +449,11 @@ export const HomePage = (): HTMLElement => {
         flex: '1',
         backgroundColor: 'transparent',
         paddingLeft:'20px',
-        paddingRight:'40px'
+        paddingRight:'40px',
+        color: prefersDark ? 'white':''
     });
     searchInput.placeholder = 'Search...';
-    Style(searchInput, 'input');
+    Style(searchInput, `input ${prefersDark ? 'white-place-holder':''}`);
     SetChild(searchBar, searchInput);
     searchInput.setAttribute('spellcheck', 'false');
     searchInput.setAttribute('autocorrect', 'off');
@@ -413,13 +488,16 @@ export const HomePage = (): HTMLElement => {
         }
     });
 
-    const searchButton = Button({ variant: 'contained', text: 'Search' });
+    const searchButton = Button({ variant: 'contained', text: 'Search',icon:'search' });
     Vanilla(searchButton,{position:'absolute',right:'10px'});
     SetChild(searchBar, searchButton);
 
     // Works With Section
     const worksWith = createText('Works With');
     Style(worksWith, 'text-lg font-bold mt-6');
+    Vanilla(worksWith,{
+        color:prefersDark ? 'white':''
+    })
     SetChild(container, worksWith);
 
     const gridHolder = CreateNode('div');
@@ -439,7 +517,8 @@ export const HomePage = (): HTMLElement => {
         Style(div, 'flex flex-col items-center bg-white shadowXl p-4 rounded slide-in-right');
         Vanilla(div,{
             borderLeft: index == 0? '5px solid green' : index == 1 ? '5px solid black' : index == 2 ? '5px solid blue' : index == 3 ? '5px solid red':'',
-            
+            backgroundColor: prefersDark ? darkColor : '',
+            boxShadow: prefersDark ? darkShadow : ''
         });
 
         const icon = CreateNode('img') as HTMLImageElement;
@@ -452,7 +531,7 @@ export const HomePage = (): HTMLElement => {
 
         const label = CreateNode('p');
         Text(label, labels[index]);
-        Vanilla(label, { fontSize: '12pt', textAlign: 'center' });
+        Vanilla(label, { fontSize: '12pt', textAlign: 'center', color: prefersDark ? 'white':''});
 
         SetChild(div, icon);
         SetChild(div, label);
@@ -490,6 +569,7 @@ export const HomePage = (): HTMLElement => {
         SetChild(benefits,li);
         Vanilla(li,{
         fontSize: mobile.matches ? '10pt' :'15pt',
+        color:prefersDark ? 'white':''
         });
     });
     Vanilla(benefits,{
@@ -520,11 +600,12 @@ export const HomePage = (): HTMLElement => {
     const codespace = CreateNode('div');
     Style(codespace,'rounded p-2 shadow-dynamic w-30');
     Vanilla(codespace,{
-        boxShadow:'7px 4px 8px black',
+        boxShadow: prefersDark ? darkShadow : '7px 4px 8px black',
         //backgroundColor:'rgb(32, 29, 29)',
         fontSize:mobile.matches ? '9pt':'',
         width:mobile.matches ? '90%' : '30%'
-    })
+    });
+
     
     SetChild(codespace,p);
     
@@ -532,7 +613,7 @@ export const HomePage = (): HTMLElement => {
     const tryIt = Button({
         variant:'contained',
         text:'Try it your self',
-        
+        icon:'code'
     });
     tryIt.addEventListener('click',()=> setCurrentPageIndex(3))
 
@@ -550,12 +631,16 @@ export const HomePage = (): HTMLElement => {
     Vanilla(_text3,{
         whiteSpace:'pre-line',
         textAlign:'center',
-        fontSize:mobile.matches ? '11pt':''
+        fontSize:mobile.matches ? '11pt':'',
+        color:prefersDark ? 'white':''
     });
     
     SetChild(watchText,_text3);
     SetChild(watchText,tryIt);
-    Style(watchText,'p-1 shadowXl rounded')
+    Style(watchText,'p-1 shadowXl rounded');
+    Vanilla(watchText,{
+        boxShadow:prefersDark ? darkShadow : ''
+    });
 
     const section4 = CreateNode('div');
     Vanilla(section4,{
@@ -569,6 +654,50 @@ export const HomePage = (): HTMLElement => {
 
     const videoHolder = CreateNode('div');
     Style(videoHolder,'relative w-100');
+    Vanilla(videoHolder,{
+        marginBottom: desktop.matches ? '25%': tablet.matches ? '30%':'82%',
+        boxShadow: prefersDark ? darkShadow : ''
+    });
+    observe(()=>{
+        Vanilla(videoHolder,{
+        marginBottom: mediaQuery() == 'desktop' ? '25%': mediaQuery() == 'tablet' ? '30%':'65%',
+        });
+
+        Vanilla(section4,{
+        display:'flex',
+        flexDirection:mediaQuery() == 'mobile' ? 'column':''
+        });
+
+        Vanilla(_text3,{
+        whiteSpace:'pre-line',
+        textAlign:'center',
+        fontSize:mediaQuery() == 'mobile' ? '11pt':''
+        });
+
+        Vanilla(codespace,{
+        boxShadow:'7px 4px 8px black',
+        //backgroundColor:'rgb(32, 29, 29)',
+        fontSize:mediaQuery() == 'mobile' ? '9pt':'',
+        width:mediaQuery() == 'mobile' ? '90%' : '30%'
+        });
+
+        Vanilla(benefits,{
+        fontSize: mediaQuery() == 'desktop' ? '20pt' : ''
+        });
+
+         Vanilla(finalTextCentered, {
+        maxWidth: '800px',
+        marginTop: '40px',
+        textAlign: 'center',
+        fontSize: mediaQuery() == 'mobile' ? '10pt' :'15pt',
+        });
+
+        Vanilla(gridHolder, {
+        display: 'grid',
+        gridTemplateColumns: mediaQuery() == 'mobile' ? '' : 'repeat(4, 1fr)',
+        padding: '20px'
+         });
+    })
     const shortVideo = CreateNode('img') as HTMLImageElement;
     shortVideo.src = logoVideo;
     SetChild(videoHolder,shortVideo);
@@ -580,7 +709,8 @@ export const HomePage = (): HTMLElement => {
     Style(shortVideo,'shadow-dynamic');
     const docButton = Button({
         variant:'contained',
-        text:'Go to Docs'
+        text:'Go to Docs',
+        icon:'book'
     });
     Style(docButton,'absolute bottom-2 right-1');
     docButton.onclick = () => {
@@ -592,12 +722,22 @@ export const HomePage = (): HTMLElement => {
     const footer = CreateNode('footer');
     Style(footer,'w-100 flex-container flex-col');
     Vanilla(footer,{
-         backgroundColor:'rgb(234, 238, 243)'
+         backgroundColor:'rgb(234, 238, 243)',
+         backgroundImage:`url(${hero})`,
+         backgroundPosition:'center',
+        backgroundSize:'cover',
+        backgroundRepeat:'no-repeat',
+        position:'absolute',
+        bottom:'0',
     });
     const footerItems = CreateNode('div');
     Style(footerItems,`flex justify-between w-100 ${mobile.matches ? 'gap-1':'gap-10'}`);
     SetChild(footer,footerItems);
     const leftItem = CreateNode('div');
+    Vanilla(leftItem,{
+        backdropFilter:'blur(3px)',
+        textShadow:'1px 1px 1px #ccc',
+    })
     const list = CreateNode('ul');
     ['Home','Docs','Installation','Playground','About'].forEach((element,index:number) => {
         const li = CreateNode('li');
@@ -606,8 +746,14 @@ export const HomePage = (): HTMLElement => {
             fontSize: mobile.matches ? '10pt' :'15pt',
             whiteSpace:'pre-line',
             marginTop:'20px',
-            cursor:'pointer'
+            cursor:'pointer',
+            color:'white',
         });
+        observe(()=>{
+            Vanilla(li,{
+                 fontSize: mediaQuery() == 'mobile' ? '10pt' :'15pt',
+            })
+        })
         Style(li,'btn-hover');
         SetChild(list,li);
         li.onclick = () =>{
@@ -623,11 +769,15 @@ export const HomePage = (): HTMLElement => {
         height:'200px',
         borderRadius:'20px',
         border:'1px solid white',
-        padding:'10px'
+        padding:'10px',
+        backdropFilter:'blur(3px)',
     });
     Vanilla(summary,{
-        fontSize:mobile.matches ? '7pt' : ''
+        fontSize:mobile.matches ? '7pt' : '',
+        textShadow:'1px 1px 1px #ccc',
+        color:'black'
     });
+   
     SetChild(RightItems,summary);
     SetChild(footerItems,RightItems);
     const footerText = CreateNode(`p`);
@@ -636,6 +786,16 @@ export const HomePage = (): HTMLElement => {
     Vanilla(footerText,{
     fontSize: mobile.matches ? '10pt' :'',
     });
+
+     observe(() => {
+        Vanilla(summary,{
+        fontSize:mediaQuery() == 'mobile' ? '7pt' : '',
+        textShadow:'1px 1px 1px #ccc',
+        });
+        Vanilla(footerText,{
+        fontSize: mediaQuery() == 'mobile' ? '10pt' :'',
+        });
+    })
     SetChild(container,footer);
     const askAI = Ai();
     SetChild(container,askAI);
@@ -652,12 +812,17 @@ export function createText2(text?: string) {
     if (typeof Prism !== 'undefined' && Prism.highlightElement) {
         Prism.highlightElement(code);
     }
+    if(prefersDark){
+        pre.classList.add('pre-dark');
+        code.classList.add('code-dark');
+    }
     return pre;
 }
 export function createText(text?:string){
     const p = CreateNode('p');
     Vanilla(p,{
         whiteSpace:'pre-line',
+        color:prefersDark ? 'white':''
     });
     Text(p,text);
     return p
@@ -670,12 +835,16 @@ function Center(item?: HTMLElement, full = true) {
         Vanilla(node,{
             borderLeft: '3px solid blue',
             borderRight: '5px solid blue',
+            backgroundColor:prefersDark ? darkColor : '',
+            boxShadow:prefersDark ? darkShadow : ''
         })
     } else {
         Style(node, 'flex justify-center p-1 rounded');
         Vanilla(node,{
-            backgroundColor:'rgb(234, 238, 243)',
-            wifth:'95%'
+            backgroundColor: prefersDark ? 'rgba(0,0,0,0.1)' : 'rgb(234, 238, 243)',
+            //width:'95%',
+            boxShadow: prefersDark ? darkShadow : '',
+            
         });
     }
     SetChild(node, item ?? CreateNode('div'));

@@ -1,11 +1,12 @@
 import { animate, CreateNode, route, SetChild, SetInner, Style, Text, Vanilla, Watch } from "../../../lib/state"
 import { useFontAwesomeIcon } from "../../components/icons";
 import { createText, createText2, HomePage } from "../homepage/home";
-import bg from '../../../public/nite.jpg';
+import bg from '../../../public/nite.png';
 import {nJToast} from '../../../lib/main';
 import { Toast } from "../../components/toast";
 import { MediaQuery } from "../../hooks/mediaquery";
 import { Button } from '../../components/button'
+import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
 
 export const GetStarted = (): HTMLElement => {
     const page = CreateNode('div') as HTMLElement;
@@ -21,6 +22,8 @@ export const GetStarted = (): HTMLElement => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: '10px',
+        backgroundColor: prefersDark ? darkColor : '',
+        height:'90vh'
         //overflowY: 'auto'
     });
 
@@ -36,7 +39,8 @@ export const GetStarted = (): HTMLElement => {
     const info = CreateNode('h1');
     Text(info, 'Get Started by Installing NITE');
     Vanilla(info,{
-        fontSize: mobile.matches ? '13pt':'15pt'
+        fontSize: mobile.matches ? '13pt':'15pt',
+        color:prefersDark ? 'white':''
     })
     SetChild(page, info);
 
@@ -44,11 +48,15 @@ export const GetStarted = (): HTMLElement => {
         const bar = CreateNode('div');
         Style(bar, 'shadow-dynamic w-20 p-1 rounded h-60-screen flex flex-col gap-3');
         Vanilla(bar, {
-            background: 'linear-gradient(to right,lightblue,lightblue,white)'
+            background: prefersDark ? darkColor :'linear-gradient(to right,lightblue,lightblue,white)',
+            boxShadow:prefersDark ? darkShadow : ''
         });
 
         const header = CreateNode('h3');
         Text(header, 'Contents');
+        Vanilla(header,{
+            color:prefersDark ? 'white':''
+        })
         SetChild(bar, header);
 
         const items = ['Installing', 'Setting Up', 'Configuration', 'Finishing'];
@@ -58,15 +66,30 @@ export const GetStarted = (): HTMLElement => {
             const holder = CreateNode('div');
             Style(holder, 'rounded shadow-dynamic bg-white flex justify-start items-center cursor-pointer');
 
+            
             const text = CreateNode('p');
             Text(text, element);
+            Vanilla(text,{
+                color:prefersDark ? 'white' : '',
+               // boxShadow: prefersDark ? darkShadow : ''
+            });
 
             const sideIcons = useFontAwesomeIcon({ iconStyle: icons[index] });
             Style(sideIcons, 'ml-3');
 
+            Vanilla(sideIcons,{
+                color:prefersDark ? 'white' : '',
+                //boxShadow: prefersDark ? darkShadow : ''
+            });
+
             const sideIconsAndText = CreateNode('div');
             Style(sideIconsAndText, 'flex justify-center items-center gap-2');
 
+            Vanilla(holder,{
+                backgroundColor:prefersDark ? darkColor : '',
+                boxShadow: prefersDark ? darkShadow : ''
+            });
+            
             SetChild(sideIconsAndText, sideIcons);
             SetChild(sideIconsAndText, text);
             SetChild(holder, sideIconsAndText);
@@ -128,7 +151,9 @@ export const GetStarted = (): HTMLElement => {
     Vanilla(container, {
         overflowY: 'auto',
         maxHeight: mobile.matches ? '100vh':'70vh',
-        overflowX: mobile.matches ? 'hidden' : '' // ✅ Enable vertical scrolling
+        overflowX: mobile.matches ? 'hidden' : '',// ✅ Enable vertical scrolling
+        backgroundColor:prefersDark ? darkColor : '',
+        boxShadow:prefersDark ? darkShadow : ''
     });
     SetChild(installProcessHolder, container);
 
@@ -172,7 +197,7 @@ export const GetStarted = (): HTMLElement => {
 
     Vanilla(details, {
         whiteSpace: 'pre-wrap',
-        marginLeft: mobile.matches ? '':'4rem',
+        //marginLeft: mobile.matches ? '':'4rem',
         fontSize:mobile.matches ? '10pt':''
     });
     const finalDetails1 = WrapWithStyle(details);
@@ -183,7 +208,7 @@ export const GetStarted = (): HTMLElement => {
     const details2 = createText2(secondText);
     Vanilla(details2,{
         whiteSpace: 'pre-wrap',
-        marginLeft: mobile.matches ? '':'4rem',
+       // marginLeft: mobile.matches ? '':'4rem',
         fontSize:mobile.matches ? '10pt':''
     });
     installBar2.id = 'config2';
@@ -223,7 +248,7 @@ export const GetStarted = (): HTMLElement => {
       );
       Vanilla(details3, {
         whiteSpace: 'pre-wrap',
-        marginLeft: mobile.matches ? '':'4rem',
+        //marginLeft: mobile.matches ? '':'4rem',
         fontSize:mobile.matches ? '10pt':''
       });
       details3.id = 'config3';
@@ -276,7 +301,8 @@ function installBar({ text,page }: Props): HTMLElement {
         position: 'relative', // ensures absolute children are positioned correctly
         display: 'flex',
         alignItems: 'center',
-        
+        backgroundColor:prefersDark ? darkColor : '',
+        boxShadow:prefersDark ? darkShadow : ''
     });
     
     Style(installBar, `rounded shadow-dynamic color${mobile.matches ? '':'ml-6'}`);
@@ -286,7 +312,8 @@ function installBar({ text,page }: Props): HTMLElement {
     SetChild(installBar, install);
     Style(install, 'absolute left-7');
     Vanilla(install,{
-        fontSize:mobile.matches ? '10pt':''
+        fontSize:mobile.matches ? '10pt':'',
+        color:prefersDark ? 'white':''
     })
 
     const copyIcon = useFontAwesomeIcon({ iconStyle: 'fa fa-copy absolute top-2 right-2 cursor-pointer text-grey' });

@@ -32,6 +32,7 @@ import { Toast } from "../../components/toast";
 import { setId } from "../../hooks/identification";
 import { back, index, next, setIndex } from "../../hooks/dropdownstate";
 import { _renderBodyExample, explainRenderBody } from "./functions/renderbody";
+import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
 
 export const Documentation = ():HTMLElement => {
     const page = CreateNode('div');
@@ -43,6 +44,8 @@ export const Documentation = ():HTMLElement => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: '2px',
+        backgroundColor: prefersDark ? darkColor : '',
+        overflowX:'hidden'
     });
     Style(page,'relative');
 
@@ -411,10 +414,11 @@ function explainer({node,color}:any){
     Vanilla(div,{
         width:'90%',
         padding:'30px',
-        backgroundColor:color ?? 'rgba(26, 157, 251, 0.23)',
-        backgroundImage:`url(${bg2})`,
+        backgroundColor:prefersDark ? darkColor : 'rgba(26, 157, 251, 0.23)',
+        backgroundImage: prefersDark ? '':`url(${bg2})`,
         backgroundPosition:'center',
-        backgroundSize:'cover'
+        backgroundSize:'cover',
+        boxShadow: prefersDark ? darkShadow : ''
     });
     SetChild(div,node);
     Style(div,'flex flex-col rounded shadow-dynamic');
@@ -423,11 +427,13 @@ function explainer({node,color}:any){
 export function example({page,textVal, large=false}:any){
     const div = CreateNode('div');
     Vanilla(div,{
-        width:'100%'
+        width:'100%',
+        boxShadow: prefersDark ? darkShadow : ''
     })
     const text = createText2(textVal ?? `Example below`);
     Vanilla(text,{
     fontSize:large ? '15pt' : '12pt',
+    color:prefersDark ? 'white':''
     });
     SetChild(div,text);
     SetChild(page,div)
@@ -438,16 +444,18 @@ function explainerExample({node,text}:any){
     Vanilla(div,{
         width:'100%',
         padding:'30px',
-        backgroundImage:`url(${bg2})`,
+        backgroundImage: prefersDark ? '':`url(${bg2})`,
         backgroundPosition:'center',
-        backgroundSize:'cover'
-
+        backgroundSize:'cover',
+        boxShadow: prefersDark ? darkShadow : '',
+        backgroundColor: prefersDark ? darkColor : ''
     });
     const div2 = CreateNode('div');
     Style(div2,'shadowXl p-1 relative');
     Vanilla(div2,{
         borderLeft:'4px solid blue',
-        backgroundColor:'white'
+        boxShadow: prefersDark ? darkShadow : '',
+        backgroundColor: prefersDark ? darkColor : 'white'
     });
 
     SetChild(div2,node);
@@ -475,11 +483,10 @@ export function Wrap({node}:any){
     const div = CreateNode('div');
     Style(div,'flex justify-center items-center');
     Vanilla(div,{
-        border:'1px solid black',
         boxSizing:'border-box',
         padding:'4px'
     });
-    Style(div,'absolute right-2 top-3 cursor-pointer');
+    Style(div,'absolute right-1 top-2 cursor-pointer shadow');
     SetChild(div,node);
     return div;
 }

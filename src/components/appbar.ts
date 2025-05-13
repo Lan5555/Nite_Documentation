@@ -1,11 +1,13 @@
 import { CreateNode, SetChild, Style, Text, Vanilla, Watch } from "../../lib/state";
 import { MediaQuery } from "../hooks/mediaquery";
 import { useFontAwesomeIcon } from "./icons";
-import bg from '../../public/nite.jpg';
+import bg from '../../public/nite.png';
 import { WatchFunction } from "../hooks/watch";
 import { isMenuClicked, setMenuClicked } from "../hooks/menuState";
 import { back, setIndex } from "../hooks/dropdownstate";
 import { Toast } from "./toast";
+import { darkShadow, prefersDark } from "../hooks/theme";
+import { isOn, setIsOn } from "../hooks/overlayState";
 
 interface Props{
     title:string,
@@ -25,11 +27,13 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
                 setMedia(media);
     }});
            
-    Style(appBar,`fixed top-0 shadowXl w-100 flex items-center ${desktop.matches ? 'justify-around':'justify-between'} z-20 bg-white`);
+    Style(appBar,`fixed top-0 shadow-dynamic w-100 flex items-center ${desktop.matches ? 'justify-around':'justify-between'} z-20 bg-white`);
     const styles = {
         paddingLeft:'30px',
         paddingRight:'20px',
-        zIndex:50
+        zIndex:50,
+        backgroundColor: prefersDark ? '#121212':'',
+        boxShadow:prefersDark ? darkShadow : ''
     }
     Vanilla(appBar,{...styles});
     const leadingTitleHolder = CreateNode('div');
@@ -42,6 +46,7 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
     //    if(sidebarPass){
     //     sidebarPass(visible2());
     //    }
+    setIsOn(!isOn());
         setMenuClicked(!isMenuClicked());
     });
     
@@ -68,8 +73,12 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
 
     const runFunc = (index: number):void => {
         if(index == 0){
-            Toast({text:'No notifications',type:'success',page:document.body})
-        }else{
+            const theme = localStorage.getItem('theme');
+           localStorage.setItem('theme', theme == 'dark' ? 'light' : 'dark');
+           window.location.reload();
+        }else if(index == 1){
+             Toast({text:'No notifications',type:'success',page:document.body})
+        }else if(index == 2){
             Toast({text:'Current user',type:'success',page:document.body})
         }
     }
@@ -82,18 +91,28 @@ export const AppBar = ({title,actions = [],leading, navigationclick,sidebarPass}
     });
     const centeredItems = CreateNode('div') as HTMLInputElement;
     Style(centeredItems,'flex justify-center gap-2');
+    const icons =['fa fa-home','fa fa-book','fa fa-download','fa fa-code','fa fa-info-circle'];
     ['Home','Documentation','Installation','Playground','About'].forEach((element:string,index:number) => {
         const anchor = CreateNode('a');
+        Vanilla(anchor,{
+            color: prefersDark ? 'white' : ''
+        });
+        const anchorHolder = CreateNode('div');
+        Style(anchorHolder,'flex justify-center items-center gap-1');
         Text(anchor,element);
-        Style(anchor,'cursor-pointer btn-hover')
-        anchor.addEventListener('click',() => {
+        Style(anchorHolder,'cursor-pointer btn-hover');
+        const icon = useFontAwesomeIcon({iconStyle:icons[index]});
+        icon.style.color = prefersDark ? 'white' : ''
+        SetChild(anchorHolder,icon);
+        SetChild(anchorHolder,anchor);
+        anchorHolder.addEventListener('click',() => {
             navigationClick(index);
             if(index != 1){
                 setIndex(1);
                 back.click();
             }
         });
-        SetChild(centeredItems,anchor);
+        SetChild(centeredItems,anchorHolder);
     });
     observe(() => {
         Vanilla(appBar,{

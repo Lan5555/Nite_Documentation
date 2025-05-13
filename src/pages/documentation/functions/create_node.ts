@@ -4,6 +4,7 @@ import { exambleBar } from "../../../components/example";
 import { Overlay } from "../../../components/overlay";
 import { isOn, setIsOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 import { example } from "../docs";
 
@@ -15,7 +16,8 @@ export const explianCreateNode = () => {
     const head = CreateNode('h4');
     Text(head,'Function:');
     Vanilla(head,{
-        fontSize:'12pt'
+        fontSize:'12pt',
+        color:prefersDark ? 'white':''
     })
     SetChild(div,head);
     Text(header,'CreateNode()');
@@ -25,10 +27,18 @@ export const explianCreateNode = () => {
     const explain = createText2('Creates a new HTML element and returns type => HTMLElement');
     SetChild(div,explain);
 
+
     const tryIt = Button({
         variant:'contained',
-        text:'Try it yourself'
+        text:'Try it yourself',
+        icon:'code'
     });
+     Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
     SetChild(div,tryIt);
     // const helpers = {
     //     createNode : (name:string) => HTMLElement
@@ -69,7 +79,8 @@ export const _CreateNodeExample = () => {
     SetChild(div,text);
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
     button.onclick = () => {
         setCurrentPageIndex(3)

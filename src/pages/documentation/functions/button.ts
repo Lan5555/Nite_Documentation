@@ -5,6 +5,7 @@ import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explianButton = () => {
@@ -13,17 +14,26 @@ export const explianButton = () => {
     SetChild(div, header);
     Text(header, 'Button()');
     SetChild(div, header);
+    
 
     const explain = createText2('Creates a button element with specified options.');
     SetChild(div, explain);
+    Vanilla(header,{
+        color:prefersDark ? 'white' : 'dark'
+    })
+     Vanilla(explain,{
+             color:prefersDark ? 'white':''
+    });
 
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
     const example = exambleBar({name:'Button()',guideText:`const button = Button({\n
         variant:'contained',
-        text:'This  is just a test'
+        text:'This  is just a test',
+        icon:'code', // icon is optional
         });\nreturn button`,functions:{
         CreateNode,
         Text,
@@ -60,8 +70,9 @@ export const explianButton = () => {
 export const _ButtonExample = () => {
     const div = CreateNode('div');
     const text = createText2(`
-const button = Button({ variant: 'contained', text: 'Click me' });
+const button = Button({ variant: 'contained', text: 'Click me', icon: 'code' // icon is optional});
     `);
+    
     SetChild(div, text);
 
     const example = createText2('Example');
@@ -69,8 +80,10 @@ const button = Button({ variant: 'contained', text: 'Click me' });
 
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
+    
     button.onclick = () => {
         setCurrentPageIndex(3)
         

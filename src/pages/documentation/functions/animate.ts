@@ -7,6 +7,7 @@ import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { SwitchBar } from "../../../components/switch";
 import { useFontAwesomeIcon } from "../../../components/icons";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { darkColor, prefersDark } from "../../../hooks/theme";
 
 export const explainAnimate = () => {
     const div = CreateNode('div');
@@ -15,7 +16,8 @@ export const explainAnimate = () => {
     const head = CreateNode('h4');
     Text(head,'class:');
     Vanilla(head,{
-        fontSize:'16pt'
+        fontSize:'16pt',
+        color:prefersDark ? 'white':''
     })
     SetChild(div,head);
     Text(header,'Animation');
@@ -25,9 +27,17 @@ export const explainAnimate = () => {
     const explain = createText2('Animates HTMLElements');
     SetChild(div,explain);
 
+     Vanilla(header,{
+        color:prefersDark ? 'white' : 'dark'
+    })
+     Vanilla(explain,{
+             color:prefersDark ? 'white':''
+    });
+
     const tryIt = Button({
         variant:'contained',
-        text:'Try it yourself'
+        text:'Try it yourself',
+        icon:'code'
     });
 
     const example = exambleBar({name:'animate',guideText:`call the animate class\ne.g animate.fadeIn(node,duration,infinite)`,functions:{
@@ -75,9 +85,6 @@ export const _AnimateExample = () => {
     });
     //Style(text,'ml-6');
     const example = createText2('Example');
-    Vanilla(example,{
-        fontSize:'14pt'
-    });
     SetChild(div,example);
     SetChild(div,text);
     const button = Button({

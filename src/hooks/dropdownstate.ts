@@ -12,10 +12,12 @@ export const searchInput = CreateNode('input') as HTMLInputElement;
 
 export const back = Button({
         variant:'contained',
-        text:'Back'
+        text:'Back',
+        icon:'arrow-left'
     });
     
     export const next = Button({
         variant:'contained',
-        text:'Next'
+        text:'Next',
+        icon:'arrow-right'
 });

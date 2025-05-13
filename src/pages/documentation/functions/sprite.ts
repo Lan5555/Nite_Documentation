@@ -1,5 +1,6 @@
 import { Print,CreateNode, SetChild, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explainUseSpriteSheet = () => {
@@ -11,6 +12,14 @@ export const explainUseSpriteSheet = () => {
 
     const explain = createText2('Creates animated sprite sheets for game development.');
     SetChild(div, explain);
+
+    
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
 
     const params = CreateNode('div');
     const paramHeader = CreateNode('h4');
@@ -27,9 +36,20 @@ export const explainUseSpriteSheet = () => {
     SetChild(params, paramList);
     SetChild(div, params);
 
+    
+     Vanilla(param1,{
+       
+        color:prefersDark ? 'white':''
+    })
+     Vanilla(param2,{
+        color:prefersDark ? 'white' : 'dark'
+    })
+     
+
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
     SetChild(div, tryIt);
     tryIt.onclick = () => {

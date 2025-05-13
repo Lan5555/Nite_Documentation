@@ -5,6 +5,7 @@ import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explainRenderBody = () => {
@@ -17,9 +18,18 @@ export const explainRenderBody = () => {
     const explain = createText2('Appends elements to the body');
     SetChild(div, explain);
 
+    
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
+
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
     const example = exambleBar({name:'renderBody()',guideText:`No guide available;`,functions:{
         CreateNode,
@@ -72,7 +82,8 @@ renderBody(app());
 
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
     button.onclick = () => {
         setCurrentPageIndex(3)

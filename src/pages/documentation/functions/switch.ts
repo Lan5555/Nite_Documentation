@@ -3,6 +3,7 @@ import { Button } from "../../../components/button";
 import { createText2 } from "../../homepage/home";
 import { SwitchBar } from "../../../components/switch";
 import { Toast } from "../../../components/toast";
+import { prefersDark } from "../../../hooks/theme";
 
 export const explainSwitchBar = () => {
     const div = CreateNode('div');
@@ -14,6 +15,15 @@ export const explainSwitchBar = () => {
     const explain = createText2('Creates customizable toggle switch component.');
     SetChild(div, explain);
 
+    
+        
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
+
     const propsTable = CreateNode('table');
     const headerRow = CreateNode('tr');
     const th1 = CreateNode('th');
@@ -23,6 +33,18 @@ export const explainSwitchBar = () => {
     SetChild(headerRow, th1);
     SetChild(headerRow, th2);
     SetChild(propsTable, headerRow);
+
+    
+     Vanilla(headerRow,{
+       
+        color:prefersDark ? 'white':''
+    })
+     Vanilla(th1,{
+        color:prefersDark ? 'white' : 'dark'
+    })
+     Vanilla(th2,{
+             color:prefersDark ? 'white':''
+    });
 
     // Add prop rows
     const addPropRow = (name: string, desc: string) => {

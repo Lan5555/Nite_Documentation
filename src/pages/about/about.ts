@@ -12,6 +12,8 @@ import { Position } from "monaco-editor";
 import { WatchFunction } from "../../hooks/watch";
 import { MediaQuery } from "../../hooks/mediaquery";
 import { FormBar } from "../../components/form";
+import hero from '../../../public/nitebg.png';
+import { darkColor, darkShadow, darkShadow1, prefersDark } from "../../hooks/theme";
 
 export const About = () => {
     const page = CreateNode('div') as HTMLElement;
@@ -39,7 +41,8 @@ export const About = () => {
         alignItems: 'center',
         overflowY: 'auto',
         overflowX: 'hidden',
-        padding: '10px'
+        padding: '10px',
+        backgroundColor:prefersDark ? darkColor : ''
     });
     Style(page, 'relative');
 
@@ -47,7 +50,7 @@ export const About = () => {
     const aboutMe = CreateNode('div') as HTMLElement;
     Style(aboutMe, `w-100 color p-1 flex justify-around items-center relative shadow-dynamic`);
     Vanilla(aboutMe, {
-        backgroundImage: `url(${bg2})`,
+        backgroundImage: `url(${hero})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -118,6 +121,10 @@ export const About = () => {
     // Skills Section
     const subdiv = CreateNode('div') as HTMLElement;
     Style(subdiv, `shadowXl w-100 p-1 flex relative`);
+    Vanilla(subdiv,{
+        backgroundColor:prefersDark ? darkColor : '',
+        boxShadow: prefersDark ? darkShadow : ''
+    })
 
     const leftText = headerAndText({
         header: `I'm a passionate full-stack developer and the creator of NITE`,
@@ -152,7 +159,7 @@ export const About = () => {
             height: 'auto',
             objectFit: 'contain'
         });
-        Style(logo, 'shadow-dynamic');
+        //Style(logo, 'shadow-dynamic');
         logo.src = element;
         logo.alt = 'Tech icon';
         SetChild(div, logo);
@@ -258,13 +265,17 @@ export const About = () => {
 
     // Core Stack Section
     const thirdDiv = CreateNode('div') as HTMLElement;
-    Style(thirdDiv, 'w-100 color p-1 relative flex justify-around items-center shadow-dynamic');
+    Style(thirdDiv, `w-100 color p-1 relative flex justify-around items-center shadow-dynamic`);
     Vanilla(thirdDiv, {
-        backgroundImage: `url(${bg2})`,
+        backgroundImage: prefersDark ? '':`url(${bg2})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        minHeight: '300px'
+        minHeight: '300px',
+        backgroundColor:prefersDark ? darkColor : '',
+        bocShadow: prefersDark ? darkShadow1 : '',
+        marginTop:prefersDark ? '10px':'',
+        marginBottom: prefersDark ? '30px':''
     });
 
     const text2 = headerAndText({
@@ -277,8 +288,16 @@ export const About = () => {
 
     const _colum = CreateNode('div') as HTMLElement;
     Style(_colum, 'flex flex-col gap-2');
+    Vanilla(_colum,{
+        boxShadow:prefersDark ? darkShadow : ''
+    });
+    
     const _colum2 = CreateNode('div') as HTMLElement;
     Style(_colum2, 'flex flex-col gap-2');
+
+    Vanilla(_colum2,{
+        boxShadow:prefersDark ? darkShadow : ''
+    })
 
     Array.from({ length: 2 }).forEach((_, index) => {
         const div = CreateNode('div') as HTMLElement;
@@ -413,7 +432,8 @@ function headerAndText({ header, text, size = 15 }: any) {
         whiteSpace: 'pre-line',
         marginBottom: '1rem',
         fontSize: `${size}pt`,
-        color:'lightblue'
+        color:'lightblue',
+        textShadow:'0 0 2px black'
     });
 
     const textValue = createText2(text) as HTMLElement;

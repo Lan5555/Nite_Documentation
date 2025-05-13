@@ -5,6 +5,7 @@ import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explianVanilla = () => {
@@ -17,9 +18,19 @@ export const explianVanilla = () => {
     const explain = createText2('Applies inline styles to an element.');
     SetChild(div, explain);
 
+    
+        
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
+
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
     SetChild(div, tryIt);
     const example = exambleBar({name:'Vanilla()',guideText:`const page = CreateNode('div');\nconst styles = {width:'30%',height:'100px'}\nVanilla(page,{...styles});`,functions:{
@@ -67,7 +78,8 @@ Vanilla(element, { color: 'red', fontSize: '16px' });
 
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
     button.onclick = () => {
         setCurrentPageIndex(3)

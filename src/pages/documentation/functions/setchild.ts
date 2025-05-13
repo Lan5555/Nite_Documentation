@@ -5,6 +5,7 @@ import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explianSetChild = () => {
@@ -17,9 +18,18 @@ export const explianSetChild = () => {
     const explain = createText2('Appends one or more child nodes to a parent element with validation.');
     SetChild(div, explain);
 
+    
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
+
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
     SetChild(div, tryIt);
     const example = exambleBar({name:'SetChild()',guideText:`const container = CreateNode('div);\nconst p = CreateNode('p');\nText(p,'Sample Text');\nSetChild(container,p);`,functions:{
@@ -70,7 +80,8 @@ SetChild(parent, child1, child2); // Adds both children
 
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
     button.onclick = () => {
         setCurrentPageIndex(3)

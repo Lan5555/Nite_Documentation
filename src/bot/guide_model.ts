@@ -37,8 +37,9 @@ const content:FunctionContent[] = [
         explaination:'Sets child of a node',
         example:`
         const parent = CreateNode('div');
-        const child = CreateNode('span');
-        SetChild(parent, child);`
+        const child1 = CreateNode('span');
+        const child2 = CreateNode('span');
+        SetChild(parent, child1,child2); // Adds both children`
     },
     {
         function:'Style()',
@@ -208,6 +209,9 @@ const content:FunctionContent[] = [
         ListenForEvent(button, 'click', () => {
             console.log('Button clicked');
         });
+
+        HandleEvent() is the same as ListenForEvent() but it is more generic and can be used for any event.
+        implementation is the same as ListenForEvent()
         `
     },
     {
@@ -266,7 +270,8 @@ const content:FunctionContent[] = [
         example:`
         const button = Button({
             variant: 'contained',
-            text: 'Click me'
+            text: 'Click me',
+            icon: 'code', // icon is optional
         });
         `
     },

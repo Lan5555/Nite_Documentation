@@ -1,5 +1,6 @@
 import { Print,CreateNode, ListenForEvent, RenderInner, SetChild, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2} from "../../homepage/home";
 
 export const explainRenderInner = () => {
@@ -11,6 +12,14 @@ export const explainRenderInner = () => {
 
     const explain = createText2('Specialized state manager for sprite positioning. Returns [value, setter].');
     SetChild(div, explain);
+
+    
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
 
     const useCases = CreateNode('div');
     const useCaseHeader = CreateNode('h4');

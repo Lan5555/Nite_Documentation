@@ -1,6 +1,7 @@
 import { Print,CreateNode, ListenForEvent, RemoveClass, SetChild, Style, Text, Vanilla } from "../../../../lib/state";
 import { Button } from "../../../components/button";
 import { createClass } from "../../../components/class";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2 } from "../../homepage/home";
 
 export const explainRemoveClass = () => {
@@ -12,6 +13,15 @@ export const explainRemoveClass = () => {
 
     const explain = createText2('Removes CSS class(es) from a DOM element. Opposite of Style().');
     SetChild(div, explain);
+
+    
+         
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
 
     const comparison = CreateNode('div');
     const compareHeader = CreateNode('h4');
@@ -55,7 +65,8 @@ RemoveClass(box, 'active');
     
     const toggleBtn = Button({
         variant: 'outlined',
-        text: 'Toggle Border Class'
+        text: 'Toggle Border Class',
+        icon: 'sync'
     });
     
     ListenForEvent(toggleBtn, 'click', () => {

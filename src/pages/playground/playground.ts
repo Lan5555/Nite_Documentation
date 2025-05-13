@@ -3,11 +3,13 @@ import * as monaco from 'monaco-editor';
 import { useFontAwesomeIcon } from "../../components/icons";
 import { Button } from "../../components/button";
 import { Toast } from "../../components/toast";
+import { darkColor, prefersDark } from "../../hooks/theme";
 
 export const PlayGround = (): HTMLElement => {
   const container = CreateNode('div') as HTMLDivElement;
   Vanilla(container,{
-    overflowX:'hidden'
+    overflowX:'hidden',
+    backgroundColor:prefersDark ? darkColor : ''
   })
   
   // Create editor container
@@ -27,13 +29,15 @@ export const PlayGround = (): HTMLElement => {
     overflow:'auto',
     border:'1px solid #333',
     padding:'10px',
-    overflowX:'hidden'
+    overflowX:'hidden',
+    color:prefersDark ? 'white':''
   });
   
   // Create run button
   const executeButton =  Button({
     variant:'contained',
-    text:'Execute'
+    text:'Execute',
+    icon:'play'
   });
   executeButton.style.margin = '10px 0';
   Vanilla(executeButton,{
@@ -54,6 +58,7 @@ export const PlayGround = (): HTMLElement => {
   });
 
   // Function to set output
+  const style = prefersDark ? 'white':''
   const setOutput = (message: string) => {
     outputContainer.innerHTML += `<div>${message}</div>`;
   };

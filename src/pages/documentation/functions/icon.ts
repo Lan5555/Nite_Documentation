@@ -5,6 +5,7 @@ import { useFontAwesomeIcon } from "../../../components/icons";
 import { Overlay } from "../../../components/overlay";
 import { setIsOn, isOn } from "../../../hooks/overlayState";
 import { setCurrentPageIndex } from "../../../hooks/routestate";
+import { prefersDark } from "../../../hooks/theme";
 import { createText2} from "../../homepage/home";
 
 export const explianUseFontAwesomeIcon = () => {
@@ -17,9 +18,18 @@ export const explianUseFontAwesomeIcon = () => {
     const explain = createText2('Returns a Font Awesome icon component with specified classes.');
     SetChild(div, explain);
 
+    
+         Vanilla(header,{
+            color:prefersDark ? 'white' : 'dark'
+        })
+         Vanilla(explain,{
+                 color:prefersDark ? 'white':''
+        });
+
     const tryIt = Button({
         variant: 'contained',
-        text: 'Try it yourself'
+        text: 'Try it yourself',
+        icon:'code'
     });
     SetChild(div, tryIt);
     const example = exambleBar({name:'UseFontAwesomeIcon()',guideText:`const icon = UseFontAwesomeIcon('fa fa-user');\n`,functions:{
@@ -66,7 +76,8 @@ const icon = UseFontAwesomeIcon({ iconStyle: 'fa fa-home' });
 
     const button = Button({
         variant:'contained',
-        text:'Playground'
+        text:'Playground',
+        icon:'code'
     });
     button.onclick = () => {
         setCurrentPageIndex(3)
