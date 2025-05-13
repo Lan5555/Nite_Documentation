@@ -28,6 +28,7 @@ export const Toast = ({text,color,duration, type,page}:Props) => {
         SetChild(div,iconBar);
     }
     const textValue = createText(text);
+    textValue.style.color = 'black';
     SetChild(div,textValue);
     setTimeout(() => {
         div.remove();
