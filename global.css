@@ -85,6 +85,18 @@ body{
         font-size: 13pt;
         top:'10px'
     }
+   .special-pre {
+    white-space: pre-wrap !important;               /* Wrap text instead of forcing overflow */
+    word-break: break-word !important;             /* Break long words if needed */
+    overflow-x: auto !important;                   /* Allow horizontal scroll if wrapping fails */ 
+    max-width: 80% !important;                    /* Take up full width of container */
+    box-sizing: border-box !important;
+    background-color: transparent !important;
+    background: none !important;
+}
+.special-pre::-webkit-scrollbar {
+   height:2px !important;
+}
 }
 @media only screen and (min-width:1024px){
     .font{
@@ -113,6 +125,14 @@ body{
     .font-sm{
         top:'90px'
     }
+    .special-pre{
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    background-color:transparent !important;
+    overflow: auto !important;
+    box-sizing: border-box !important;
+     background: none !important;
+}
 }
 @media only screen and (min-width:542px) and (max-width:1024px){
     .font{
@@ -141,6 +161,14 @@ body{
     .font-xs{
         font-size: 10pt !important;
     }
+
+    .special-pre{
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    background-color: transparent !important;
+    box-sizing: border-box !important;
+     background: none !important;
+}
 }
 .input::placeholder{
     color: black;
@@ -181,14 +209,22 @@ body{
 }
 
 pre,code{
-    white-space: pre-wrap;
-    word-break: break-word;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
     border-radius: 10px !important;
     background-color: rgb(234, 238, 243) !important;
+    overflow: auto !important;
+    scrollbar-width: none;        /* Hide scrollbar in Firefox */
+    -ms-overflow-style: none; 
+    box-sizing: border-box !important;
+     background: none !important;
 }
 pre::-webkit-scrollbar{
     height: 3px !important;
+   
 }
+
+
 .fade{
     animation: fadeX 0.5s ease-in-out;
 }

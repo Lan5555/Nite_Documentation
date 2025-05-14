@@ -4,7 +4,7 @@ import { _Text } from "../hooks/animated_text";
 import { MediaQuery } from "../hooks/mediaquery";
 import { isOn, setIsOn } from "../hooks/overlayState";
 import { WatchFunction } from "../hooks/watch";
-import { createText } from "../pages/homepage/home";
+import { createText, createText2, createText3 } from "../pages/homepage/home";
 import { iconButton } from "./iconbuttn";
 import { useFontAwesomeIcon } from "./icons";
 import { Toast } from "./toast";
@@ -269,7 +269,7 @@ export const Ai = () => {
            borderTopLeftRadius: '10px',
             borderTopRightRadius: '10px',
             borderBottomRightRadius: '20px',
-            backgroundColor: '#e6f4ea',
+            backgroundColor: 'rgb(234, 238, 243)',
             color: 'black',
             padding: '10px',
             marginBottom: '10px',
@@ -312,7 +312,7 @@ export const Ai = () => {
         observeState(()=>{
             if(!currentState()){
             iconANdText.style.display = 'none';
-            aiMessageBar.style.backgroundColor = '#e6f4ea';
+            aiMessageBar.style.backgroundColor = 'rgb(234, 238, 243)';
             aiMessageBar.style.color = '';
         }else{
             iconANdText.style.display = 'flex';
@@ -322,18 +322,21 @@ export const Ai = () => {
         }
         })
         
-        
-        _Text.setText('span', text,aiMessageBar);
-            _Text.animate();
-            _Text.Style({
-                color: 'black',
-                textShadow: '',
-                fontWeight: '',
-                fontFamily: 'sans-serif',
-                fontSize: mobile.matches ? '0.8rem':'1rem',
-                letterSpacing: '1.5px',
+       const textVal = createText3(text);
+        // _Text.setText('span', text,aiMessageBar);
+        //     _Text.animate();
+        //     _Text.Style({
+        //         color: 'black',
+        //         textShadow: '',
+        //         fontWeight: '',
+        //         fontFamily: 'sans-serif',
+        //         fontSize: mobile.matches ? '0.8rem':'1rem',
+        //         letterSpacing: '1.5px',
                
-            });
+        //     });
+        
+            SetChild(aiMessageBar, textVal);
+    
         SetChild(aiMessageBar, iconANdText);
         aiMessageBar.addEventListener('mouseover', () => {
             setState(true);

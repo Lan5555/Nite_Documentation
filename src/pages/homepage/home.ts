@@ -21,7 +21,7 @@ import { Documentation } from "../documentation/docs";
 import { isMenuClicked, observeMenu, setMenuClicked } from "../../hooks/menuState";
 import { createClass } from "../../components/class";
 import { DropDown } from "../../components/dropdown";
-import { back, open, searchInput, setIndex, setOpen } from "../../hooks/dropdownstate";
+import { back, mobile, open, searchInput, setIndex, setOpen } from "../../hooks/dropdownstate";
 import { setCurrentPageIndex, observe1, currentPageIndex} from "../../hooks/routestate";
 import { observerMovement } from "../../hooks/observer";
 import { PlayGround } from "../playground/playground";
@@ -32,6 +32,7 @@ import hero from '../../../public/nitebg.png';
 import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
 import { darkMode, observeMode } from "../../hooks/mode";
 import { isOn, setIsOn } from "../../hooks/overlayState";
+import { _Text } from "../../hooks/animated_text";
 
 
 export const HomePage = (): HTMLElement => {
@@ -1006,6 +1007,45 @@ export function createText2(text?: string) {
 });
     return pre;
 }
+
+export function createText3(text: string) {
+    // Remove all triple backticks from the input text
+    text = text.replace(/```/g, '');
+
+    // Create <pre> and apply layout/style class
+    const pre = CreateNode('pre');
+    Style(pre, 'special-pre'); // Layout and appearance
+
+    // Create <code> with syntax highlight class only
+    const code = CreateNode('code');
+    code.className = 'language-typescript';
+
+    // Nest code inside pre
+    SetChild(pre, code);
+
+    let index = 0;
+
+    // Type character by character
+    function typeChar() {
+        if (index < text.length) {
+            code.textContent += text.charAt(index);
+            index++;
+            setTimeout(typeChar, 15); // typing speed in ms
+        } else {
+            // Highlight once typing is complete
+            if (typeof Prism !== 'undefined' && Prism.highlightElement) {
+                Prism.highlightElement(code);
+            }
+        }
+    }
+
+    typeChar(); // Start typing
+
+    return pre;
+}
+
+
+
 export function createText(text?:string){
     const p = CreateNode('p');
     Vanilla(p,{

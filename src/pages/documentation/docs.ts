@@ -30,7 +30,7 @@ import { _WatchExample, explainWatch } from "./functions/watch";
 import bg2 from '../../../public/bg2.jpg'
 import { Toast } from "../../components/toast";
 import { setId } from "../../hooks/identification";
-import { back, index, next, setIndex } from "../../hooks/dropdownstate";
+import { back, index, mobile, next, setIndex } from "../../hooks/dropdownstate";
 import { _renderBodyExample, explainRenderBody } from "./functions/renderbody";
 import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
 import { darkMode, observeMode } from "../../hooks/mode";
@@ -64,7 +64,7 @@ export const Documentation = ():HTMLElement => {
     SetChild(page, contentWrapper);
 
     const navigationButtons = CreateNode('div');
-    Style(navigationButtons,'w-90 p-1 flex justify-around');
+    Style(navigationButtons,'w-100 p-1 flex justify-around');
     
 
     SetChild(navigationButtons, back);
@@ -74,7 +74,7 @@ export const Documentation = ():HTMLElement => {
     // Watch index
 
     const clearContent = () => {
-        contentWrapper.textContent = '';
+       contentWrapper.textContent = '';
     }
 
     
@@ -84,8 +84,6 @@ export const Documentation = ():HTMLElement => {
         const _node1 = explianCreateNode();
         _node1.id = 'create-node';
         
-        
-
         const _createNode = explainer({node:_node1});
         SetChild(parent,_createNode);
         example({page:parent,large:true,textVal:`Typescript:\n
@@ -362,6 +360,8 @@ export const Documentation = ():HTMLElement => {
             renderBatch(newIndex);
             setCurrentIndex(newIndex);
             page.scrollIntoView({behavior:"smooth"});
+        }else{
+            Toast({text:`You've reached the end!`,type:'success',page:document.body})
         }
     }
 
@@ -372,6 +372,9 @@ export const Documentation = ():HTMLElement => {
             renderBatch(newIndex);
             setCurrentIndex(newIndex);
             page.scrollIntoView({behavior:"smooth"});
+        }else{
+            Toast({text:`Nothing behind here!`,type:'success',page:document.body})
+
         }
     }
 
@@ -386,8 +389,8 @@ export const Documentation = ():HTMLElement => {
         const div = CreateNode('div');
         Style(div,'shadow-dynamic flex-container rounded cursor-pointer');
         Vanilla(div,{
-            height:'10px',
-            width:'10px',
+            height:mobile.matches ? '6px':'10px',
+            width:mobile.matches ? '6px':'10px',
             backgroundColor: index == currentIndex() ? 'blue' : 'white'
         });
         observe(() => {
@@ -433,8 +436,8 @@ function explainer({node,color}:any){
          Vanilla(div,{
         width:'90%',
         padding:'30px',
-        backgroundColor:darkMode() == 'dark' ? darkColor : 'rgba(26, 157, 251, 0.23)',
-        backgroundImage: darkMode() == 'dark' ? '':`url(${bg2})`,
+        backgroundColor:darkMode() === 'dark' ? '' : 'rgba(26, 157, 251, 0.23)',
+       backgroundImage: darkMode() === 'dark' ? '':`url(${bg2})`,
         backgroundPosition:'center',
         backgroundSize:'cover',
         boxShadow: darkMode() == 'dark' ? darkShadow : ''

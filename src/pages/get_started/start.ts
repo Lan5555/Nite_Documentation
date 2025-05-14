@@ -8,13 +8,20 @@ import { MediaQuery } from "../../hooks/mediaquery";
 import { Button } from '../../components/button'
 import { darkColor, darkShadow, prefersDark } from "../../hooks/theme";
 import { darkMode, observeMode } from "../../hooks/mode";
+import { WatchFunction } from "../../hooks/watch";
 
 export const GetStarted = (): HTMLElement => {
     const page = CreateNode('div') as HTMLElement;
     const desktop = window.matchMedia('(min-width:1024px)');
     const tablet = window.matchMedia('(min-width:542px) and (max-width:1024px)');
     const mobile = window.matchMedia('(max-width:600px)');
+    const [mediaQuery,setMediaQuery,observeMedia] = WatchFunction<string>('desktop');
 
+    MediaQuery({
+        output(mediaList) {
+            setMediaQuery(mediaList);
+        },
+    });
     Vanilla(page, {
         flex: '1',
         marginTop: '60px',
@@ -204,7 +211,7 @@ export const GetStarted = (): HTMLElement => {
     Style(container, 'flex justify-start w-70 p-2 flex-col hide-scroll-bar');
     Vanilla(container, {
         overflowY: 'auto',
-        maxHeight: mobile.matches ? '100vh':'70vh',
+        maxHeight: mobile.matches ? '70vh':'70vh',
         overflowX: mobile.matches ? 'hidden' : '',// ✅ Enable vertical scrolling
         backgroundColor:prefersDark ? darkColor : '',
         boxShadow:prefersDark ? darkShadow : ''
@@ -214,11 +221,12 @@ export const GetStarted = (): HTMLElement => {
     observeMode(() => {
          Vanilla(container, {
         overflowY: 'auto',
-        maxHeight: mobile.matches ? '100vh':'70vh',
-        overflowX: mobile.matches ? 'hidden' : '',// ✅ Enable vertical scrolling
+        maxHeight:mediaQuery() == 'desktop' ? '80vh':'70vh',
+        overflowX:mediaQuery() == 'desktop' ? 'hidden' : '',// ✅ Enable vertical scrolling
         backgroundColor:darkMode() == 'dark' ? darkColor : '',
         boxShadow:darkMode() == 'dark' ? darkShadow : ''
     });
+    
     });
 
     if(desktop.matches){
@@ -426,6 +434,13 @@ function WrapWithStyle(node:HTMLElement,height?:number):HTMLElement{
     SetChild(div,node);
     Vanilla(div,{
         height:`${height}px`
+    });
+
+    observeMode(() => {
+        Vanilla(div,{
+             backgroundColor: darkMode() == 'dark' ? darkColor : '',
+             boxShadow:darkMode() == 'dark' ? darkShadow: ''
+        });
     });
     return div;
 }

@@ -414,6 +414,52 @@ const content:FunctionContent[] = [
 
         And yeah it NITE was developed by Nicholas Johnson a full stack developer who specializes in a lot of areas(list areas you know)
         `
+    },
+    {
+        function:'This tells how to display using webView java',
+        explaination:'This is how to display using webView java',
+        example:`
+        e.g 
+        <?xml version="1.0" encoding="utf-8"?>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+    import android.os.Bundle;
+    import android.webkit.WebSettings;
+    import android.webkit.WebView;
+    import android.webkit.WebViewClient;
+    import androidx.appcompat.app.AppCompatActivity;
+
+    public class MainActivity extends AppCompatActivity {
+    private WebView webView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        webView = findViewById(R.id.webview);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient()); // Load URL inside app
+        webView.loadUrl("https://www.example.com"); // Replace with your URL thats the bundled and
+        deployed nite app
+        Alternatively, you can load a local HTML file from assets:
+        //webView.loadUrl("file:///android_asset/index.html"); // Load local HTML file
+        }
+    }
+        Make sure to add the following permission in your AndroidManifest.xml file:
+        <uses-permission android:name="android.permission.INTERNET"/>
+        
+        `
     }
     
     
@@ -422,7 +468,11 @@ const content:FunctionContent[] = [
 export async function analyzeContent(prompt: any) {
   const model = genAI.getGenerativeModel({ 
     model: "gemini-2.5-flash-preview-04-17",
-    systemInstruction: "You're a helpful assistant that answers questions about a specific website and Generates code using the functions or rules provided and also chats with the user by remembering what you said previousl, you can give prompt in typescript or javascript. Be concise and accurate."
+    systemInstruction: `You're a helpful assistant that answers questions about a specific website
+     and Generates code using the functions or rules provided and also chats with the user by remembering what you said previously,
+     you can give prompt in typescript or javascript also in java(Using webview apply nite then render it on mobile or so.
+      You are expected to use your knowledge of webview to guide user. provide your own content),
+     if user asks. Be concise and accurate.`
   });
 
 const chat = model.startChat({

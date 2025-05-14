@@ -9,6 +9,10 @@ const [index, setIndex] = WatchFunction(0);
 export {index,setIndex};
 export const searchInput = CreateNode('input') as HTMLInputElement;
 
+export const desktop = window.matchMedia('(min-width:1024px)');
+  export  const tablet = window.matchMedia('(min-width:542px) and (max-width:1024px)');
+  export  const mobile = window.matchMedia('(max-width:600px)');
+
 
 export const back = Button({
         variant:'contained',

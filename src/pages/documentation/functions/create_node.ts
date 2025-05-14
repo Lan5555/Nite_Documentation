@@ -41,13 +41,18 @@ export const explianCreateNode = () => {
                  color:prefersDark ? 'white':''
         });
 
-        observeMode(() => {
+    observeMode(() => {
         Vanilla(header,{
         color:darkMode() == 'dark' ? 'white' : 'black'
-    })
-     Vanilla(explain,{
+        })
+         Vanilla(explain,{
              color:darkMode() == 'dark' ? 'white':''
-    });
+         });
+
+         Vanilla(head,{
+        fontSize:'12pt',
+        color:darkMode() == 'dark' ? 'white':''
+        })
     })
     SetChild(div,tryIt);
     // const helpers = {
