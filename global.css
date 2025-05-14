@@ -89,7 +89,6 @@ body{
     white-space: pre-wrap !important;               /* Wrap text instead of forcing overflow */
     word-break: break-word !important;             /* Break long words if needed */
     overflow-x: auto !important;                   /* Allow horizontal scroll if wrapping fails */ 
-    max-width: 80% !important;                    /* Take up full width of container */
     box-sizing: border-box !important;
     background-color: transparent !important;
     background: none !important;

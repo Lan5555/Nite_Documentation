@@ -4,7 +4,7 @@ import { Documentation } from "../pages/documentation/docs";
 import { GetStarted } from "../pages/get_started/start";
 import { HomePage } from "../pages/homepage/home";
 import { PlayGround } from "../pages/playground/playground";
-import { prefersDark, prefersDark2 } from "./theme";
+import { prefersDark } from "./theme";
 
 const homePage = HomePage();
 const getStarted = GetStarted();
@@ -21,7 +21,7 @@ route.register('Playground',playground);
 route.register('About',about);
 route.start();
 
-if(prefersDark2){
+if(prefersDark){
     localStorage.setItem('theme','dark');
 }else{
     localStorage.setItem('theme','light');

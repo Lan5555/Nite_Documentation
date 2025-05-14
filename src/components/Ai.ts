@@ -2,7 +2,9 @@ import { CreateNode, Style, Vanilla, Text, SetChild } from "../../lib/state";
 import { analyzeContent } from "../bot/guide_model";
 import { _Text } from "../hooks/animated_text";
 import { MediaQuery } from "../hooks/mediaquery";
+import { darkMode, observeMode } from "../hooks/mode";
 import { isOn, setIsOn } from "../hooks/overlayState";
+import { darkColor, darkShadow, prefersDark } from "../hooks/theme";
 import { WatchFunction } from "../hooks/watch";
 import { createText, createText2, createText3 } from "../pages/homepage/home";
 import { iconButton } from "./iconbuttn";
@@ -65,6 +67,7 @@ export const Ai = () => {
     Vanilla(container, {
         width: mobile.matches ? '85vw' : tablet.matches ? '70vw' : '50vw',
         height: mobile.matches ? '75vh':'80vh',
+        backgroundColor: prefersDark ? darkColor : 'white',
     });
 
     observe(() => {
@@ -99,24 +102,54 @@ export const Ai = () => {
     Vanilla(headerBar, {
         width: '100%',
         height: '13vh',
-        borderBottomLeftRadius: '30px'
+        borderBottomLeftRadius: '30px',
+        backgroundColor: prefersDark ? darkColor : 'white',
+        boxShadow: prefersDark ? darkShadow : '',
     });
 
     const robot = useFontAwesomeIcon({ iconStyle: 'fa-solid fa-robot absolute left-2 top-2' });
-    Vanilla(robot, { fontSize: '20pt' });
+    Vanilla(robot, { fontSize: '20pt',color: prefersDark ? 'white':'black' });
     SetChild(headerBar, robot);
 
     const headerText = CreateNode('h1');
     Vanilla(headerText, {
         fontSize: mobile.matches ? '1.5rem':'2rem',
-        color: 'black',
-        fontWeight: 'bold'
+        color: prefersDark ? 'white':'black',
+        fontWeight: 'bold',
+
     });
     Style(headerText, 'ml-6');
     Text(headerText, 'AI Assistant');
     SetChild(headerBar, headerText);
 
     const closeButton = useFontAwesomeIcon({ iconStyle: 'fa-solid fa-xmark' });
+    Vanilla(closeButton, {color: prefersDark ? 'white':'black' });
+
+
+    observeMode(() => {
+    Vanilla(closeButton, {color: darkMode() == 'dark' ? 'white':'black' });
+         Vanilla(headerText, {
+        fontSize: mobile.matches ? '1.5rem':'2rem',
+        color: darkMode() == 'dark' ? 'white':'black',
+        fontWeight: 'bold',
+
+    });
+    Vanilla(headerBar, {
+        width: '100%',
+        height: '13vh',
+        borderBottomLeftRadius: '30px',
+        backgroundColor: darkMode() == 'dark' ? darkColor : 'white',
+        boxShadow: darkMode() == 'dark' ? darkShadow : '',
+    });
+
+    Vanilla(container, {
+        width: mobile.matches ? '85vw' : tablet.matches ? '70vw' : '50vw',
+        height: mobile.matches ? '75vh':'80vh',
+        backgroundColor: darkMode() == 'dark' ? darkColor : 'white',
+    });
+
+    })
+
     closeButton.addEventListener('click', () => {
         setBarVisible(false);
         setIsOn(!isOn());
@@ -162,7 +195,8 @@ export const Ai = () => {
 
     const chatInput = CreateNode('textarea') as HTMLTextAreaElement; // Use textarea instead of input
     Vanilla(chatInput, {
-    backgroundColor: 'white',
+    backgroundColor: prefersDark ? darkColor :'white',
+    boxShadow: prefersDark ? darkShadow : '',
     boxSizing: 'border-box',   // Ensures padding is included in width/height calculation
     padding: '8px',
     width: '85%',
@@ -171,9 +205,21 @@ export const Ai = () => {
     border: '1px solid #ccc',
     fontSize: mobile.matches ? '0.9rem':'1rem',
     resize: 'vertical',       // Optional: allow vertical resizing
+    color: prefersDark ? 'white':'black',
     });
     chatInput.placeholder = 'Type your message here...';
     Style(chatInput, 'hide-scroll-bar-v');
+
+    const initialBar = aiMessage('👋Hello! How can I assist you today?');
+    SetChild(messageList, initialBar);
+
+    observeMode(() => {
+        Vanilla(chatInput, {
+            backgroundColor: darkMode() == 'dark' ? darkColor :'white',
+            boxShadow: darkMode() == 'dark' ? darkShadow : '',
+            color: darkMode() == 'dark' ? 'white':'black',
+        });
+    })
 
 
     const sendButton = useFontAwesomeIcon({ iconStyle: 'fa-solid fa-paper-plane' });
@@ -243,8 +289,8 @@ export const Ai = () => {
         const userMessageBar = CreateNode('div');
         Vanilla(userMessageBar, {
             whiteSpace: 'pre-line',
-            backgroundColor: 'black',
-            color: 'white',
+            backgroundColor: prefersDark ? 'lightblue':'black',
+            color: prefersDark ? 'black':'white',
             padding: '10px',
             borderTopLeftRadius: '10px',
             borderTopRightRadius: '10px',
@@ -259,6 +305,10 @@ export const Ai = () => {
             fontSize:mobile.matches ? '10pt':''        // ✅ spacing from edge
         });
         SetChild(userMessageBar, textNode);
+        Vanilla(userMessageBar, {
+            backgroundColor: darkMode() == 'dark' ? 'lightblue':'black',
+            color: darkMode() == 'dark' ? 'black':'white',
+        });
         return userMessageBar;
     }
 
@@ -285,6 +335,9 @@ export const Ai = () => {
         Style(iconANdText, 'flex items-center justify-center gap-1 p-1 shadow-dynamic cursor-pointer');
         SetChild(iconANdText, copyIcon);
         const textValue = createText('Copy');
+        Vanilla(textValue, {
+            color: 'black',
+        })
         SetChild(iconANdText, textValue);
 
         Vanilla(iconANdText, {

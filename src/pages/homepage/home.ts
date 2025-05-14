@@ -645,7 +645,7 @@ export const HomePage = (): HTMLElement => {
     SetChild(container, gridHolder);
 
     const icons = [java, js, code, speed];
-    const labels = ['JAVA', 'JavaScript', 'Editor Friendly', 'Fast and Reliable'];
+    const labels = ['JAVA Webview', 'Typescript/Javascript', 'Editor Friendly', 'Fast and Reliable'];
 
     icons.forEach((src, index) => {
         const div = CreateNode('div');
