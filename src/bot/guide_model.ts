@@ -467,7 +467,7 @@ const content:FunctionContent[] = [
 
 export async function analyzeContent(prompt: any) {
   const model = genAI.getGenerativeModel({ 
-    model: "gemini-2.5-flash-preview-04-17",
+    model: "gemini-2.5-flash",
     systemInstruction: `You're a helpful assistant that answers questions about a specific website
      and Generates code using the functions or rules provided and also chats with the user by remembering what you said previously,
      you can give prompt in typescript or javascript also in java(Using webview apply nite then render it on mobile or so.
